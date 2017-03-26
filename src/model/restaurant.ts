@@ -129,7 +129,7 @@ export class Restaurant {
   }
 
   isHoliday() {
-    let weekday = this.getTodayDayname();
+    const weekday = this.getTodayDayname();
     return this.holidays.some(x => x.toLocaleLowerCase().localeCompare(weekday) === 0);
   }
 
@@ -149,10 +149,19 @@ export class Restaurant {
   }
 
   getTodayStoreTimings(): StoreTiming {
-    let day = this.getTodayDayname();
+    const day = this.getTodayDayname();
     if (this.timings_table && this.timings_table.length > 0) {
       return this.timings_table.filter(x => x.day.toLocaleLowerCase() === day)[0];
     }
     return new StoreTiming({ 'day': day, 'time': this.open_time + '-' + this.close_time });
+  }
+
+  getFormattedCuisines(): string {
+    const cstr = this.cuisines.join(', ');
+    return cstr;
+  }
+
+  isVeg() {
+    return this.food_type.indexOf('Veg');
   }
 }

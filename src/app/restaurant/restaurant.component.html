@@ -1,0 +1,58 @@
+<div class="callout warning" *ngIf="isEmpty() && !isRequesting">
+  <h3>Oops! No restaurants found</h3>
+  <p>You might have misspelled or try again!</p>
+</div>
+<div class="list-group restaurants" *ngIf="!isEmpty() && !isRequesting">
+  <section class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let restaurant of responseData.items"
+    [class.active]="restaurant === selectedRestaurant">
+    <div class="media d-flex w-100">
+      <a class="media-left waves-light">
+        <img class="rounded-circle" class="store-img" [class.res_logo]="!restaurant.getImage()" src="{{restaurant.getImage() || '/images/placeholder.png'}}"
+          alt="{{restaurant.name}}">
+      </a>
+      <div class="media-body">
+        <div class="d-flex w-100 justify-content-between">
+          <h4 class="media-heading">
+            <strong><a class="indigo-text" (click)="onSelect(restaurant)">{{restaurant.name}}</a></strong>
+            <br/>
+            <small class="text-muted cuisines">{{restaurant.getFormattedCuisines()}}</small>
+          </h4>
+          <div>
+            <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
+            <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
+            <span class="badge red" *ngIf="restaurant.isHoliday()">Holiday</span>
+          </div>
+        </div>
+        <!--<p>
+          <i class="fa fa-map-marker"></i> {{restaurant.address}}
+        </p>-->
+        <div class="text-muted timings">
+          <small><i class="fa fa-hourglass-o"></i>
+            {{restaurant.getTodayStoreTimings().getFormattedTime()}}
+          </small>
+        </div>
+        <div class="flex-row">
+          <a class="card-link" routerLink="/menu/{{restaurant._id.toString()}}">View Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="row mt-1">
+  <div class="col align-self-end">
+    <ul *ngIf="responseData.total > 0" class="pagination">
+      <li class="page-item previous" [class.disabled]="!responseData.previous">
+        <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item" [class.disabled]="!responseData.next">
+        <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

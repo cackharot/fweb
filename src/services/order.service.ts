@@ -9,7 +9,7 @@ import { Product, PriceDetail } from '../model/product';
 import { Order, PincodeDetail, LineItem, DeliveryDetails, CouponResult } from '../model/order';
 import { AppConfig } from '../AppConfig';
 
-import { OAuthService } from 'angular2-oauth2/oauth-service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 export class MyOrderSearchModel {
   page_no: number = 1;

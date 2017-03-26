@@ -15,6 +15,10 @@ export class ObjectId {
   constructor(data = {}) {
     Object.assign(this, data);
   }
+
+  public toString = () : string => {
+      return `${this.$oid}`;
+  }
 }
 
 export class Date {
