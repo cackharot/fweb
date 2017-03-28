@@ -20,8 +20,13 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/order.service';
 
 import { AppRoutes } from './app.routes';
+import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+
+import { ChunkPipe } from './pipes/chunk.pipe';
+import { TabComponent } from './components/tab';
+import { TabsComponent } from './components/tabs';
 
 @NgModule({
   declarations: [
@@ -31,8 +36,12 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
     SpinnerComponent,
     HowItWorksComponent,
     FooterComponent,
+    RestaurantDetailComponent,
     RestaurantListComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    ChunkPipe,
+    TabComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
