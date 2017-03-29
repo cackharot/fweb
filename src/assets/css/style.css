@@ -151,6 +151,10 @@
     /*color: #3f51b5!important*/
 }
 
+.product-item .padd.disabled {
+    color: #eee!important;
+}
+
 .list-footer {
   border-top: 1px solid #eee;
   margin-top: 0.25rem;

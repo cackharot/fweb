@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Headers, URLSearchParams, Http } from '@angular/http';
-import {LocalStorage, SessionStorage} from 'ng2-webstorage';
+import { LocalStorage, SessionStorage } from 'ng2-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import * as _ from 'lodash';
 
 import { ObjectId } from '../model/base';
@@ -45,7 +46,7 @@ export class MyOrderSearchResult extends MyOrderSearchModel {
 
 @Injectable()
 export class OrderService {
-  @LocalStorage() private currentOrder: Order = new Order();
+  @LocalStorage() private currentOrder: Order;
   private itemAddedSource = new Subject<LineItem>();
   private deliveryUpdatedSource = new Subject<DeliveryDetails>();
   private orderConfirmedSource = new Subject<Order>();
@@ -59,13 +60,19 @@ export class OrderService {
   orderConfirmed$ = this.orderConfirmedSource.asObservable();
   orderReseted$ = this.orderResetedSource.asObservable();
 
-  constructor(private http: Http, private authService: OAuthService) {
+  constructor(private http: Http, private authService: OAuthService,
+    private localSt: LocalStorageService) {
     this.currentOrder = Order.of(this.currentOrder);
     this.orderUpdated$.subscribe((x) => {
       this.currentOrder.removeCouponCode();
+      this.currentOrder = this.currentOrder;
     });
     this.itemAdded$.subscribe((x) => {
       this.currentOrder.removeCouponCode();
+      this.currentOrder = this.currentOrder;
+    });
+    this.deliveryUpdated$.subscribe((x) => {
+      this.currentOrder = this.currentOrder;
     });
   }
 
@@ -79,7 +86,7 @@ export class OrderService {
       console.log('Attempt to add not available item' + item);
       return;
     }
-    let lineItem = new LineItem({
+    const lineItem = new LineItem({
       product_id: item._id,
       name: item.name,
       store_id: item.store_id,
@@ -114,12 +121,12 @@ export class OrderService {
   }
 
   updateItemQuantity(product_id: ObjectId, value: number, price_detail: PriceDetail) {
-    let item = this.currentOrder.getItemsByProductId(product_id, price_detail);
+    const item = this.currentOrder.getItemsByProductId(product_id, price_detail);
     this.updateQuantity(item, value);
   }
 
   updateItemPriceDetail(product_id: ObjectId, value: PriceDetail) {
-    let item = this.currentOrder.getItemsByProductId(product_id);
+    const item = this.currentOrder.getItemsByProductId(product_id);
     if (item) {
       item.price_detail = value;
       this.orderUpdatedSource.next(this.currentOrder);
@@ -145,18 +152,16 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let orderJson = response.json();
+        const orderJson = response.json();
         // console.log(orderJson);
-        let updatedOrder = Order.of(orderJson.data);
-
-        let stores = this.currentOrder.getStores();
+        const updatedOrder = Order.of(orderJson.data);
+        const stores = this.currentOrder.getStores();
         updatedOrder.items.forEach(item => {
           item.store = stores.find(x => _.isEqual(x._id, item.store_id));
         });
 
         this.currentOrder = updatedOrder;
         this.orderConfirmedSource.next(this.currentOrder);
-
         return updatedOrder;
       })
       .catch(this.handleError);
@@ -172,7 +177,7 @@ export class OrderService {
   }
 
   verifyOtp(otp: string, new_number: string) {
-    let data = { 'cmd': 'VERIFY_OTP', 'otp': otp, 'order_id': this.currentOrder._id, 'number': new_number };
+    const data = { 'cmd': 'VERIFY_OTP', 'otp': otp, 'order_id': this.currentOrder._id, 'number': new_number };
     return this.http.put(
       `${this.orderUrl}/-1`,
       data,
@@ -181,7 +186,7 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let res = response.json();
+        const res = response.json();
         // console.log(res);
         return res;
       })
@@ -189,7 +194,7 @@ export class OrderService {
   }
 
   resendOtp(new_number: string) {
-    let data = { 'cmd': 'RESEND_OTP', 'order_id': this.currentOrder._id, 'number': new_number };
+    const data = { 'cmd': 'RESEND_OTP', 'order_id': this.currentOrder._id, 'number': new_number };
     return this.http.put(
       `${this.orderUrl}/-1`, data,
       {
@@ -197,7 +202,7 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let res = response.json();
+        const res = response.json();
         // console.log(res);
         return res;
       })
@@ -220,8 +225,8 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let data = response.json();
-        let order = Order.of(data);
+        const data = response.json();
+        const order = Order.of(data);
         if (!order.order_no || order.order_no.length === 0) {
           return null;
         }
@@ -231,7 +236,7 @@ export class OrderService {
   }
 
   reloadOrder(): Promise<Order> {
-    let no = this.getOrder().order_no;
+    const no = this.getOrder().order_no;
     if (no === undefined || no.length === 0) {
       return Promise.reject<Order>('Invalid order');
     }
@@ -242,8 +247,8 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let data = response.json();
-        let order = Order.of(data);
+        const data = response.json();
+        const order = Order.of(data);
         if (!order.order_no || order.order_no.length === 0) {
           return null;
         }
@@ -261,15 +266,15 @@ export class OrderService {
       })
       .toPromise()
       .then(response => {
-        let data = response.json();
-        let items = data.map(x => PincodeDetail.of(x));
+        const data = response.json();
+        const items = data.map(x => PincodeDetail.of(x));
         return items;
       })
       .catch(this.handleError);
   }
 
   public getMyOrders(searchUrl: string, searchData: MyOrderSearchModel): Promise<MyOrderSearchResult> {
-    let headers = {
+    const headers = {
       headers: this.authHeaders()
     };
     if (searchUrl === null || searchUrl.length === 0) {
@@ -282,25 +287,25 @@ export class OrderService {
     return this.http.get(searchUrl, headers)
       .toPromise()
       .then(response => {
-        let data = response.json();
-        let result = MyOrderSearchResult.of(data);
+        const data = response.json();
+        const result = MyOrderSearchResult.of(data);
         return result;
       })
       .catch(this.handleError);
   }
 
   public applyCoupon(tempOrder: Order, couponCode: string): Promise<CouponResult> {
-    let headers = {
+    const headers = {
       headers: this.authHeaders()
     };
-    let url = AppConfig.VALIDATE_COUPON_URL;
-    let order = Object.assign({}, tempOrder);
+    const url = AppConfig.VALIDATE_COUPON_URL;
+    const order = Object.assign({}, tempOrder);
     order.coupon_code = couponCode;
     return this.http.post(url, order, headers)
       .toPromise()
       .then(response => {
-        let data = response.json();
-        let result = CouponResult.of(data);
+        const data = response.json();
+        const result = CouponResult.of(data);
         console.log(result);
         return result;
       })
@@ -308,7 +313,7 @@ export class OrderService {
   }
 
   private authHeaders(): Headers {
-    let authHeaders = new Headers();
+    const authHeaders = new Headers();
     if (this.authService.hasValidIdToken()) {
       authHeaders.set('Authorization', 'Bearer ' + this.authService.getIdToken());
     }

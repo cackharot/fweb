@@ -52,7 +52,7 @@ export class Order {
   }
 
   addItem(item: LineItem) {
-    let cur_item = this.items.find(x => _.isEqual(x.product_id, item.product_id) && _.isEqual(x.price_detail, item.price_detail));
+    const cur_item = this.items.find(x => _.isEqual(x.product_id, item.product_id) && _.isEqual(x.price_detail, item.price_detail));
     if (cur_item === undefined) {
       item.no = this.items.length + 1;
       this.items.push(item);
@@ -62,7 +62,7 @@ export class Order {
   }
 
   remove(item: LineItem) {
-    let idx = this.items.findIndex(x => x === item);
+    const idx = this.items.findIndex(x => x === item);
     if (idx !== -1) {
       this.items.splice(idx, 1);
     } else {
@@ -70,25 +70,25 @@ export class Order {
     }
   }
 
-  removeCouponCode(){
-    if(this.coupon_code){
+  removeCouponCode() {
+    if (this.coupon_code) {
       this.coupon_code = null;
       this.coupon_discount = 0;
     }
   }
 
-  updateCouponCode(code:string, discount: number){
+  updateCouponCode(code: string, discount: number) {
     this.coupon_code = code;
     this.coupon_discount = discount;
   }
 
   getStores() {
-    let stores = this.getUnique(this.items.map(x => x.store));
+    const stores = this.getUnique(this.items.map(x => x.store));
     return stores;
   }
 
   isValid() {
-    let hasClosedItems = this.items.filter(x => x.store.isClosed()).length > 0;
+    const hasClosedItems = this.items.filter(x => x.store.isClosed()).length > 0;
     return this.getSubTotal() > 0 && !hasClosedItems;
   }
 
@@ -269,10 +269,10 @@ export class LineItem {
   }
 
   private getDiscountedPrice() {
-    if(this.discount <= 0.0){
+    if (this.discount <= 0.0) {
       return this.price;
     }
-    return this.price - (this.price * (this.discount/100.0));
+    return this.price - (this.price * (this.discount / 100.0));
   }
 }
 
@@ -323,7 +323,7 @@ export class PincodeDetail {
 }
 
 export class CouponResult {
-  coupon_code : string;
+  coupon_code: string;
   amount: number;
   type: string;
 
