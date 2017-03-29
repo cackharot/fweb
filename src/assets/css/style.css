@@ -1,4 +1,8 @@
 /* YOUR CUSTOM STYLES */
+.rupee:before{
+  content: '\20B9';
+}
+
 .double-nav .nav-link span{
   font-size: 15px;
 }
@@ -111,4 +115,51 @@
 
 .tab-content>.tab-pane {
   padding: 1.3rem;
+}
+
+.products .card-title{
+  font-weight: 300;
+}
+
+.products p.card-text {
+  margin-bottom: 1rem;
+}
+
+.products .incart-items p.card-text{
+  margin-bottom: 0.25rem!important;
+}
+
+.products .card .card-footer {
+    background-color: transparent;
+    padding: .75rem .5rem 0;
+    font-size: 1.2rem;
+}
+
+.strike{
+  text-decoration: line-through;
+}
+/*
+.card-cascade.narrower .view, .card-cascade.wider .card-block {
+    margin-left: 4%;
+    margin-right: 4%;
+}*/
+.card .card-footer .right {
+    float: right;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.card .card-footer .left {
+    float: left;
+}
+
+.card .card-footer .right a {
+    color: #9e9e9e;
+    margin-left: 1rem;
+    transition: .4s;
+}
+
+.card .card-footer .right a.active {
+    color: #d50000;
 }

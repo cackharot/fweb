@@ -23,6 +23,9 @@ import { AppRoutes } from './app.routes';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductGridComponent } from './product-grid/product-grid.component';
+import { PriceTableComponent } from './price-table/price-table.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { TabComponent } from './components/tab';
@@ -39,6 +42,9 @@ import { TabsComponent } from './components/tabs';
     RestaurantDetailComponent,
     RestaurantListComponent,
     RestaurantComponent,
+    ProductListComponent,
+    ProductGridComponent,
+    PriceTableComponent,
     ChunkPipe,
     TabComponent,
     TabsComponent

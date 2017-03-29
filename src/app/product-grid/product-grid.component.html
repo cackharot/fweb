@@ -1,0 +1,38 @@
+<div class="callout warning" *ngIf="products == null || products.length == 0">
+  <h3>Oops! No dishes found</h3>
+  <p>You might have misspelled or try again!</p>
+</div>
+<div class="row mt-2">
+  <div class="col-4 col-md-4 mb-2" *ngFor="let product of products;">
+    <div class="card card-cascade wider">
+      <div class="view overlay hm-white-slight">
+        <img src="{{product.getImage() || '/assets/img/placeholder.png'}}" class="img-fluid" alt="" />
+        <a>
+          <div class="mask waves-effect waves-light"></div>
+        </a>
+      </div>
+      <div class="card-block text-center">
+        <div class="center__container">
+          <i class="veg__icon" [class.green]="product.isVeg()" [class.brown]="!product.isVeg()"></i>
+        </div>
+        <h5 *ngFor="let cus of product.cuisines">
+          {{cus}}
+        </h5>
+        <h4 class="card-title"><strong><a routerLink="/dish/{{product._id}}">{{product.name}}</a></strong></h4>
+        <!--<p class="light show-for-medium description"><i>{{product.description}}</i></p>-->
+        <!--<span class="price_tag rupee light">{{product.sell_price}}</span>-->
+        <p class="card-text">
+          <small class="text-muted" *ngIf="!product.isAvailable()">
+            <span *ngIf="product.isOpen()">
+              Currently unavailable. Try again later!
+            </span>
+            <span *ngIf="!product.isOpen()">
+              Available from {{product.getFormattedAvailableTimings()}}
+            </span>
+          </small>
+        </p>
+        <app-price-table [product]="product" (selectedProduct)="select($event)"></app-price-table>
+      </div>
+    </div>
+  </div>
+</div>

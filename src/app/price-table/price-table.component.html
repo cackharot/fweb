@@ -1,0 +1,43 @@
+<div class="incart-items" *ngIf="product.hasPriceTable()">
+  <div *ngFor="let pd of product.price_table">
+    <!--<button class="button dec" [disabled]="!product.isAvailable()" (click)="updateQuantity(product,-1,pd)"><i class="fa fa-minus"></i></button>
+      <span>{{getQuantity(product,pd)}}x {{pd.description}}(Rs.{{pd.getDiscountedPrice()}}) </span>
+      <button class="button inc" [disabled]="!product.isAvailable()" (click)="updateQuantity(product,1,pd)"><i class="fa fa-plus"></i></button>-->
+    <p class="card-text" *ngIf="getQuantity(product, pd) > 0">
+      <i class="fa fa-check green-text"></i>
+      <small>{{getQuantity(product,pd)}}x</small>&nbsp;{{pd.description}}&nbsp;<small class="rupee">({{pd.getDiscountedPrice()}})</small>
+    </p>
+  </div>
+</div>
+<div class="qty__btn__container" *ngIf="!product.hasPriceTable() && getQuantity(product)>0">
+  <button class="button dec" [disabled]="!product.isAvailable()" (click)="updateQuantity(product,-1)"><i class="fa fa-minus"></i></button>
+  <span>Qty: {{getQuantity(product)}}</span>
+  <button class="button inc" [disabled]="!product.isAvailable()" (click)="updateQuantity(product,1)"><i class="fa fa-plus"></i></button>
+</div>
+<div *ngIf="product.hasPriceTable()" class="text-center">
+  <p class="card-text">
+    <select [(ngModel)]="selection" (ngModelChange)="onChange($event)">
+    <option *ngFor="let item of product.price_table" [ngValue]="item">
+      {{item.description}}
+    </option>
+  </select>
+  </p>
+</div>
+<div class="card-footer">
+  <div class="left">
+    <div *ngIf="!product.hasPriceTable()">
+      <span class="price_tag rupee light" [innerHTML]="product.getFormattedPrice()"></span>
+      <small class="price_discount text-muted" *ngIf="product.discount>0">{{product.discount}}% discount</small>
+    </div>
+    <div *ngIf="product.hasPriceTable()">
+      <span class="price_tag rupee light" [innerHTML]="selection.getFormattedPrice()"></span>
+      <small class="price_discount text-muted" *ngIf="selection.discount>0">{{selection.discount}}% discount</small>
+    </div>
+  </div>
+  <div class="right">
+    <!--<a (click)="select(product)" *ngIf="!isInCart(product) || product.hasPriceTable()" [class.disabled]="!product.isAvailable()">-->
+    <a (click)="select(product)" [class.active]="isInCart(product)" [class.disabled]="!product.isAvailable()">
+      <i class="fa fa-shopping-cart fa-lg"></i>
+    </a>
+  </div>
+</div>
