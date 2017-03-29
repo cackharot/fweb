@@ -110,12 +110,12 @@ export class Order {
   }
 
   getItemQuantity(product_id: ObjectId, price_detail: PriceDetail = null): number {
-    let item = this.getItemsByProductId(product_id, price_detail);
+    const item = this.getItemsByProductId(product_id, price_detail);
     return item ? item.quantity : -1;
   }
 
   getItemPriceTable(product_id: ObjectId, price_detail: PriceDetail = null): PriceDetail {
-    let item = this.getItemsByProductId(product_id, price_detail);
+    const item = this.getItemsByProductId(product_id, price_detail);
     return item ? item.price_detail : null;
   }
 
@@ -128,8 +128,8 @@ export class Order {
   }
 
   getDeliveryCharges(): number {
-    let storeCount = this.getStores().length;
-    let minCharge = this.getMinDeliveryCharges();
+    const storeCount = this.getStores().length;
+    const minCharge = this.getMinDeliveryCharges();
     if (storeCount <= 1) {
       this.delivery_charges = minCharge;
     } else {

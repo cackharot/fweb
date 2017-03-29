@@ -137,29 +137,21 @@
 
 .strike{
   text-decoration: line-through;
-}
-/*
-.card-cascade.narrower .view, .card-cascade.wider .card-block {
-    margin-left: 4%;
-    margin-right: 4%;
-}*/
-.card .card-footer .right {
-    float: right;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+  font-size: 12px;
 }
 
-.card .card-footer .left {
-    float: left;
-}
-
-.card .card-footer .right a {
+.product-item .padd {
     color: #9e9e9e;
     margin-left: 1rem;
     transition: .4s;
 }
 
-.card .card-footer .right a.active {
-    color: #d50000;
+.product-item .padd.active {
+    color: #d50000!important;
+    /*color: #3f51b5!important*/
+}
+
+.list-footer {
+  border-top: 1px solid #eee;
+  margin-top: 0.25rem;
 }

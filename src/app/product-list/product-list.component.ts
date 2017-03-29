@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrderService } from 'services/order.service';
 
-import { Product } from 'model/product';
+import { Product, PriceDetail } from 'model/product';
 import { PriceTableComponent } from '../price-table/price-table.component';
 
 import { ChunkPipe } from '../pipes/chunk.pipe';
@@ -38,5 +38,9 @@ export class ProductListComponent {
   select(item: Product) {
     this.selection = item;
     this.selectedProduct.emit(item);
+  }
+
+  getFilteredPriceTable(item: Product) {
+    return item.price_table.filter(x => this.getQuantity(item, x) > 0);
   }
 }
