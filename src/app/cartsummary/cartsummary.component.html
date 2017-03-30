@@ -1,0 +1,12 @@
+<label for="cart-summary" *ngIf="canShow()">
+  <a class="nav-link" (click)="navigateToCheckout($event)">
+    <i class="fa fa-shopping-bag fa-lg"></i>
+    <span *ngIf="totalQuantity>0">
+      <i class="badge badge-danger">{{totalQuantity}}</i>
+      <strong class="rupee">{{totalAmount}}</strong>
+    </span>
+    <span *ngIf="totalQuantity==0">
+      Empty!
+    </span>
+  </a>
+</label>

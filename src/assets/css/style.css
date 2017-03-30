@@ -3,6 +3,14 @@
   content: '\20B9';
 }
 
+.btn.btn-stc {
+    background: #0e3d67;
+}
+
+.btn.btn-stc:hover {
+    background-color: #114a7d!important;
+}
+
 .double-nav .nav-link span{
   font-size: 15px;
 }
@@ -46,12 +54,29 @@
 
 .section-blog-fw .jumbotron {
   margin: 0;
+  padding: 1.25rem;
   /*margin-top: -20px;*/
   /*text-align: center;*/
   /*z-index: 50;*/
   /*position: relative;*/
   /*margin-left: 3%;*/
   /*margin-right: 3%;*/
+}
+label[for=cart-summary]{
+  margin-bottom: 0;
+}
+label[for=cart-summary] .rupee{
+  font-weight: 500;
+  vertical-align: text-top;
+}
+label[for=cart-summary] .badge{
+  line-height: 1.2em;
+  font-style: normal;
+  top: -10px;
+  position: relative;
+  min-width: 1.6em;
+  left: -6px;
+  border-radius: 50%;
 }
 
 .header_img {
@@ -99,6 +124,13 @@
 
 .classic-tabs.tabs-cyan {
     background-color: #00bcd4;
+}
+
+.classic-tabs.tabs-stc {
+    background: #0e3d67;
+}
+.classic-tabs.tabs-stc li a.active{
+    background: #0e3d67;
 }
 
 @media only screen and (max-width: 768px){

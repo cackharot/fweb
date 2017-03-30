@@ -26,6 +26,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { PriceTableComponent } from './price-table/price-table.component';
+import { CartSummaryComponent } from './cartsummary/cartsummary.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { TabComponent } from './components/tab';
@@ -45,6 +46,7 @@ import { TabsComponent } from './components/tabs';
     ProductListComponent,
     ProductGridComponent,
     PriceTableComponent,
+    CartSummaryComponent,
     ChunkPipe,
     TabComponent,
     TabsComponent

@@ -59,7 +59,7 @@ export class RestaurantDetailComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.search(this.storeId,this.searchText).then(items => {
+    this.productService.search(this.storeId, this.searchText).then(items => {
       this.products = items;
       this.categories = [];
       if (this.onlyVeg) {

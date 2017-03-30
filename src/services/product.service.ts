@@ -38,7 +38,7 @@ export class ProductService {
   constructor(private http: Http) { }
 
   searchAll(data: ProductSearchModel): Promise<Product[]> {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('filter_text', data.searchText);
     params.set('only_veg', data.onlyVeg.toString());
     params.set('sort_by', data.sortBy);
@@ -53,15 +53,15 @@ export class ProductService {
       })
       .toPromise()
       .then(response => {
-        let items = response.json().items;
-        let products = items.map(x => Product.of(x));
+        const items = response.json().items;
+        const products = items.map(x => Product.of(x));
         return products;
       })
       .catch(this.handleError);
   }
 
   search(store_id, searchText = ''): Promise<Product[]> {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('page_no', '1');
     params.set('page_size', '200');
     params.set('filter_text', searchText);
@@ -69,8 +69,8 @@ export class ProductService {
     return this.http.get(`${this.productsUrl}/${store_id}`, { search: params })
       .toPromise()
       .then(response => {
-        let items = response.json().items;
-        let products = items.map(x => Product.of(x));
+        const items = response.json().items;
+        const products = items.map(x => Product.of(x));
         return products;
       })
       .catch(this.handleError);
@@ -80,7 +80,7 @@ export class ProductService {
     return this.http.get(`${this.popularDishesUrl}/-1`)
       .toPromise()
       .then(response => {
-        let items = response.json().items;
+        const items = response.json().items;
         let products: Product[] = items.map(x => Product.of(x));
         products = products.sort((a, b) => { return a.no > b.no ? 1 : 0; });
         return products;
