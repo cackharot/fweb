@@ -81,12 +81,12 @@
                     <div>
                       <p>Google maps here</p>
                       <p>
-                        {{restaurant.address}}
+                        <i class="fa fa-map-marker"></i>&nbsp;{{restaurant.address}}
                       </p>
                       <p>
                         Distance in km from the user's location
                       </p>
-                      <p><i class="fa fa-mobile"></i>{{restaurant.phone}}</p>
+                      <p><i class="fa fa-mobile"></i>&nbsp;{{restaurant.phone}}</p>
                     </div>
                   </div>
                   <div class="col-12 col-md-6" *ngIf="restaurant.timings_table && restaurant.timings_table.length > 0">
@@ -123,7 +123,7 @@
         </section>
       </div>
       <div class="col-md-3">
-        <h3>Your Order</h3>
+        <app-your-order></app-your-order>
       </div>
     </div>
   </div>

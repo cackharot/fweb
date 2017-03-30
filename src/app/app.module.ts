@@ -27,6 +27,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { PriceTableComponent } from './price-table/price-table.component';
 import { CartSummaryComponent } from './cartsummary/cartsummary.component';
+import { YourOrderComponent } from './your-order/your-order.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { TabComponent } from './components/tab';
@@ -47,6 +48,7 @@ import { TabsComponent } from './components/tabs';
     ProductGridComponent,
     PriceTableComponent,
     CartSummaryComponent,
+    YourOrderComponent,
     ChunkPipe,
     TabComponent,
     TabsComponent

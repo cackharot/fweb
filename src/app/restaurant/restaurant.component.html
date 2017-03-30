@@ -13,7 +13,7 @@
       <div class="media-body">
         <div class="d-flex w-100 justify-content-between">
           <h4 class="media-heading">
-            <strong><a class="indigo-text" (click)="onSelect(restaurant)">{{restaurant.name}}</a></strong>
+            <strong><a class="indigo-text" routerLink="/menu/{{restaurant._id.str()}}">{{restaurant.name}}</a></strong>
             <br/>
             <small class="text-muted cuisines">{{restaurant.getFormattedCuisines()}}</small>
           </h4>
@@ -32,7 +32,7 @@
           </small>
         </div>
         <div class="flex-row">
-          <a class="card-link" routerLink="/menu/{{restaurant._id.toString()}}">View Menu</a>
+          <a class="card-link" routerLink="/menu/{{restaurant._id.str()}}">View Menu</a>
         </div>
       </div>
     </div>

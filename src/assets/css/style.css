@@ -191,3 +191,19 @@ label[for=cart-summary] .badge{
   border-top: 1px solid #eee;
   margin-top: 0.25rem;
 }
+
+.order-summary{
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  padding: 70px 0.7rem 0;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
+  background: #ffffff;
+}
+
+.page-footer{
+  z-index: 50;
+  position: relative;
+}
