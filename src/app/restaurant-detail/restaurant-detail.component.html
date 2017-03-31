@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid px-0">
   <section class="row" *ngIf="isRequesting">
     <div class="col">
       <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
@@ -17,8 +17,8 @@
           <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="header_img show-for-small-only"
           />
         </div>-->
-          <div class="row jumbotron">
-            <div class="col-12 col-sm-2">
+          <div class="row px-3 py-3">
+            <div class="col-12 col-sm-2 hidden-sm-down">
               <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="img-fluid z-depth-2 show-for-small-only"
               />
             </div>
@@ -65,7 +65,7 @@
                     </div>
                   </form>
                   <div class="row">
-                    <div class="col-md-6 col-12" *ngFor="let category of categories">
+                    <div class="col-md-6 col-12 mt-1" *ngFor="let category of categories">
                       <h3>{{category.name}}</h3>
                       <app-product-grid [products]="category.products" (selectedProduct)="addToCart($event)"></app-product-grid>
                     </div>
@@ -122,7 +122,7 @@
           </div>
         </section>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 hidden-sm-down">
         <app-your-order></app-your-order>
       </div>
     </div>

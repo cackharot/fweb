@@ -21,7 +21,7 @@ export class YourOrderComponent implements OnInit {
 
   ngOnInit() {
     this.order = this.orderService.getOrder();
-    if (!this.isOrderEmpty() && this.order.isConfirmed()) {
+    if (!this.isSpecialPage() && this.order.isConfirmed()) {
       this.orderService.resetOrder();
       this.order = this.orderService.getOrder();
     }
@@ -38,11 +38,15 @@ export class YourOrderComponent implements OnInit {
     });
   }
 
-  isOrderEmpty(): boolean {
+  isSpecialPage(): boolean {
     const currentPath = this.router.url;
     const count = ['/checkout', '/otp', '/order_success', '/track']
       .filter(x => currentPath.startsWith(x.toLowerCase())).length;
     return count === 0;
+  }
+
+  isEmptyOrder() {
+    return this.order.getItems().length === 0;
   }
 
   removeItem(item: LineItem) {

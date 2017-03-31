@@ -207,3 +207,13 @@ label[for=cart-summary] .badge{
   z-index: 50;
   position: relative;
 }
+
+.page-footer a:hover{
+  text-decoration: underline;
+}
+
+.table__wrapper{
+  min-height: 40%;
+  max-height: 60%;
+  overflow: scroll;
+}
