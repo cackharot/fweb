@@ -172,6 +172,14 @@ label[for=cart-summary] .badge{
   font-size: 12px;
 }
 
+.product-item {
+  margin-bottom: 0.25rem;
+}
+
+.product-item .list-group-item-action{
+  cursor: pointer;
+}
+
 .product-item .padd {
     color: #9e9e9e;
     margin-left: 1rem;
@@ -179,8 +187,8 @@ label[for=cart-summary] .badge{
 }
 
 .product-item .padd.active {
-    color: #d50000!important;
-    /*color: #3f51b5!important*/
+    /*color: #d50000!important;*/
+    color: #3f51b5!important
 }
 
 .product-item .padd.disabled {

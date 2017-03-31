@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-12 col-md-6">
+    <h3 class="h3-responsive">
+      About {{restaurant.name}}
+    </h3>
+    <div>
+      <p>Google maps here</p>
+      <p>
+        <i class="fa fa-map-marker"></i>&nbsp;{{restaurant.address}}
+      </p>
+      <p>
+        Distance in km from the user's location
+      </p>
+      <p><i class="fa fa-mobile"></i>&nbsp;{{restaurant.phone}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-md-6" *ngIf="restaurant.timings_table && restaurant.timings_table.length > 0">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Hours</th>
+          <th>
+            <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
+            <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
+          </th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let x of restaurant.timings_table">
+            <td>{{x.getDay()}}</td>
+            <td>{{x.getFormattedTime()}}</td>
+          </tr>
+        </tbody>
+    </table>
+    <label *ngIf="restaurant.holidays.length>0">Holidays: </label>
+    <div class="holidays clip" *ngIf="restaurant.holidays.length>0">
+      {{restaurant.holidays.join(', ')}}
+    </div>
+  </div>
+</div>

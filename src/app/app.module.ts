@@ -22,6 +22,8 @@ import { OrderService } from '../services/order.service';
 import { AppRoutes } from './app.routes';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
+import { RestaurantReviewComponent } from './restaurant-review/restaurant-review.component';
+import { RestaurantAboutComponent } from './restaurant-about/restaurant-about.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
@@ -43,6 +45,8 @@ import { TabsComponent } from './components/tabs';
     FooterComponent,
     RestaurantDetailComponent,
     RestaurantListComponent,
+    RestaurantReviewComponent,
+    RestaurantAboutComponent,
     RestaurantComponent,
     ProductListComponent,
     ProductGridComponent,

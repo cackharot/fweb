@@ -1,32 +1,30 @@
-<div class="callout warning" *ngIf="products == null || products.length == 0">
-  <h3>Oops! No dishes found</h3>
-  <p>You might have misspelled or try again!</p>
-</div>
-<ul class="list-group">
-  <li class="list-group-item product-item list-group-item-action" *ngFor="let product of products;" [class.disabled]="!product.isAvailable()">
-    <div class="d-flex w-100 justify-content-between">
-      <strong>
-        <a class="blue-grey-text" routerLink="/dish/{{product._id}}">{{product.name}}</a>
-        <i class="fa fa-check green-text" title="Incart" *ngIf="getQuantity(product)>0"></i>
-      </strong>
-      <app-price-table [product]="product" (selectedProduct)="select($event)"></app-price-table>
-    </div>
-    <div class="w-100">
-      <div class="row list-footer no-gutters incart-items" *ngIf="getFilteredPriceTable(product).length > 0">
-        <div class="col-12 col-md-6" *ngFor="let pd of getFilteredPriceTable(product)">
-          <p class="card-text">
-            <i class="fa fa-check green-text"></i>
-            <small>{{getQuantity(product,pd)}}x</small>&nbsp;{{pd.description}}&nbsp;<small class="rupee">({{pd.getDiscountedPrice()}})</small>
-          </p>
-        </div>
+<ul class="row">
+  <li class="col-md-6 col-12 product-item px-2" *ngFor="let product of products;" [class.disabled]="!product.isAvailable()">
+    <div class="list-group-item list-group-item-action" (click)="select(product)">
+      <div class="d-flex w-100 justify-content-between">
+        <strong>
+          <a class="blue-grey-text">{{product.name}}</a>
+          <i class="fa fa-check green-text" title="Incart" *ngIf="getQuantity(product)>0"></i>
+        </strong>
+        <app-price-table [product]="product" (selectedProduct)="select($event)"></app-price-table>
       </div>
-      <div class="list-footer text-muted" *ngIf="!product.isAvailable()">
-        <small *ngIf="product.isOpen()">
+      <div class="w-100">
+        <div class="row list-footer no-gutters incart-items" *ngIf="getFilteredPriceTable(product).length > 0">
+          <div class="col-12 col-md-6" *ngFor="let pd of getFilteredPriceTable(product)">
+            <p class="card-text">
+              <i class="fa fa-check green-text"></i>
+              <small>{{getQuantity(product,pd)}}x</small>&nbsp;{{pd.description}}&nbsp;<small class="rupee">({{pd.getDiscountedPrice()}})</small>
+            </p>
+          </div>
+        </div>
+        <div class="list-footer text-muted" *ngIf="!product.isAvailable()">
+          <small *ngIf="product.isOpen()">
           Currently unavailable. Try again later!
         </small>
-        <small *ngIf="!product.isOpen()">
+          <small *ngIf="!product.isOpen()">
           Available from {{product.getFormattedAvailableTimings()}}
         </small>
+        </div>
       </div>
     </div>
   </li>
