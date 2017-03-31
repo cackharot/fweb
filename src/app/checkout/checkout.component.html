@@ -1,0 +1,85 @@
+<section class="row" *ngIf="isRequesting">
+  <div class="col-12">
+    <app-my-spinner [isRunning]="isRequesting" [message]="'Processing your order...Please wait'">
+    </app-my-spinner>
+  </div>
+</section>
+<section class="checkout__page container" *ngIf="!isRequesting">
+  <section class="row">
+    <div class="col-12">
+      <nav aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+          <li><a routerLink="/home">Home</a></li>
+          <li>
+            <span class="show-for-sr">Current:</span>Checkout
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-md-12 col-12">
+      <div class="callout primary" *ngIf="isEmpty()">
+        <h3>Oops!</h3>
+        <p>Kindly add dishes to the cart to checkout.</p>
+      </div>
+      <div class="callout alert" *ngIf="error != null">
+        <h3>Oops!</h3>
+        <p>{{error}}</p>
+      </div>
+    </div>
+  </section>
+  <section *ngIf="!isEmpty()">
+    <form (ngSubmit)="confirmOrder()" #orderForm="ngForm">
+      <ul class="stepper stepper-horizontal">
+
+        <!-- First Step -->
+        <li class="completed">
+          <a (click)="step='review'">
+            <span class="circle">1</span>
+            <span class="label">Review</span>
+          </a>
+        </li>
+
+        <!-- Second Step -->
+        <li class="active">
+          <a (click)="step='delivery'">
+            <span class="circle">2</span>
+            <span class="label">Delivery details</span>
+          </a>
+        </li>
+
+        <!-- Third Step -->
+        <li class="warning">
+          <a (click)="step='payment'">
+            <span class="circle">3</span>
+            <span class="label">Payment</span>
+          </a>
+        </li>
+
+      </ul>
+      <div class="step-content" *ngIf="step==='review'">
+        <app-review [order]="order"></app-review>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-default" (click)="step='delivery'">Next</button>
+        </div>
+      </div>
+
+      <div class="step-content" *ngIf="step==='delivery'">
+        <app-delivery-detail [order]="order"></app-delivery-detail>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-default" (click)="step='payment'" [disabled]="!orderForm.form.valid || !order.isValid()">Next</button>
+        </div>
+      </div>
+
+      <div class="step-content" *ngIf="step==='payment'">
+        <div class="align-center">
+          <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light" [disabled]="!orderForm.form.valid || !order.isValid()">
+          Confirm
+        </button>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>

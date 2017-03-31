@@ -97,6 +97,42 @@ label[for=cart-summary] .badge{
   font-weight: 500;
 }
 
+.hidden{
+  display: none;
+  height: 0;
+}
+
+/*.form-control {
+  padding: .5rem 0 0.35rem;
+  line-height: 1;
+  height: auto!important;
+}*/
+
+.callout {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+}
+
+.callout.info{
+  border: 1px solid #0275d8;
+}
+
+.callout.alert{
+  border: 1px solid #C00;
+}
+
+.callout.primary{
+  color: white;
+  background: #0275d8;
+  opacity: 0.79;
+}
+
 .classic-tabs {
   display: flex;
   white-space: nowrap;
@@ -248,4 +284,187 @@ label[for=cart-summary] .badge{
   white-space: nowrap;
   z-index: 20;
   display: block;
+}
+
+.stepper li >a {
+    padding: 24px;
+    font-size: 14px;
+}
+
+.stepper li a .circle {
+    display: inline-block;
+    color: #fff;
+    border-radius: 50%;
+    background: rgba(0,0,0,.38);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin-right: 8px;
+    text-align: center;
+}
+
+.stepper li a .label {
+    display: inline-block;
+    color: rgba(0,0,0,.38);
+}
+
+.stepper li.active >a .label,.stepper li.completed >a .label {
+    font-weight: 600;
+    color: rgba(0,0,0,.87);
+}
+
+.stepper-vertical,.stepper-vertical li {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    position: relative;
+}
+
+.stepper-vertical {
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.stepper-vertical li {
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.stepper-vertical li >a {
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+
+.stepper-vertical li >a .circle {
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+}
+
+.stepper-vertical li >a .label {
+    -webkit-flex-flow: column nowrap;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+}
+
+.stepper-vertical li.completed >a .label {
+    font-weight: 500;
+}
+
+.stepper-vertical li .step-content {
+    display: block;
+    margin-top: 0;
+    margin-left: 50px;
+    padding: 15px;
+}
+
+.stepper-vertical li .step-content p {
+    font-size: .875rem;
+}
+
+.stepper-vertical li:not(:last-child):after {
+    content: " ";
+    position: absolute;
+    width: 1px;
+    height: calc(100% - 40px);
+    left: 35px;
+    top: 55px;
+    background-color: rgba(0,0,0,.1);
+}
+
+
+.stepper-horizontal {
+    position: relative;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.stepper-horizontal li {
+    transition: .5s;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1
+}
+
+.stepper-vertical,.stepper-vertical li {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    position: relative
+}
+
+.stepper-horizontal li a .label {
+    margin-top: 10px
+}
+
+.stepper-horizontal li:not(:first-child):before,.stepper-horizontal li:not(:last-child):after {
+    content: '';
+    position: relative;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin: 8px 0 0;
+    height: 1px;
+    background-color: rgba(0,0,0,.1)
+}
+
+.stepper-horizontal li:hover {
+    background: #ddd
+}
+.primary-color, .stepper li.active a .circle, .stepper li.completed a .circle {
+    background-color: #4285F4!important;
+}
+.stepper li.active a .label, .stepper li.completed a .label {
+    font-weight: 600;
+    color: rgba(0,0,0,.87);
+}
+
+.btn-flat {
+    position: relative;
+    padding: 8px 30px;
+    border: none;
+    margin: 10px;
+    text-decoration: none;
+    outline: 0!important;
+}
+
+.btn-flat, .btn-flat:focus {
+    background-color: transparent;
+}
+
+.btn, .btn-flat, .classic-tabs li a, footer.page-footer .title {
+    text-transform: uppercase;
+}
+
+.md-form label {
+  width: 100%;
 }

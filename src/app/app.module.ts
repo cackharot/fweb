@@ -35,12 +35,14 @@ import { ChunkPipe } from './pipes/chunk.pipe';
 import { TabComponent } from './components/tab';
 import { TabsComponent } from './components/tabs';
 
+import { CheckoutModule } from './checkout/checkout.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     TopNavComponent,
-    SpinnerComponent,
+    // SpinnerComponent,
     HowItWorksComponent,
     FooterComponent,
     RestaurantDetailComponent,
@@ -63,6 +65,7 @@ import { TabsComponent } from './components/tabs';
     HttpModule,
     OAuthModule.forRoot(),
     Ng2Webstorage,
+    CheckoutModule,
     AppRoutes
   ],
   providers: [OAuthService, LocalStorageService, SessionStorageService,

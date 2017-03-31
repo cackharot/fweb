@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col">
+    <!--<h2><i class="fa fa-shopping-cart"></i> Review your order details</h2>-->
+    <div class="content__container">
+      <table class="table order_table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th class="text-right">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.getItems()">
+            <td>
+              <div class="product_name">
+                <a (click)="removeItem(item)" [class.text-alert]="item.store.isClosed()" title="Remove item from cart!">
+                  <i class="fa fa-times-circle"></i>
+                </a>
+                {{item.name}} <br/>
+                <small class="text-muted" *ngIf="item.price_detail && item.price_detail.description && item.price_detail.description.length > 0">
+                        {{item.price_detail.description}}
+                        <i *ngIf="item.price_detail.discount > 0">{{item.price_detail.discount}}% discount</i>
+                      </small>
+                <small class="text-muted" *ngIf="!item.price_detail && item.discount > 0">
+                        <i>{{item.discount}}% discount</i><br/>
+                      </small>
+                <span class="store_name text-muted"><i>from</i> {{item.store.name}}</span>
+                <br/>
+                <small class="text-muted text-alert" *ngIf="item.store.isClosed()">
+                    Currently unavailable!
+                  </small>
+              </div>
+            </td>
+            <td class="quantity">
+              <!--<span class="price light">{{item.price}}x</span>-->
+              <a (click)="changeQuantity(item,-1)"><i class="fa fa-minus-square"></i></a> {{item.quantity}}
+              <a (click)="changeQuantity(item,1)"><i class="fa fa-plus-square"></i></a>
+            </td>
+            <td class="price text-right">{{item.getTotalPrice()}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">
+              Subtotal:
+            </td>
+            <td class="total text-right">{{order.getSubTotal()}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Delivery Charges:
+            </td>
+            <td class="total text-right">{{order.getDeliveryCharges()}}</td>
+          </tr>
+          <tr *ngIf="order.coupon_code">
+            <td colspan="2">
+              <a (click)="removeCoupon()" title="Remove applied coupon">
+                <i class="fa fa-times-circle"></i>
+              </a>
+              {{order.coupon_code}}<br/>
+              <small style="font-weight: lighter">coupon applied.</small>
+            </td>
+            <td class="total text-right">{{order.getCouponDiscount()}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Total:
+            </td>
+            <td class="total rupee text-right">{{order.getTotalAmount()}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="row" *ngIf="!order.coupon_code">
+        <div class="col-md-6 col-12">
+          <div>Have coupon code?</div>
+          <div class="md-form input-group">
+            <input type="text" [(ngModel)]="coupon_code" class="form-control validate" name="coupon_code" id="coupon_code" minlength="4"
+              maxlength="20" placeholder="Enter here..." />
+            <span class="input-group-btn">
+                  <button type="button" (click)="applyCoupon()" class="btn btn-primary btn-lg">Apply</button>
+              </span>
+          </div>
+        </div>
+      </div>
+      <div class="callout info" *ngIf="order.getSavingsAmount() > 0">
+        You saved <b class="total rupee">{{order.getSavingsAmount()}}</b>
+      </div>
+      <div class="callout info">
+        Minimum delivery charge is Rs. {{order.getMinDeliveryCharges()}} + Rs. {{order.getPerStoreDeliveryCharges()}} for each additional
+        restaurants. For example, ordering dishes from 3 restaurants is calculated as <strong>{{order.getMinDeliveryCharges()}} + {{order.getPerStoreDeliveryCharges()}}*2=Rs. {{order.getMinDeliveryCharges() + 2*order.getPerStoreDeliveryCharges()}}</strong>
+      </div>
+    </div>
+    <div class="callout alert" *ngIf="!order.isValid()">
+      <p>There are some dishes that are presently became unavailable. Kindly remove them to proceed. This may occur if you have
+        added the dish while the store was open but before completing the checkout process.</p>
+      <p>For assistance or any queries, kindly call us on +91 7373730484</p>
+    </div>
+  </div>
+</div>
