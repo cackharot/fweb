@@ -15,6 +15,10 @@ import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail
 // import { AboutUsComponent } from './aboutus/aboutus.component';
 
 const AppRoutes = RouterModule.forRoot([
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
   { path: 'home', component: HomeComponent },
   { path: 'restaurants', component: RestaurantListComponent },
   { path: 'menu/:id', component: RestaurantDetailComponent },
