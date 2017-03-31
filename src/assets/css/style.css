@@ -203,9 +203,26 @@ label[for=cart-summary] .badge{
   background: #ffffff;
 }
 
+.restaurants__filter{
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  padding: 70px 0.7rem 0;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
+}
+
+.restaurants__filter label {
+  display: block;
+  font-size: 1rem;
+  margin: 0.15rem;
+}
+
 .page-footer{
   z-index: 50;
   position: relative;
+  margin-top: 0; 
 }
 
 .page-footer a:hover{
@@ -216,4 +233,11 @@ label[for=cart-summary] .badge{
   min-height: 40%;
   max-height: 60%;
   overflow: scroll;
+}
+
+.back-link{
+  text-decoration: underline;
+  white-space: nowrap;
+  z-index: 20;
+  display: block;
 }
