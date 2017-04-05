@@ -1,4 +1,5 @@
-import { Component, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { LocalStorage, SessionStorage } from 'ng2-webstorage';
 
 import { Order, DeliveryDetails, LineItem } from 'model/order';
 
@@ -6,13 +7,54 @@ import { Order, DeliveryDetails, LineItem } from 'model/order';
   selector: 'app-delivery-detail',
   templateUrl: './delivery-detail.component.html',
 })
-export class DeliveryDetailComponent implements OnInit {
+export class DeliveryDetailComponent implements OnInit, OnDestroy {
   @Input()
   order: Order;
+  @Output()
+  nextStepSource: EventEmitter<string> = new EventEmitter<string>();
+  @LocalStorage() canSaveDeliveryDetails: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.restoreDeliveryDetails();
+  }
+
+  ngOnDestroy() {
+    // localStorage.setItem('canSaveDeliveryDetails', this.canSaveDeliveryDetails.toString());
+    this.saveDeliveryDetails();
+  }
+
+  private saveDeliveryDetails() {
+    if (this.canSaveDeliveryDetails === false) {
+      localStorage.setItem('delivery_details', null);
+      return;
+    }
+    try {
+      const value = JSON.stringify(this.order.delivery_details);
+      localStorage.setItem('delivery_details', value);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  private restoreDeliveryDetails() {
+    // this.canSaveDeliveryDetails = localStorage.getItem('canSaveDeliveryDetails') === 'true';
+    if (this.canSaveDeliveryDetails === false) {
+      return;
+    }
+    try {
+      const value = JSON.parse(localStorage.getItem('delivery_details'));
+      if (value && value.name) {
+        this.order.delivery_details = DeliveryDetails.of(value);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  nextStep(stepName: string) {
+    this.nextStepSource.emit(stepName);
   }
 }

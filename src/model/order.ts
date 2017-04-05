@@ -34,7 +34,7 @@ export class Order {
   coupon_code: string;
   coupon_discount: number;
 
-  static of(data) {
+  static of(data): Order {
     if (data && data.constructor.name !== Order.name) {
       return new Order(data);
     }
@@ -72,6 +72,7 @@ export class Order {
 
   removeCouponCode() {
     if (this.coupon_code) {
+      console.log(`Removing coupon code ${this.coupon_code}`);
       this.coupon_code = null;
       this.coupon_discount = 0;
     }
@@ -80,6 +81,7 @@ export class Order {
   updateCouponCode(code: string, discount: number) {
     this.coupon_code = code;
     this.coupon_discount = discount;
+    console.log(`Applied coupon code ${this.coupon_code}, ${this.coupon_discount}`);
   }
 
   getStores() {
@@ -309,7 +311,7 @@ export class PincodeDetail {
   rate: number;
   status: boolean;
 
-  static of(data) {
+  static of(data): PincodeDetail {
     if (data && data.constructor.name !== PincodeDetail.name) {
       return new PincodeDetail(data);
     }
@@ -327,7 +329,7 @@ export class CouponResult {
   amount: number;
   type: string;
 
-  static of(data) {
+  static of(data): CouponResult {
     if (data && data.constructor.name !== CouponResult.name) {
       return new CouponResult(data);
     }

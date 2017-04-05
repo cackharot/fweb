@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ViewChild, ElementRef, Renderer } from '@angular/core';
@@ -17,9 +17,9 @@ import { AppConfig } from 'AppConfig';
 export class ReviewComponent implements OnInit {
   @Input()
   order: Order;
-  @Output()
-  error = '';
-  coupon_code: string = '';
+  @Output() onerror = new EventEmitter<string>();
+  error: string = null;
+  coupon_code: string = null;
 
   constructor(
     private router: Router,
@@ -29,6 +29,9 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit() {
     // this.fetchAvailablePincodes();
+    this.onerror.subscribe(msg => {
+      this.error = msg;
+    });
   }
 
   removeItem(item: LineItem) {
@@ -50,20 +53,16 @@ export class ReviewComponent implements OnInit {
   applyCoupon() {
     this.orderService.applyCoupon(this.order, this.coupon_code)
       .then(x => {
-        if (x && x.coupon_code) {
-          this.order.updateCouponCode(x.coupon_code, x.amount);
-          this.error = null;
-        } else {
-          this.error = 'Invalid coupon code!';
-        }
+        console.log(x);
+        this.order = x;
       }, err => {
         console.error(err);
-        this.error = err || 'Invalid coupon code!';
+        this.onerror.emit(err || 'Invalid coupon code!');
       });
   }
 
   removeCoupon() {
-    this.error = null;
+    this.onerror.emit(null);
     this.order.coupon_code = '';
     this.order.coupon_discount = 0;
   }

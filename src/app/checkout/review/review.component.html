@@ -14,7 +14,7 @@
           <tr *ngFor="let item of order.getItems()">
             <td>
               <div class="product_name">
-                <a (click)="removeItem(item)" [class.text-alert]="item.store.isClosed()" title="Remove item from cart!">
+                <a (click)="removeItem(item)" [class.pink-text]="item.store.isClosed()" title="Remove item from cart!">
                   <i class="fa fa-times-circle"></i>
                 </a>
                 {{item.name}} <br/>
@@ -27,7 +27,7 @@
                       </small>
                 <span class="store_name text-muted"><i>from</i> {{item.store.name}}</span>
                 <br/>
-                <small class="text-muted text-alert" *ngIf="item.store.isClosed()">
+                <small class="text-muted pink-text" *ngIf="item.store.isClosed()">
                     Currently unavailable!
                   </small>
               </div>
@@ -83,12 +83,15 @@
           </div>
         </div>
       </div>
+      <div class="callout alert" *ngIf="error != null">
+        {{error}}
+      </div>
       <div class="callout info" *ngIf="order.getSavingsAmount() > 0">
         You saved <b class="total rupee">{{order.getSavingsAmount()}}</b>
       </div>
       <div class="callout info">
-        Minimum delivery charge is Rs. {{order.getMinDeliveryCharges()}} + Rs. {{order.getPerStoreDeliveryCharges()}} for each additional
-        restaurants. For example, ordering dishes from 3 restaurants is calculated as <strong>{{order.getMinDeliveryCharges()}} + {{order.getPerStoreDeliveryCharges()}}*2=Rs. {{order.getMinDeliveryCharges() + 2*order.getPerStoreDeliveryCharges()}}</strong>
+        Minimum delivery charge is <span class="rupee">{{order.getMinDeliveryCharges()}}</span> + <span class="rupee">{{order.getPerStoreDeliveryCharges()}}</span> for each additional
+        restaurants. For example, ordering dishes from 3 restaurants is calculated as <strong>{{order.getMinDeliveryCharges()}} + {{order.getPerStoreDeliveryCharges()}}*2=<span class="rupee">{{order.getMinDeliveryCharges() + 2*order.getPerStoreDeliveryCharges()}}</span></strong>
       </div>
     </div>
     <div class="callout alert" *ngIf="!order.isValid()">

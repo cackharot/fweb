@@ -30,56 +30,51 @@
     </div>
   </section>
   <section *ngIf="!isEmpty()">
-    <form (ngSubmit)="confirmOrder()" #orderForm="ngForm">
-      <ul class="stepper stepper-horizontal">
+    <ul class="stepper stepper-horizontal">
 
-        <!-- First Step -->
-        <li class="completed">
-          <a (click)="step='review'">
-            <span class="circle">1</span>
-            <span class="label">Review</span>
-          </a>
-        </li>
+      <!-- First Step -->
+      <li class="completed">
+        <a (click)="step='review'">
+          <span class="circle">1</span>
+          <span class="label">Review</span>
+        </a>
+      </li>
 
-        <!-- Second Step -->
-        <li class="active">
-          <a (click)="step='delivery'">
-            <span class="circle">2</span>
-            <span class="label">Delivery details</span>
-          </a>
-        </li>
+      <!-- Second Step -->
+      <li class="active">
+        <a (click)="step='delivery'">
+          <span class="circle">2</span>
+          <span class="label">Delivery details</span>
+        </a>
+      </li>
 
-        <!-- Third Step -->
-        <li class="warning">
-          <a (click)="step='payment'">
-            <span class="circle">3</span>
-            <span class="label">Payment</span>
-          </a>
-        </li>
+      <!-- Third Step -->
+      <li class="warning">
+        <a (click)="step='payment'">
+          <span class="circle">3</span>
+          <span class="label">Payment</span>
+        </a>
+      </li>
 
-      </ul>
-      <div class="step-content" *ngIf="step==='review'">
-        <app-review [order]="order"></app-review>
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-default" (click)="step='delivery'">Next</button>
-        </div>
+    </ul>
+    <div class="step-content" *ngIf="step==='review'">
+      <app-review [order]="order"></app-review>
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-default waves-effect" (click)="step='delivery'">Next</button>
       </div>
+    </div>
 
-      <div class="step-content" *ngIf="step==='delivery'">
-        <app-delivery-detail [order]="order"></app-delivery-detail>
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-default" (click)="step='payment'" [disabled]="!orderForm.form.valid || !order.isValid()">Next</button>
-        </div>
-      </div>
+    <div class="step-content" *ngIf="step==='delivery'">
+      <app-delivery-detail [order]="order" (nextStepSource)="step=$event"></app-delivery-detail>
+    </div>
 
-      <div class="step-content" *ngIf="step==='payment'">
-        <div class="align-center">
-          <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
-          <button type="submit" class="btn btn-primary waves-effect waves-light" [disabled]="!orderForm.form.valid || !order.isValid()">
+    <div class="step-content" *ngIf="step==='payment'">
+      <div class="align-center">
+        <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
+        <button type="button" (click)="confirmOrder()" class="btn btn-primary waves-effect waves-light">
           Confirm
         </button>
-        </div>
       </div>
-    </form>
+    </div>
   </section>
 </section>

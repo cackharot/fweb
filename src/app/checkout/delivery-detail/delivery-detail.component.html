@@ -1,47 +1,59 @@
-<section class="row">
-  <div class="medium-6 columns">
-    <!--<h2><i class="fa fa-truck"></i> Delivery Details</h2>-->
-    <div class="callout info">
+<form (ngSubmit)="nextStep('payment')" #orderForm="ngForm">
+  <section class="row">
+    <div class="col-12">
+      <!--<h2><i class="fa fa-truck"></i> Delivery Details</h2>-->
+      <div class="callout info">
         Kindly ensure that you have given correct delivery address with postbox number, floor number, mobile number and pincode.
         Unless you receive an email or SMS or a phone call from us, <i>Your order will not be processed.</i>
-    </div>
-    <div class="content__container mt-1">
-      <div class="md-form">
-        <input type="text" class="form-control validate" maxlength="50" name="name" #name="ngModel" [(ngModel)]="order.delivery_details.name"
-          required minlength="3" />
-        <label for="name" data-error="Should be minimum 3 letters">Name</label>
       </div>
-      <div class="md-form">
-        <input type="text" class="form-control validate" maxlength="10" minlength="10" name="phone" #phone="ngModel" [(ngModel)]="order.delivery_details.phone"
-          required/>
-        <label for="phone" data-error="Should be 10 digits without leading zero or country code">Mobile</label>
-      </div>
-      <div class="md-form">
-        <input type="email" class="form-control validate" maxlength="200" minlength="3" name="email" #email="ngModel" [(ngModel)]="order.delivery_details.email"
-          required/>
-        <label for="email">Email</label>
-      </div>
-      <div class="md-form">
-        <input type="text" class="form-control validate" maxlength="6" minlength="6" name="pincode" #pincode="ngModel" [(ngModel)]="order.delivery_details.pincode"
-          required/>
-        <label for="pincode" data-error="Should be 6 digits">Pincode</label>
-      </div>
-      <div class="md-form">
-        <textarea maxlength="500" class="md-textarea validate" minlength="10" name="address" #address="ngModel" [(ngModel)]="order.delivery_details.address"
-          required></textarea>
-        <label for="address">Address</label>
-      </div>
-      <div class="md-form">
-        <input type="text" class="form-control validate" minlength="3" maxlength="50" name="landmark" #landmark="ngModel" [(ngModel)]="order.delivery_details.landmark"
-        />
-        <label for="landmark" data-error="Should be minimum 3 letters">Nearby landmark</label>
-      </div>
-      <fieldset class="form-group">
-        <input type="checkbox" id="speed_checkout" name="speed_checkout" [(ngModel)]="canSaveDeliveryDetails" />
-        <label for="speed_checkout">
+      <div class="mt-3">
+        <div class="md-form">
+          <input type="text" class="form-control " maxlength="50" name="name" #name="ngModel" [(ngModel)]="order.delivery_details.name"
+            required minlength="3" />
+          <label for="name" data-error="Should be minimum 3 letters"
+          [class.active]="order.delivery_details.name">Name</label>
+        </div>
+        <div class="md-form">
+          <input type="text" class="form-control " maxlength="10" minlength="10" name="phone" #phone="ngModel" [(ngModel)]="order.delivery_details.phone"
+            required/>
+          <label for="phone" data-error="Should be 10 digits without leading zero or country code"
+          [class.active]="order.delivery_details.phone">Mobile</label>
+        </div>
+        <div class="md-form">
+          <input type="email" class="form-control " maxlength="200" minlength="3" name="email" #email="ngModel" [(ngModel)]="order.delivery_details.email"
+            required/>
+          <label data-error="Invalid email address." for="email"
+          [class.active]="order.delivery_details.email">Email</label>
+        </div>
+        <div class="md-form">
+          <input type="text" class="form-control" maxlength="6" minlength="6" name="pincode" #pincode="ngModel" [(ngModel)]="order.delivery_details.pincode"
+            required/>
+          <label for="pincode" data-error="Should be 6 digits"
+          [class.active]="order.delivery_details.pincode">Pincode</label>
+        </div>
+        <div class="md-form">
+          <textarea maxlength="500" class="md-textarea " minlength="5" name="address" #address="ngModel" [(ngModel)]="order.delivery_details.address"
+            required></textarea>
+          <label for="address" data-error="Should be minimum 5 letters"
+          [class.active]="order.delivery_details.address">Address</label>
+        </div>
+        <div class="md-form">
+          <input type="text" class="form-control " minlength="3" maxlength="50" name="landmark" #landmark="ngModel" [(ngModel)]="order.delivery_details.landmark"
+          />
+          <label for="landmark" data-error="Should be minimum 3 letters"
+          [class.active]="order.delivery_details.landmark">Nearby landmark</label>
+        </div>
+        <fieldset class="form-group">
+          <input type="checkbox" id="speed_checkout" name="speed_checkout" [(ngModel)]="canSaveDeliveryDetails" />
+          <label for="speed_checkout">
           Speed checkout next time.
         </label>
-      </fieldset>
+        </fieldset>
+      </div>
     </div>
+  </section>
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-default waves-effect" [disabled]="!(orderForm.form.valid && order.isValid())"
+    [class.disabled]="!orderForm.form.valid">Next</button>
   </div>
-</section>
+</form>

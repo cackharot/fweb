@@ -23,7 +23,6 @@ export class CheckoutComponent implements OnInit {
   coupon_code = '';
   orderSuccess = false;
   isRequesting = false;
-  @LocalStorage() canSaveDeliveryDetails = false;
   @SessionStorage() availablePincodes: any[] = [];
   error: any = null;
 
@@ -39,7 +38,6 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.order = this.orderService.getOrder();
     this.orderSuccess = this.order.isConfirmed();
-    this.restoreDeliveryDetails();
     // this.fetchAvailablePincodes();
   }
 
@@ -83,7 +81,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   confirmOrder() {
-    this.saveDeliveryDetails();
     if (this.order.items.length > 0) {
       this.isRequesting = true;
       this.orderService.confirmOrder()
@@ -111,59 +108,11 @@ export class CheckoutComponent implements OnInit {
     this.orderService.updateQuantity(item, value);
   }
 
-  private saveDeliveryDetails() {
-    if (this.canSaveDeliveryDetails === false) {
-      localStorage.setItem('delivery_details', null);
-      return;
-    }
-    try {
-      let value = JSON.stringify(this.order.delivery_details);
-      localStorage.setItem('delivery_details', value);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   isEmpty() {
     return this.order && this.order.items.length === 0;
   }
 
   goBack(id: string) {
     this.router.navigate([id]);
-  }
-
-  private restoreDeliveryDetails() {
-    if (this.canSaveDeliveryDetails === false) {
-      return;
-    }
-    try {
-      let value = JSON.parse(localStorage.getItem('delivery_details'));
-      if (value && value.name) {
-        this.order.delivery_details = DeliveryDetails.of(value);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  applyCoupon() {
-    this.orderService.applyCoupon(this.order, this.coupon_code)
-      .then(x => {
-        if (x && x.coupon_code) {
-          this.order.updateCouponCode(x.coupon_code, x.amount);
-          this.error = null;
-        } else {
-          this.error = 'Invalid coupon code!';
-        }
-      }, err => {
-        console.error(err);
-        this.error = err || 'Invalid coupon code!';
-      });
-  }
-
-  removeCoupon() {
-    this.error = null;
-    this.order.coupon_code = '';
-    this.order.coupon_discount = 0;
   }
 }

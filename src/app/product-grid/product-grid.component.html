@@ -1,6 +1,6 @@
 <ul class="row">
   <li class="col-md-6 col-12 product-item px-2" *ngFor="let product of products;" [class.disabled]="!product.isAvailable()">
-    <div class="list-group-item list-group-item-action" (click)="select(product)">
+    <div class="list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-between">
         <strong>
           <a class="blue-grey-text">{{product.name}}</a>

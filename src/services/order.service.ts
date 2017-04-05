@@ -62,7 +62,7 @@ export class OrderService {
 
   constructor(private http: Http, private authService: OAuthService,
     private localSt: LocalStorageService) {
-    this.currentOrder = Order.of(this.currentOrder);
+    this.currentOrder = Order.of(this.currentOrder || {});
     this.orderUpdated$.subscribe((x) => {
       this.currentOrder.removeCouponCode();
       this.currentOrder = this.currentOrder;
@@ -294,7 +294,7 @@ export class OrderService {
       .catch(this.handleError);
   }
 
-  public applyCoupon(tempOrder: Order, couponCode: string): Promise<CouponResult> {
+  public applyCoupon(tempOrder: Order, couponCode: string): Promise<Order> {
     const headers = {
       headers: this.authHeaders()
     };
@@ -306,8 +306,13 @@ export class OrderService {
       .then(response => {
         const data = response.json();
         const result = CouponResult.of(data);
-        console.log(result);
-        return result;
+        if (result && result.coupon_code) {
+          this.currentOrder.updateCouponCode(result.coupon_code, result.amount);
+          this.currentOrder = this.currentOrder;
+        } else {
+          throw Error('Invalid coupon code');
+        }
+        return this.currentOrder;
       })
       .catch(this.handleError);
   }
