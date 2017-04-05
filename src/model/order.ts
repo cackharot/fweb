@@ -225,6 +225,10 @@ export class Order {
     });
     return distinct;
   }
+
+  hasDeliveryDetails() {
+    return this.delivery_details && this.delivery_details.isValid();
+  }
 }
 
 export class LineItem {
@@ -301,6 +305,13 @@ export class DeliveryDetails {
   constructor(data = {}) {
     Object.assign(this, data);
     this.customer_id = ObjectId.of(this.customer_id);
+  }
+
+  isValid() {
+    return this.name && this.name.length > 3
+      && this.email && this.email.length > 6
+      && this.address && this.address.length > 4
+      && this.phone && this.phone.length === 10;
   }
 }
 

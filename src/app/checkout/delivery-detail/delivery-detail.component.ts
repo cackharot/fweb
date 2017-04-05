@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { LocalStorage, SessionStorage } from 'ng2-webstorage';
+import { Router } from '@angular/router';
 
 import { Order, DeliveryDetails, LineItem } from 'model/order';
 
@@ -14,15 +15,18 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   nextStepSource: EventEmitter<string> = new EventEmitter<string>();
   @LocalStorage() canSaveDeliveryDetails: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
+    this.router.events.subscribe(x => {
+      window.scroll(0, 0);
+    });
   }
 
   ngOnInit() {
+    window.scroll(0, 0);
     this.restoreDeliveryDetails();
   }
 
   ngOnDestroy() {
-    // localStorage.setItem('canSaveDeliveryDetails', this.canSaveDeliveryDetails.toString());
     this.saveDeliveryDetails();
   }
 
@@ -40,7 +44,6 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   }
 
   private restoreDeliveryDetails() {
-    // this.canSaveDeliveryDetails = localStorage.getItem('canSaveDeliveryDetails') === 'true';
     if (this.canSaveDeliveryDetails === false) {
       return;
     }

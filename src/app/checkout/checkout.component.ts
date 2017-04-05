@@ -115,4 +115,11 @@ export class CheckoutComponent implements OnInit {
   goBack(id: string) {
     this.router.navigate([id]);
   }
+
+  nextStep(stepName: string) {
+    if (!this.order.isValid()) {
+      return;
+    }
+    this.step = stepName;
+  }
 }

@@ -94,10 +94,5 @@
         restaurants. For example, ordering dishes from 3 restaurants is calculated as <strong>{{order.getMinDeliveryCharges()}} + {{order.getPerStoreDeliveryCharges()}}*2=<span class="rupee">{{order.getMinDeliveryCharges() + 2*order.getPerStoreDeliveryCharges()}}</span></strong>
       </div>
     </div>
-    <div class="callout alert" *ngIf="!order.isValid()">
-      <p>There are some dishes that are presently became unavailable. Kindly remove them to proceed. This may occur if you have
-        added the dish while the store was open but before completing the checkout process.</p>
-      <p>For assistance or any queries, kindly call us on +91 7373730484</p>
-    </div>
   </div>
 </div>

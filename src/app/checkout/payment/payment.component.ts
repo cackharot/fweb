@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ViewChild, ElementRef, Renderer } from '@angular/core';
@@ -15,6 +15,7 @@ import { AppConfig } from 'AppConfig';
   templateUrl: './payment.component.html',
 })
 export class PaymentComponent implements OnInit {
+  @Input() order: Order;
 
   constructor(
     private router: Router,

@@ -25,10 +25,14 @@ export class ReviewComponent implements OnInit {
     private router: Router,
     private renderer: Renderer,
     private orderService: OrderService) {
+    this.router.events.subscribe(x => {
+      window.scroll(0, 0);
+    });
   }
 
   ngOnInit() {
     // this.fetchAvailablePincodes();
+    window.scroll(0, 0);
     this.onerror.subscribe(msg => {
       this.error = msg;
     });
@@ -53,7 +57,7 @@ export class ReviewComponent implements OnInit {
   applyCoupon() {
     this.orderService.applyCoupon(this.order, this.coupon_code)
       .then(x => {
-        console.log(x);
+        // console.log(x);
         this.order = x;
       }, err => {
         console.error(err);

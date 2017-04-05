@@ -1,23 +1,18 @@
 <div class="row">
-  <div class="medium-12 columns">
-    <h2><i class="fa fa-credit-card"></i> Payment Details</h2>
-    <div class="callout primary">
-      <div>
-        <label>
-          <input name="payment_type" type="radio" [(ngModel)]="order.payment_type" value="cod"/>
-          Cash On Delivery
-        </label>
-      </div>
-      <div *ngIf="feature.onlinePaymentEnabled()">
-        <label>
-                  <input name="payment_type"  type="radio" [(ngModel)]="order.payment_type" value="payumoney"/>
-                  Credit/Debit Card, Net Banking
-                </label>
-      </div>
-      <div class="callout" *ngIf="order.payment_type==='payumoney'">
-        Note we will redirect you to PayUMoney payment gateway to do the online transaction. After successful transaction you will
-        be redirected back to foodbeazt
-      </div>
+  <div class="col-12">
+    <h4>Order total: <strong class="rupee">{{order.getTotalAmount()}}</strong></h4>
+    <h5 class="mb-1 mt-1">Payment Options</h5>
+    <fieldset class="form-group">
+      <input name="payment_type" id="cod_payment" type="radio" [(ngModel)]="order.payment_type" value="cod"/>
+      <label for="cod_payment">Cash On Delivery</label>
+    </fieldset>
+    <fieldset class="form-group">
+      <input name="payment_type" id="online_payment" type="radio" [(ngModel)]="order.payment_type" value="payumoney"/>
+      <label for="online_payment">Credit/Debit Card, Net Banking</label>
+    </fieldset>
+    <div class="callout" *ngIf="order.payment_type==='payumoney'">
+      Note we will redirect you to PayUMoney payment gateway to do the online transaction. After successful transaction you will
+      be redirected back to foodbeazt
     </div>
   </div>
 </div>

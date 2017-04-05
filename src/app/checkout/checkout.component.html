@@ -34,33 +34,40 @@
 
       <!-- First Step -->
       <li class="completed">
-        <a (click)="step='review'">
+        <a (click)="nextStep('review')">
           <span class="circle">1</span>
           <span class="label">Review</span>
         </a>
       </li>
 
       <!-- Second Step -->
-      <li class="active">
-        <a (click)="step='delivery'">
+      <li class="" [class.active]="order.isValid()">
+        <a (click)="nextStep('delivery')" [class.disabled]="!order.isValid()">
           <span class="circle">2</span>
           <span class="label">Delivery details</span>
         </a>
       </li>
 
       <!-- Third Step -->
-      <li class="warning">
-        <a (click)="step='payment'">
+      <li class="" [class.active]="order.isValid() && order.hasDeliveryDetails()">
+        <a (click)="nextStep('payment')" [class.disabled]="!order.isValid()">
           <span class="circle">3</span>
           <span class="label">Payment</span>
         </a>
       </li>
 
     </ul>
+
+    <div class="callout alert" *ngIf="!order.isValid()">
+      <p>There are some dishes that are presently became unavailable. Kindly remove them to proceed. This may occur if you have
+        added the dish while the store was open but before completing the checkout process.</p>
+      <p>For assistance or any queries, kindly call us on +91 7373730484</p>
+    </div>
+
     <div class="step-content" *ngIf="step==='review'">
       <app-review [order]="order"></app-review>
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-default waves-effect" (click)="step='delivery'">Next</button>
+        <button type="button" class="btn btn-default waves-effect" [disabled]="!order.isValid()" (click)="step='delivery'">Next</button>
       </div>
     </div>
 
@@ -69,6 +76,7 @@
     </div>
 
     <div class="step-content" *ngIf="step==='payment'">
+      <app-payment [order]="order"></app-payment>
       <div class="align-center">
         <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
         <button type="button" (click)="confirmOrder()" class="btn btn-primary waves-effect waves-light">
