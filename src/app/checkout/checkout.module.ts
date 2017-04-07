@@ -9,6 +9,7 @@ import { ReviewComponent } from './review/review.component';
 import { CheckoutComponent } from './checkout.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { PaymentComponent } from './payment/payment.component';
+import { OtpComponent } from './otp/otp.component';
 
 import { StoreService } from 'services/store.service';
 import { ProductService } from 'services/product.service';
@@ -17,7 +18,8 @@ import { OrderService } from 'services/order.service';
 const checkouRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'checkout/delivery-details', component: DeliveryDetailComponent },
-  { path: 'checkout/payment', component: PaymentComponent }
+  { path: 'checkout/payment', component: PaymentComponent },
+  { path: 'otp', component: OtpComponent }
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const checkouRoutes: Routes = [
     CheckoutComponent,
     ReviewComponent,
     DeliveryDetailComponent,
-    PaymentComponent
+    PaymentComponent,
+    OtpComponent
   ],
   providers: [StoreService, OrderService, ProductService],
   exports: [SpinnerComponent]

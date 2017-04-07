@@ -2,11 +2,11 @@
   <div class="col-12">
     <h4>Order total: <strong class="rupee">{{order.getTotalAmount()}}</strong></h4>
     <h5 class="mb-1 mt-1">Payment Options</h5>
-    <fieldset class="form-group">
+    <fieldset class="form-group ml-2">
       <input name="payment_type" id="cod_payment" type="radio" [(ngModel)]="order.payment_type" value="cod"/>
       <label for="cod_payment">Cash On Delivery</label>
     </fieldset>
-    <fieldset class="form-group">
+    <fieldset class="form-group ml-2">
       <input name="payment_type" id="online_payment" type="radio" [(ngModel)]="order.payment_type" value="payumoney"/>
       <label for="online_payment">Credit/Debit Card, Net Banking</label>
     </fieldset>
@@ -16,7 +16,3 @@
     </div>
   </div>
 </div>
-<form method="post" ngNoForm action="{{payment_url}}">
-  <input type="hidden" name="order_no" #ordernotxt value="{{order.order_no}}" />
-  <input type="submit" class="hidden hide" #payubutton id="payubutton" />
-</form>

@@ -127,6 +127,16 @@ label[for=cart-summary] .badge{
   border: 1px solid #C00;
 }
 
+.callout.warning{
+  background-color: rgba(240, 173, 78, 0.6);;
+  border: 1px solid #f0ad4e;
+}
+
+.callout.success{
+    background-color: rgba(92, 184, 92, 0.6);
+    border: 1px solid #5cb85c;
+}
+
 .callout.primary{
   color: white;
   background: #0275d8;
@@ -203,6 +213,14 @@ label[for=cart-summary] .badge{
     font-size: 1.2rem;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.strong {
+  font-weight: bolder;
+}
+
 .strike{
   text-decoration: line-through;
   font-size: 12px;
@@ -263,7 +281,7 @@ label[for=cart-summary] .badge{
   margin: 0.15rem;
 }
 
-.page-footer{
+footer.page-footer{
   z-index: 50;
   position: relative;
   margin-top: 0; 

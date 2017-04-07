@@ -66,8 +66,7 @@ export class ReviewComponent implements OnInit {
   }
 
   removeCoupon() {
+    this.orderService.removeCoupon();
     this.onerror.emit(null);
-    this.order.coupon_code = '';
-    this.order.coupon_discount = 0;
   }
 }

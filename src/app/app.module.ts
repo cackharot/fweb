@@ -30,6 +30,8 @@ import { ProductGridComponent } from './product-grid/product-grid.component';
 import { PriceTableComponent } from './price-table/price-table.component';
 import { CartSummaryComponent } from './cartsummary/cartsummary.component';
 import { YourOrderComponent } from './your-order/your-order.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { OrderFailureComponent } from './order-failure/order-failure.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { TabComponent } from './components/tab';
@@ -55,6 +57,8 @@ import { CheckoutModule } from './checkout/checkout.module';
     PriceTableComponent,
     CartSummaryComponent,
     YourOrderComponent,
+    OrderSuccessComponent,
+    OrderFailureComponent,
     ChunkPipe,
     TabComponent,
     TabsComponent

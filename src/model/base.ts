@@ -35,6 +35,10 @@ export class Date {
     return data;
   }
 
+  getValue() {
+    return this.$date;
+  }
+
   constructor(data = {}) {
     Object.assign(this, data);
   }

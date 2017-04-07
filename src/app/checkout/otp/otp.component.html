@@ -1,0 +1,64 @@
+<div class="container">
+  <section class="row" *ngIf="isRequesting">
+    <div class="col-12">
+      <app-my-spinner [isRunning]="isRequesting" [message]="'Please wait while we verify the OTP...'"></app-my-spinner>
+    </div>
+  </section>
+  <section class="row" *ngIf="!isRequesting && error != null">
+    <div class="col-12">
+      <div class="callout alert">
+        <h3>Oops!</h3>
+        <p>{{error}}</p>
+      </div>
+    </div>
+  </section>
+  <section class="row" *ngIf="isMaxOtpAttempt">
+    <div class="col-12">
+      <div class="callout alert">
+        <h3>Max OTP Attempt reached!</h3>
+        <p>You have reached the maximum OTP attempts for verifying this order.</p>
+        <p>Kindly cancel this order and place a new order with correct contact number and delivery details.</p>
+        <p>For assistance and any queries, kindly call us on +91 7373730484</p>
+        <button class="button alert" (click)="cancelOrder()">Cancel</button>
+      </div>
+    </div>
+  </section>
+  <section class="row otp__page" *ngIf="!isRequesting && !isMaxOtpAttempt">
+    <div class="col-12">
+      <div class="content__container">
+        <h3>OTP Verfication</h3>
+        <p>
+          A One Time Passcode (OTP) has been sent to your mobile <b>{{order.delivery_details.phone}}</b>, Enter the 6 digit
+          value in the below textbox to verify.
+        </p>
+        <form #otpform (submit)="verifyOtp()">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter the 6 digit number" name="otp" #otptxt="ngModel" [(ngModel)]="otp"
+              minlength="6" maxlength="6" required>
+            <div class="input-group-button">
+              <button type="submit" class="btn btn-default waves-effect">Verify</button>
+            </div>
+          </div>
+        </form>
+        <br/>
+        <p>
+          <small>
+        OTP verification allows us to manage automated systems placing spam orders.
+        This is done once to ensure that a valid customer is placing the order.
+      </small>
+        </p>
+        <p>
+          <small>
+        Not received the OTP yet?
+        <span *ngIf="!canResendOTP()">You can resend OTP in {{seconds}} seconds.</span>
+        <button class="button" (click)="resendOtp()" [disabled]="!canResendOTP()">Resend</button>
+      </small>
+          <br/>
+          <small>
+        Given incorrect phone number? <a (click)="cancelOrder()">Go Back</a> to change it!
+      </small>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -49,8 +49,9 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
     }
     try {
       const value = JSON.parse(localStorage.getItem('delivery_details'));
-      if (value && value.name) {
+      if (value && value.name && value.name.length > 1) {
         this.order.delivery_details = DeliveryDetails.of(value);
+        console.log('updated order delivery details');
       }
     } catch (e) {
       console.error(e);

@@ -42,9 +42,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this.order.order_no && this.order.order_no.length !== 0) {
-      this.navOrder();
-    }
+    this.navOrder();
   }
 
   // private fetchAvailablePincodes() {
@@ -63,8 +61,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   navOrder() {
-    if (this.order.payment_type === 'payumoney' && !this.order.isPaymentValid()) {
-      console.log(this.orderNoTxt.nativeElement.value);
+    if (!this.order.isOrderSubmitted()) {
+      return;
+    }
+
+    if (this.order.isOtpSent() && this.order.isValid()) {
+      this.router.navigate(['/otp']);
+    } else if (this.order.isOnlinePaymentMode() && !this.order.isPaymentValid()) {
       this.orderNoTxt.nativeElement.value = this.order.order_no;
       this.renderer.invokeElementMethod(
         this.onlinePaymentForm.nativeElement,
@@ -72,9 +75,6 @@ export class CheckoutComponent implements OnInit {
         [new MouseEvent('click', { bubbles: true })]
       );
       return;
-    }
-    if (this.order.isOtpSent() && this.order.isValid()) {
-      this.router.navigate(['/otp']);
     } else if (this.order.isConfirmed()) {
       this.router.navigate(['/order_success']);
     }

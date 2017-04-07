@@ -317,6 +317,12 @@ export class OrderService {
       .catch(this.handleError);
   }
 
+  removeCoupon() {
+    this.currentOrder.coupon_code = '';
+    this.currentOrder.coupon_discount = 0;
+    this.orderUpdatedSource.next(this.currentOrder);
+  }
+
   private authHeaders(): Headers {
     const authHeaders = new Headers();
     if (this.authService.hasValidIdToken()) {

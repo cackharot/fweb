@@ -1,0 +1,77 @@
+<div class="amber">
+  <div class="container">
+    <div class="row" *ngIf="isRequesting">
+      <div class="col-12">
+        <app-my-spinner [isRunning]="isRequesting" [message]="'Loading your order...Please wait'">
+        </app-my-spinner>
+      </div>
+    </div>
+    <section class="order__success white px-4 py-3" *ngIf="!isRequesting">
+      <div class="row">
+        <div class="col-12 columns">
+          <h3 class="bold h3-responsive">Thanks {{order.delivery_details.name}}!</h3>
+          <small>Your order details are below</small>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-12 columns">
+          <em>Estimated delivery</em>
+          <h2 class="h2-responsive strong">{{estimated_delivery()}}</h2>
+          <p>
+            <a [routerLink]="['/track',{'order_no':order.order_no}]"><i class="fa fa-map-marker"></i>&nbsp; Track your order</a>
+            <a [routerLink]="['/home']"><i class="fa fa-shopping-cart"></i>&nbsp; Continue Shopping</a>
+          </p>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-12 columns">
+          <p>
+            Your order is successfull, kindly note the order number for further reference <b>{{order.order_no}}</b>. An invoice
+            email is on the way to your inbox.
+          </p>
+          <p>
+            Enjoy your gourment meal!
+          </p>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-6 col-12">
+          <h4 class="h4-responsive">Deliver to</h4>
+          <p>
+            {{order.delivery_details.name}}
+            <br/> {{order.delivery_details.address}}
+            <br/> {{order.delivery_details.landmark}}
+            <br/> {{order.delivery_details.pincode}}
+            <br/>
+            <i class="fa fa-phone"></i> {{order.delivery_details.phone}}<br/>
+            <i class="fa fa-email"></i> {{order.delivery_details.email}}<br/>
+          </p>
+        </div>
+        <div class="col-md-6 col-12">
+          <h4 class="h4-responsive">Order Total</h4>
+          <strong class="rupee"> {{order.total}}</strong><br/>
+          <h4 class="h4-responsive mt-3">Payment method</h4>
+          <span *ngIf="order.payment_type==='cod'">Cash On Delivery</span>
+          <span *ngIf="order.payment_type==='payumoney'">Online via PayUMoney</span>
+          <br/>
+          <span *ngIf="order.payment_type==='payumoney'">
+            Payment status: {{order.payment_status.toUpperCase()}}
+          </span>
+        </div>
+      </div>
+      <hr/>
+      <div class="row mt-1">
+        <div class="col-12">
+          <h4>Feedback</h4>
+          <p>
+            Your feedback is valuable to us. We always like to serve you better. If you have any suggestions or compliants kindly write
+            to us on <a href="mailto:foodbeazt@gmail.com">foodbeazt@gmail.com</a> or call us at +91 7373730484.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

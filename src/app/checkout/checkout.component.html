@@ -7,14 +7,10 @@
 <section class="checkout__page container" *ngIf="!isRequesting">
   <section class="row">
     <div class="col-12">
-      <nav aria-label="You are here:" role="navigation">
-        <ul class="breadcrumbs">
-          <li><a routerLink="/home">Home</a></li>
-          <li>
-            <span class="show-for-sr">Current:</span>Checkout
-          </li>
-        </ul>
-      </nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item active">Checkout</li>
+      </ol>
     </div>
   </section>
   <section class="row">
@@ -75,14 +71,22 @@
       <app-delivery-detail [order]="order" (nextStepSource)="step=$event"></app-delivery-detail>
     </div>
 
-    <div class="step-content" *ngIf="step==='payment'">
-      <app-payment [order]="order"></app-payment>
-      <div class="align-center">
-        <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
-        <button type="button" (click)="confirmOrder()" class="btn btn-primary waves-effect waves-light">
-          Confirm
-        </button>
+    <div class="step-content row d-flex justify-content-center" *ngIf="step==='payment'">
+      <div class="col-md-6 col-12">
+        <app-payment [order]="order"></app-payment>
+        <div class="text-center">
+          <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
+          <button type="button" (click)="confirmOrder()" class="btn btn-primary waves-effect waves-light">
+              Confirm
+            </button>
+        </div>
       </div>
     </div>
   </section>
 </section>
+
+
+<form method="post" ngNoForm action="{{payment_url}}">
+  <input type="hidden" name="order_no" #ordernotxt value="{{order.order_no}}" />
+  <input type="submit" class="hidden hide" #payubutton id="payubutton" />
+</form>

@@ -94,6 +94,10 @@ export class Order {
     return this.getSubTotal() > 0 && !hasClosedItems;
   }
 
+  isOnlinePaymentMode() {
+    return this.payment_type === 'payumoney';
+  }
+
   isPaymentValid() {
     if (this.payment_type === 'cod') {
       return true;
@@ -183,6 +187,10 @@ export class Order {
         ||
         (this.payment_type === 'cod')
       );
+  }
+
+  isOrderSubmitted() {
+    return this.order_no && this.order_no.length > 0;
   }
 
   isOtpSent() {

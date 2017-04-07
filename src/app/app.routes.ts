@@ -2,8 +2,8 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 // import { CheckoutComponent } from './checkout/checkout.component';
-// import { OrderSuccessComponent } from './order-success/order-success.component';
-// import { OrderFailureComponent } from './order-failure/order-failure.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { OrderFailureComponent } from './order-failure/order-failure.component';
 // import { OtpComponent } from './otp/otp.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
@@ -22,10 +22,8 @@ const AppRoutes = RouterModule.forRoot([
   { path: 'home', component: HomeComponent },
   { path: 'restaurants', component: RestaurantListComponent },
   { path: 'menu/:id', component: RestaurantDetailComponent },
-  // { path: 'checkout', component: CheckoutComponent },
-  // { path: 'otp', component: OtpComponent },
-  // { path: 'order_success', component: OrderSuccessComponent },
-  // { path: 'order_failure', component: OrderFailureComponent },
+  { path: 'order_success', component: OrderSuccessComponent },
+  { path: 'order_failure', component: OrderFailureComponent },
   // { path: 'track', component: TrackOrderComponent },
   // { path: 'track/:order_no', component: TrackOrderComponent },
   // { path: 'my_orders', component: MyOrderComponent },
