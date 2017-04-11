@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { OrderService } from 'services/order.service';
@@ -13,6 +13,8 @@ export class YourOrderComponent implements OnInit {
   order: Order;
   totalQuantity: number;
   totalAmount: number;
+  @Input()
+  showCheckoutButton = false;
 
   constructor(
     private router: Router,
