@@ -13,7 +13,8 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   order: Order;
   @Output()
   nextStepSource: EventEmitter<string> = new EventEmitter<string>();
-  @LocalStorage() canSaveDeliveryDetails: boolean;
+  @LocalStorage() speedCheckout: boolean;
+  editAddress = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(x => {
@@ -22,7 +23,7 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    window.scroll(0, 0);
+    this.editAddress = !this.speedCheckout;
     this.restoreDeliveryDetails();
   }
 
@@ -31,7 +32,7 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   }
 
   private saveDeliveryDetails() {
-    if (this.canSaveDeliveryDetails === false) {
+    if (this.speedCheckout === false) {
       localStorage.setItem('delivery_details', null);
       return;
     }
@@ -44,7 +45,7 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
   }
 
   private restoreDeliveryDetails() {
-    if (this.canSaveDeliveryDetails === false) {
+    if (this.speedCheckout === false) {
       return;
     }
     try {
@@ -56,9 +57,5 @@ export class DeliveryDetailComponent implements OnInit, OnDestroy {
     } catch (e) {
       console.error(e);
     }
-  }
-
-  nextStep(stepName: string) {
-    this.nextStepSource.emit(stepName);
   }
 }

@@ -522,7 +522,6 @@ input[type=date].ng-touched.ng-invalid+label.active:after,input[type=date]:focus
     opacity: 1
 }
 
-
 .progress {
     box-shadow: none;
     width: 100%;

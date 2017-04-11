@@ -4,15 +4,7 @@
     </app-my-spinner>
   </div>
 </section>
-<section class="checkout__page container" *ngIf="!isRequesting">
-  <section class="row">
-    <div class="col-12">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-        <li class="breadcrumb-item active">Checkout</li>
-      </ol>
-    </div>
-  </section>
+<section class="checkout__page container-fluid" *ngIf="!isRequesting">
   <section class="row">
     <div class="col-md-12 col-12">
       <div class="callout primary" *ngIf="isEmpty()">
@@ -25,62 +17,29 @@
       </div>
     </div>
   </section>
-  <section *ngIf="!isEmpty()">
-    <ul class="stepper stepper-horizontal">
+  <section class="row mt-1" *ngIf="!isEmpty()">
+    <div class="col-12 col-md-9">
+      <h3 class="h3-responsive font-weight-bold">Review and place order</h3>
 
-      <!-- First Step -->
-      <li class="completed">
-        <a (click)="nextStep('review')">
-          <span class="circle">1</span>
-          <span class="label">Review</span>
-        </a>
-      </li>
-
-      <!-- Second Step -->
-      <li class="" [class.active]="order.isValid()" [class.completed]="order.isValid() && order.hasDeliveryDetails()">
-        <a (click)="nextStep('delivery')" [class.disabled]="!order.isValid()">
-          <span class="circle">2</span>
-          <span class="label">Delivery details</span>
-        </a>
-      </li>
-
-      <!-- Third Step -->
-      <li class="" [class.active]="order.isValid() && order.hasDeliveryDetails()">
-        <a (click)="nextStep('payment')" [class.disabled]="!order.isValid()">
-          <span class="circle">3</span>
-          <span class="label">Payment</span>
-        </a>
-      </li>
-
-    </ul>
-
-    <div class="callout alert" *ngIf="!order.isValid()">
-      <p>There are some dishes that are presently became unavailable. Kindly remove them to proceed. This may occur if you have
-        added the dish while the store was open but before completing the checkout process.</p>
-      <p>For assistance or any queries, kindly call us on +91 7373730484</p>
-    </div>
-
-    <div class="step-content" *ngIf="step==='review'">
-      <app-review [order]="order"></app-review>
-      <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-default waves-effect" [disabled]="!order.isValid()" (click)="step='delivery'">Next</button>
+      <div class="callout alert" *ngIf="!order.isValid()">
+        <p>There are some dishes that are presently became unavailable. Kindly remove them to proceed. This may occur if you
+          have added the dish while the store was open but before completing the checkout process.</p>
+        <p>For assistance or any queries, kindly call us on +91 7373730484</p>
       </div>
-    </div>
 
-    <div class="step-content" *ngIf="step==='delivery'">
       <app-delivery-detail [order]="order" (nextStepSource)="step=$event"></app-delivery-detail>
-    </div>
 
-    <div class="step-content row d-flex justify-content-center" *ngIf="step==='payment'">
-      <div class="col-md-6 col-12">
-        <app-payment [order]="order"></app-payment>
-        <div class="text-center">
-          <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
-          <button type="button" (click)="confirmOrder()" class="btn btn-primary waves-effect waves-light">
-              Confirm
-            </button>
-        </div>
+      <app-payment [order]="order"></app-payment>
+
+      <div class="text-center">
+        <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
+        <button type="button" [disabled]="!order.isValid()" (click)="confirmOrder()" class="btn btn-secondary waves-effect waves-light">
+          Confirm
+        </button>
       </div>
+    </div>
+    <div class="col-md-3 hidden-sm-down">
+      <app-your-order [showCheckoutButton]="false"></app-your-order>
     </div>
   </section>
 </section>

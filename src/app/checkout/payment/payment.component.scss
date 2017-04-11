@@ -1,0 +1,8 @@
+.btn-outline-primary{
+  &.active{
+    color: white!important;
+  }
+  &:focus,&:hover{
+    color: #4285F4!important;
+  }
+}

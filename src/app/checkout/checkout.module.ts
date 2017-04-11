@@ -11,6 +11,8 @@ import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.compo
 import { PaymentComponent } from './payment/payment.component';
 import { OtpComponent } from './otp/otp.component';
 
+import { YourOrderComponent } from '../your-order/your-order.component';
+
 import { StoreService } from 'services/store.service';
 import { ProductService } from 'services/product.service';
 import { OrderService } from 'services/order.service';
@@ -34,9 +36,10 @@ const checkouRoutes: Routes = [
     ReviewComponent,
     DeliveryDetailComponent,
     PaymentComponent,
+    YourOrderComponent,
     OtpComponent
   ],
   providers: [StoreService, OrderService, ProductService],
-  exports: [SpinnerComponent]
+  exports: [SpinnerComponent, YourOrderComponent]
 })
 export class CheckoutModule { }
