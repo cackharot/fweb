@@ -21,11 +21,6 @@ export class CartSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.currentOrder = this.orderService.getOrder();
-    if (!this.canShow() && this.currentOrder.isConfirmed()) {
-      this.orderService.resetOrder();
-      this.currentOrder = this.orderService.getOrder();
-    }
-    this.update();
     this.orderService.itemAdded$.subscribe((x) => {
       this.update();
     });
@@ -36,6 +31,7 @@ export class CartSummaryComponent implements OnInit {
       this.currentOrder = x;
       this.update();
     });
+    this.update();
   }
 
   canShow(): boolean {
@@ -46,6 +42,9 @@ export class CartSummaryComponent implements OnInit {
   }
 
   update() {
+    if (this.currentOrder === null) {
+      return;
+    }
     this.totalQuantity = this.currentOrder.getTotalQuantity();
     this.totalAmount = this.currentOrder.getTotalAmount();
   }

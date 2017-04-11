@@ -46,7 +46,7 @@ export class MyOrderSearchResult extends MyOrderSearchModel {
 
 @Injectable()
 export class OrderService {
-  @LocalStorage() private currentOrder: Order;
+  @LocalStorage('order_service_current_order') private currentOrder: Order;
   private itemAddedSource = new Subject<LineItem>();
   private deliveryUpdatedSource = new Subject<DeliveryDetails>();
   private orderConfirmedSource = new Subject<Order>();
@@ -168,8 +168,10 @@ export class OrderService {
   }
 
   resetOrder() {
-    this.currentOrder = new Order();
+    console.log('Resetting current order');
+    this.currentOrder = null;
     this.orderResetedSource.next(this.currentOrder);
+    console.log(this.currentOrder);
   }
 
   cancelOrder() {
@@ -235,13 +237,12 @@ export class OrderService {
       .catch(this.handleError);
   }
 
-  reloadOrder(): Promise<Order> {
-    const no = this.getOrder().order_no;
-    if (no === undefined || no.length === 0) {
+  reloadOrder(order_no: string): Promise<Order> {
+    if (order_no === undefined || order_no.length === 0) {
       return Promise.reject<Order>('Invalid order');
     }
     return this.http.get(
-      `${AppConfig.TRACK_URL}/${no}`,
+      `${AppConfig.TRACK_URL}/${order_no}`,
       {
         headers: this.authHeaders()
       })
@@ -252,7 +253,6 @@ export class OrderService {
         if (!order.order_no || order.order_no.length === 0) {
           return null;
         }
-        this.currentOrder = order;
         return order;
       })
       .catch(this.handleError);

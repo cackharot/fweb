@@ -321,14 +321,27 @@ footer.page-footer{
     text-align: center;
 }
 
+.stepper li.active a .circle {
+    background-color: #4285F4;
+}
+
 .stepper li a .label {
     display: inline-block;
     color: rgba(0,0,0,.38);
 }
 
-.stepper li.active >a .label,.stepper li.completed >a .label {
+.stepper li.active >a .label {
     font-weight: 600;
     color: rgba(0,0,0,.87);
+}
+
+.stepper li.completed >a .label {
+  font-weight: 600;
+  color: #00C851;
+}
+
+.stepper li.completed a .circle{
+  background-color: #00C851;
 }
 
 .stepper-vertical,.stepper-vertical li {
@@ -457,13 +470,6 @@ footer.page-footer{
 
 .stepper-horizontal li:hover {
     background: #ddd
-}
-.primary-color, .stepper li.active a .circle, .stepper li.completed a .circle {
-    background-color: #4285F4!important;
-}
-.stepper li.active a .label, .stepper li.completed a .label {
-    font-weight: 600;
-    color: rgba(0,0,0,.87);
 }
 
 .btn-flat {

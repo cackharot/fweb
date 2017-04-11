@@ -7,7 +7,7 @@ import { OrderFailureComponent } from './order-failure/order-failure.component';
 // import { OtpComponent } from './otp/otp.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
-// import { TrackOrderComponent } from './track-order/track-order.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 // import { MyOrderComponent } from './my-order/my-order.component';
 // import { FaqComponent } from './faq/faq.component';
 // import { TermsOfUseComponent } from './terms/terms.component';
@@ -24,8 +24,8 @@ const AppRoutes = RouterModule.forRoot([
   { path: 'menu/:id', component: RestaurantDetailComponent },
   { path: 'order_success', component: OrderSuccessComponent },
   { path: 'order_failure', component: OrderFailureComponent },
-  // { path: 'track', component: TrackOrderComponent },
-  // { path: 'track/:order_no', component: TrackOrderComponent },
+  { path: 'track', component: TrackOrderComponent },
+  { path: 'track/:order_no', component: TrackOrderComponent },
   // { path: 'my_orders', component: MyOrderComponent },
 
   // { path: 'faq', component: FaqComponent },

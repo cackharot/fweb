@@ -34,7 +34,7 @@
       </tbody>
     </table>
   </div>
-  <table class="table order_table">
+  <table class="table order_table" *ngIf="!isEmptyOrder()">
     <tfoot>
       <tr>
         <td colspan="2">
@@ -76,6 +76,6 @@
   <div class="text-center text-muted pt-3" *ngIf="isEmptyOrder()">
     <i class="fa fa-shopping-bag fa-4x"></i>
     <h3 class="mt-2">Aren't you hungry yet?</h3>
-    <h6>Quick, add dishes to checkout...</h6>
+    <h6>Quick, add yummy foods to checkout...</h6>
   </div>
 </div>

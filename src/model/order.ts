@@ -33,6 +33,7 @@ export class Order {
   payment_error_message: string;
   coupon_code: string;
   coupon_discount: number;
+  notes: string;
 
   static of(data): Order {
     if (data && data.constructor.name !== Order.name) {

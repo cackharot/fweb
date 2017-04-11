@@ -1,0 +1,107 @@
+<div class="amber">
+  <div class="container">
+    <section class="white track__order__page px-3 py-3">
+      <div class="row mb-2">
+        <div class="col-12 col-md-12">
+          <h2 class="bold h2-responsive">Track Order</h2>
+          <form (ngSubmit)="searchOrder()">
+            <div class="input-group">
+              <input class="form-control input-group-field" type="text" #orderno="ngModel" minlength="6" maxlength="12" placeholder="Enter the order number..."
+                name="orderno" [(ngModel)]="orderNo" required/>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row" *ngIf="isRequesting">
+        <div class="col-12 col-md-12">
+          <app-my-spinner [isRunning]="isRequesting" [message]="'Looking for your order...Please wait'">
+          </app-my-spinner>
+        </div>
+      </div>
+      <div class="row" *ngIf="orderNo.length>0 && !isRequesting && submitted && order==null">
+        <div class="col-12 col-md-12">
+          <div class="callout alert">
+            Oops! No order found for the given number.
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!isRequesting && order!=null">
+        <div class="col-12 col-md-12" *ngIf="order.isCancelled()">
+          <div class="callout warning">
+            <p>
+              We regret to inform you that your order has been cancelled.
+            </p>
+            <label>Reason:</label>
+            <p>
+              {{order.notes}}
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-12" *ngIf="!order.isCancelled()">
+          <h3 class="bold h3-container">Thanks {{order.delivery_details.name}},</h3>
+          <p *ngIf="!order.isDelivered()">
+            We got your order and are committed to deliver to you at the earliest!
+          </p>
+          <p *ngIf="order.isDelivered()">
+            We have successfully delivered your order on {{order.delivered_at | datetime}}
+          </p>
+          <ul class="stepper stepper-horizontal">
+            <li class="completed">
+              <a (click)="noOp()">
+                <span class="circle"><i class="fa fa-calendar-check-o"></i></span>
+                <span class="label">We got it!</span>
+              </a>
+            </li>
+            <li [class.active]="order.isDelivered() || order.inProgress() || order.inPrepration()" [class.completed]="order.isDelivered() || order.inProgress()">
+              <a (click)="noOp()">
+                <span class="circle"><i class="fa fa-cutlery"></i></span>
+                <span class="label">Preparing your dishes</span>
+              </a>
+            </li>
+            <li [class.active]="order.isDelivered() || order.inProgress()" [class.completed]="order.isDelivered()">
+              <a (click)="noOp()">
+                <span class="circle"><i class="fa fa-motorcycle"></i></span>
+                <span class="label">On the way</span>
+              </a>
+            </li>
+            <li [class.completed]="order.isDelivered()">
+              <a (click)="noOp()">
+                <span class="circle"><i class="fa fa-thumbs-up"></i></span>
+                <span class="label">You got it!</span>
+              </a>
+            </li>
+          </ul>
+          <hr/>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <h6 class="h6-responsive bold">Deliver to</h6>
+              <p>
+                {{order.delivery_details.name}}
+                <br/> {{order.delivery_details.address}}
+                <br/> {{order.delivery_details.landmark}}
+                <br/> {{order.delivery_details.pincode}}
+                <br/>
+                <i class="fa fa-phone"></i> {{order.delivery_details.phone}}<br/>
+                <i class="fa fa-email"></i> {{order.delivery_details.email}}<br/>
+              </p>
+            </div>
+            <div class="col-md-6 col-12">
+              <h6 class="h6-responsive bold">Order Total</h6>
+              <strong class="rupee"> {{order.total}}</strong><br/>
+              <h6 class="h6-responsive bold mt-2">Payment method</h6>
+              <span *ngIf="order.payment_type==='cod'">Cash On Delivery</span>
+              <span *ngIf="order.payment_type==='payumoney'">Online via PayUMoney</span>
+              <br/>
+              <span *ngIf="order.payment_type==='payumoney'">
+                Payment status: {{order.payment_status.toUpperCase()}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

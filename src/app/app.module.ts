@@ -32,8 +32,10 @@ import { CartSummaryComponent } from './cartsummary/cartsummary.component';
 import { YourOrderComponent } from './your-order/your-order.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { OrderFailureComponent } from './order-failure/order-failure.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
+import { DateTimePipe } from './pipes/datetime.pipe';
 import { TabComponent } from './components/tab';
 import { TabsComponent } from './components/tabs';
 
@@ -59,6 +61,8 @@ import { CheckoutModule } from './checkout/checkout.module';
     YourOrderComponent,
     OrderSuccessComponent,
     OrderFailureComponent,
+    TrackOrderComponent,
+    DateTimePipe,
     ChunkPipe,
     TabComponent,
     TabsComponent

@@ -37,7 +37,7 @@
       </li>
 
       <!-- Second Step -->
-      <li class="" [class.active]="order.isValid()">
+      <li class="" [class.active]="order.isValid()" [class.completed]="order.isValid() && order.hasDeliveryDetails()">
         <a (click)="nextStep('delivery')" [class.disabled]="!order.isValid()">
           <span class="circle">2</span>
           <span class="label">Delivery details</span>

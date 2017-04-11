@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorage, SessionStorage } from 'ng2-webstorage';
 import * as moment from 'moment';
 
 import { Order } from 'model/order';
@@ -13,6 +14,8 @@ export class OrderSuccessComponent implements OnInit {
   order: Order;
   isRequesting: boolean = false;
   error: any = null;
+  @SessionStorage('success_order_no')
+  order_no: string;
 
   constructor(
     private router: Router,
@@ -23,8 +26,21 @@ export class OrderSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.isInValidOrderNo()) {
+      this.order = this.orderService.getOrder();
+      this.order_no = this.order.order_no;
+    }
+
+    if (this.isInValidOrderNo()) {
+      console.error('Invalid order');
+      console.error(this.order);
+      this.error = 'Something is not right';
+      return;
+    }
+    console.log('ss', this.orderService.getOrder());
+    this.orderService.resetOrder();
     this.isRequesting = true;
-    this.orderService.reloadOrder()
+    this.orderService.reloadOrder(this.order_no)
       .then(data => {
         this.isRequesting = false;
         this.order = data;
@@ -32,16 +48,22 @@ export class OrderSuccessComponent implements OnInit {
           console.error('Invalid order');
           console.error(this.order);
           this.router.navigate(['home']);
+          return;
         }
         if (this.order.otp_status !== 'VERIFIED') {
           console.error('Invalid order state!');
           this.router.navigate(['home']);
+          return;
         }
       })
       .catch(e => {
         this.isRequesting = false;
         this.error = e;
       });
+  }
+
+  isInValidOrderNo() {
+    return this.order_no === null || this.order_no === '' || this.order_no.length === 0;
   }
 
   estimated_delivery() {

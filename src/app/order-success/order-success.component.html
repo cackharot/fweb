@@ -9,14 +9,18 @@
     <section class="order__success white px-4 py-3" *ngIf="!isRequesting">
       <div class="row">
         <div class="col-12 columns">
-          <h3 class="bold h3-responsive">Thanks {{order.delivery_details.name}}!</h3>
+          <h1 class="bold h1-responsive">Thanks {{order.delivery_details.name}}!</h1>
           <small>Your order details are below</small>
         </div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-12 columns">
-          <em>Estimated delivery</em>
+        <div class="col-md-4 col-12 columns">
+          <span>Order number</span>
+          <h2 class="h2-responsive bold">{{order.order_no}}</h2>
+        </div>
+        <div class="col-md-8 col-12 columns">
+          <span>Estimated delivery</span>
           <h2 class="h2-responsive strong">{{estimated_delivery()}}</h2>
           <p>
             <a [routerLink]="['/track',{'order_no':order.order_no}]"><i class="fa fa-map-marker"></i>&nbsp; Track your order</a>
@@ -28,7 +32,7 @@
       <div class="row">
         <div class="col-12 columns">
           <p>
-            Your order is successfull, kindly note the order number for further reference <b>{{order.order_no}}</b>. An invoice
+            Your order is successfull, kindly note the order number for further reference. An invoice
             email is on the way to your inbox.
           </p>
           <p>
@@ -39,7 +43,7 @@
       <hr/>
       <div class="row">
         <div class="col-md-6 col-12">
-          <h4 class="h4-responsive">Deliver to</h4>
+          <h6 class="h6-responsive bold">Deliver to</h6>
           <p>
             {{order.delivery_details.name}}
             <br/> {{order.delivery_details.address}}
@@ -51,9 +55,9 @@
           </p>
         </div>
         <div class="col-md-6 col-12">
-          <h4 class="h4-responsive">Order Total</h4>
+          <h6 class="h6-responsive bold">Order Total</h6>
           <strong class="rupee"> {{order.total}}</strong><br/>
-          <h4 class="h4-responsive mt-3">Payment method</h4>
+          <h6 class="h6-responsive bold mt-2">Payment method</h6>
           <span *ngIf="order.payment_type==='cod'">Cash On Delivery</span>
           <span *ngIf="order.payment_type==='payumoney'">Online via PayUMoney</span>
           <br/>
