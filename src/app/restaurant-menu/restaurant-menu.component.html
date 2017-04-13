@@ -1,0 +1,14 @@
+<div class="products">
+  <form (submit)="filter()">
+    <div class="input-group">
+      <input name="searchText" class="input-group-field" type="search" [(ngModel)]="searchText" />
+      <button name="submitBtn" class="btn btn-info" type="submit">Search</button>
+    </div>
+  </form>
+  <div class="row" *ngIf="products && products.length > 0">
+    <div class="col-12 mt-1" *ngFor="let category of categories">
+      <h3>{{category.name}}</h3>
+      <app-product-grid [products]="category.products" (selectedProduct)="addToCart($event)"></app-product-grid>
+    </div>
+  </div>
+</div>

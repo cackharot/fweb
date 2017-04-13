@@ -1,16 +1,26 @@
-<div class="row">
+<div class="row" *ngIf="restaurant && restaurant.name">
   <div class="col-12 col-md-6">
     <h3 class="h3-responsive">
       About {{restaurant.name}}
     </h3>
     <div>
-      <p>Google maps here</p>
-      <p>
+      <sebm-google-map #gmap [latitude]="shop_lat" [longitude]="shop_lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true"
+        (mapClick)="mapClicked($event)">
+        <sebm-google-map-marker [latitude]="shop_lat" [longitude]="shop_lng" [markerDraggable]="false">
+          <sebm-google-map-info-window>
+            <strong>{{restaurant.name}}</strong>
+            <p>
+              {{restaurant.address}}
+            </p>
+          </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+      </sebm-google-map>
+      <p class="mt-1">
         <i class="fa fa-map-marker"></i>&nbsp;{{restaurant.address}}
       </p>
-      <p>
+      <!--<p>
         Distance in km from the user's location
-      </p>
+      </p>-->
       <p><i class="fa fa-mobile"></i>&nbsp;{{restaurant.phone}}</p>
     </div>
   </div>

@@ -1,5 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 import { StoreService } from 'services/store.service';
 import { ProductService } from 'services/product.service';
@@ -8,7 +10,6 @@ import { Restaurant } from 'model/restaurant';
 
 import { Product, Category } from 'model/product';
 
-
 @Component({
   selector: 'app-restaurant-detail',
   templateUrl: './restaurant-detail.component.html',
@@ -16,83 +17,43 @@ import { Product, Category } from 'model/product';
 export class RestaurantDetailComponent implements OnInit {
   storeId: string;
   restaurant: Restaurant;
-  categories: Category[];
-  products: Product[];
-  searchText: string = '';
-  onlyVeg: boolean = false;
   isRequesting: boolean = false;
-  showList: boolean = true;
   errorMsg: any;
-  show_timing_chart: boolean = false;
+  storeRequest: Promise<Restaurant>;
 
   constructor(
-    private router: Router,
-    private zone: NgZone,
-    private storeService: StoreService,
-    private productService: ProductService,
-    private orderService: OrderService,
-    private route: ActivatedRoute) {
-    this.router.events.subscribe(x => {
-      window.scroll(0, 0);
-    });
-    const mql = window.matchMedia('screen and (max-width: 40em)');
-    this.showList = mql.matches;
-    mql.addListener(x => {
-      zone.run(() => {
-        this.showList = x.matches;
-      });
-    });
+    protected router: Router,
+    protected zone: NgZone,
+    protected storeService: StoreService,
+    protected productService: ProductService,
+    protected orderService: OrderService,
+    protected route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    this.storeId = id;
+    this.route.params
+      .switchMap((params: Params) => {
+        this.storeId = params['id'];
+        return this.loadStore(this.storeId);
+      })
+      .subscribe(x => this.restaurant = x);
+  }
+
+  loadStore(id: string = null): Promise<Restaurant> {
+    if (this.isRequesting) {
+      console.log('Already store request in progress');
+      return this.storeRequest;
+    }
     this.isRequesting = true;
-    this.storeService.get(id).then(x => {
+    this.storeRequest = this.storeService.get(id || this.storeId).then(x => {
       this.restaurant = x;
       this.isRequesting = false;
-      this.getProducts();
+      return x;
     }).catch(errorMsg => {
       this.errorMsg = errorMsg;
       this.isRequesting = false;
+      return errorMsg;
     });
-  }
-
-  getProducts() {
-    this.productService.search(this.storeId, this.searchText).then(items => {
-      this.products = items;
-      this.categories = [];
-      if (this.onlyVeg) {
-        this.products = this.products.filter(x => x.isVeg());
-      }
-      for (let i = 0; i < this.products.length; ++i) {
-        const item = this.products[i];
-        const category = this.categories.find(c => c.name === item.category);
-        if (category === undefined) {
-          const c = new Category({ name: item.category });
-          c.addProduct(item);
-          this.categories.push(c);
-        } else {
-          category.addProduct(item);
-        }
-        this.isRequesting = false;
-      }
-    }).catch(errorMsg => {
-      this.errorMsg = errorMsg;
-      this.isRequesting = false;
-    });
-  }
-
-  addToCart(item: Product) {
-    this.orderService.addItem(item);
-  }
-
-  goBack(id: string) {
-    this.router.navigate([id]);
-  }
-
-  filter() {
-    this.getProducts();
-    return false;
+    return this.storeRequest;
   }
 }

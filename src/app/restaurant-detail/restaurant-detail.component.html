@@ -4,89 +4,68 @@
       <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
     </div>
   </section>
-  <div *ngIf="!isRequesting && restaurant">
-    <div class="callout alert" *ngIf="errorMsg != null">
-      <h4>Oops! Something went wrong.</h4> {{errorMsg}}
-    </div>
-    <div class="row no-gutters">
-      <div class="col-md-9">
-        <section class="section section-blog-fw">
-          <!--First row-->
-          <!--Featured image-->
-          <!--<div class="view overlay hm-white-slight">
+  <div class="callout alert" *ngIf="errorMsg != null">
+    <h4>Oops! Something went wrong.</h4> {{errorMsg}}
+  </div>
+  <div class="row no-gutters">
+    <div class="col-md-9">
+      <section class="section section-blog-fw">
+        <!--First row-->
+        <!--Featured image-->
+        <!--<div class="view overlay hm-white-slight">
           <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="header_img show-for-small-only"
           />
         </div>-->
-          <div class="row px-3 py-3">
-            <div class="col-12 col-sm-2 hidden-sm-down">
-              <a class="back-link" routerLink="/restaurants">&lt; Back to restaurants</a>
-              <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="img-fluid z-depth-2 show-for-small-only"
-              />
+        <div class="row px-3 py-3" *ngIf="!isRequesting && restaurant">
+          <div class="col-12 col-sm-2 hidden-sm-down">
+            <a class="back-link" routerLink="/restaurants">&lt; Back to restaurants</a>
+            <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="img-fluid z-depth-2 show-for-small-only"
+            />
+          </div>
+          <div class="col-12 col-sm-10">
+            <a class="back-link mb-1 hidden-md-up" routerLink="/restaurants">&lt; Back to restaurants</a>
+            <div class="d-flex w-100 justify-content-between">
+              <h2 class="h2-responsive"><a>{{restaurant.name}}</a></h2>
+              <div>
+                <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
+                <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
+                <span class="badge red" *ngIf="restaurant.isHoliday()">Holiday</span>
+              </div>
             </div>
-            <div class="col-12 col-sm-10">
-              <a class="back-link mb-1 hidden-md-up" routerLink="/restaurants">&lt; Back to restaurants</a>
-              <div class="d-flex w-100 justify-content-between">
-                <h2 class="h2-responsive"><a>{{restaurant.name}}</a></h2>
-                <div>
-                  <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
-                  <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
-                  <span class="badge red" *ngIf="restaurant.isHoliday()">Holiday</span>
-                </div>
-              </div>
-              <p><i class="fa fa-map-marker"></i>&nbsp;{{restaurant.address}}</p>
-              <div *ngFor="let cus of restaurant.cuisines" class="chip">{{cus}}</div>
-              <div class="timings">
-                <i class="fa fa-hourglass-o"></i> {{restaurant.getTodayStoreTimings().getDay()}}: {{restaurant.getTodayStoreTimings().getFormattedTime()}}
-              </div>
+            <p><i class="fa fa-map-marker"></i>&nbsp;{{restaurant.address}}</p>
+            <div *ngFor="let cus of restaurant.cuisines" class="chip">{{cus}}</div>
+            <div class="timings">
+              <i class="fa fa-hourglass-o"></i> {{restaurant.getTodayStoreTimings().getDay()}}: {{restaurant.getTodayStoreTimings().getFormattedTime()}}
             </div>
           </div>
+        </div>
 
-          <!--Excerpt-->
-          <div class="excerpt">
-            <!-- Nav tabs -->
-            <div class="tabs-wrapper">
-              <ul class="nav classic-tabs tabs-stc" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link waves-light active" data-toggle="tab" href="#menu-panel" role="tab">Menu</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link waves-light" data-toggle="tab" href="#about-panel" role="tab">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link waves-light" data-toggle="tab" href="#review-panel" role="tab">Reviews</a>
-                </li>
-              </ul>
-            </div>
-            <div class="tab-content card">
-              <div class="tab-pane fade in show active" id="menu-panel" role="tabpanel">
-                <div class="products">
-                  <form (submit)="filter()">
-                    <div class="input-group">
-                      <input name="searchText" class="input-group-field" type="search" [(ngModel)]="searchText" />
-                      <button name="submitBtn" class="btn btn-info" type="submit">Search</button>
-                    </div>
-                  </form>
-                  <div class="row">
-                    <div class="col-12 mt-1" *ngFor="let category of categories">
-                      <h3>{{category.name}}</h3>
-                      <app-product-grid [products]="category.products" (selectedProduct)="addToCart($event)"></app-product-grid>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane fade in " id="about-panel" role="tabpanel">
-                <app-restaurant-about [restaurant]="restaurant"></app-restaurant-about>
-              </div>
-              <div class="tab-pane fade in" id="review-panel" role="tabpanel">
-                <app-restaurant-review [restaurant]="restaurant"></app-restaurant-review>
-              </div>
+        <!--Excerpt-->
+        <div class="excerpt">
+          <!-- Nav tabs -->
+          <div class="tabs-wrapper" *ngIf="!isRequesting && restaurant">
+            <ul class="nav classic-tabs tabs-stc" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link waves-light" routerLinkActive="active" [routerLink]="['/restaurants',restaurant._id.str()]" [routerLinkActiveOptions]="{exact: true}">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link waves-light" routerLinkActive="active" [routerLink]="['/restaurants',restaurant._id.str(), 'about']">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link waves-light" routerLinkActive="active" [routerLink]="['/restaurants',restaurant._id.str(), 'review']">Reviews</a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content card">
+            <div class="tab-pane fade in show active" id="menu-panel" role="tabpanel">
+              <router-outlet></router-outlet>
             </div>
           </div>
-        </section>
-      </div>
-      <div class="col-md-3 hidden-sm-down">
-        <app-your-order [showCheckoutButton]="true"></app-your-order>
-      </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-3 hidden-sm-down">
+      <app-your-order [showCheckoutButton]="true"></app-your-order>
     </div>
   </div>
 </div>

@@ -7,6 +7,9 @@ import { OrderFailureComponent } from './order-failure/order-failure.component';
 // import { OtpComponent } from './otp/otp.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';
+import { RestaurantAboutComponent } from './restaurant-about/restaurant-about.component';
+import { RestaurantReviewComponent } from './restaurant-review/restaurant-review.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 // import { MyOrderComponent } from './my-order/my-order.component';
 // import { FaqComponent } from './faq/faq.component';
@@ -15,13 +18,19 @@ import { TrackOrderComponent } from './track-order/track-order.component';
 // import { AboutUsComponent } from './aboutus/aboutus.component';
 
 const AppRoutes = RouterModule.forRoot([
-  { path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'restaurants', component: RestaurantListComponent },
-  { path: 'menu/:id', component: RestaurantDetailComponent },
+  {
+    path: 'restaurants/:id', component: RestaurantDetailComponent,
+    children: [
+      // { path: '', redirectTo: 'menu', pathMatch: 'full' },
+      { path: '', component: RestaurantMenuComponent },
+      { path: 'menu', component: RestaurantMenuComponent },
+      { path: 'about', component: RestaurantAboutComponent },
+      { path: 'review', component: RestaurantReviewComponent },
+    ]
+  },
   { path: 'order_success', component: OrderSuccessComponent },
   { path: 'order_failure', component: OrderFailureComponent },
   { path: 'track', component: TrackOrderComponent },

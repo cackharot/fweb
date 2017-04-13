@@ -7,6 +7,8 @@ import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TopNavComponent } from './topnav/topnav.component';
@@ -23,6 +25,7 @@ import { AppRoutes } from './app.routes';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantReviewComponent } from './restaurant-review/restaurant-review.component';
+import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';
 import { RestaurantAboutComponent } from './restaurant-about/restaurant-about.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -52,6 +55,7 @@ import { CheckoutModule } from './checkout/checkout.module';
     FooterComponent,
     RestaurantDetailComponent,
     RestaurantListComponent,
+    RestaurantMenuComponent,
     RestaurantReviewComponent,
     RestaurantAboutComponent,
     RestaurantComponent,
@@ -73,6 +77,9 @@ import { CheckoutModule } from './checkout/checkout.module';
     HttpModule,
     OAuthModule.forRoot(),
     Ng2Webstorage,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyARttGEnBB_fhZnU_PGXzYhE-02ez8lqWo'
+    }),
     CheckoutModule,
     AppRoutes
   ],
