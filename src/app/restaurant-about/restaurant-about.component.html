@@ -24,8 +24,8 @@
       <p><i class="fa fa-mobile"></i>&nbsp;{{restaurant.phone}}</p>
     </div>
   </div>
-  <div class="col-12 col-md-6" *ngIf="restaurant.timings_table && restaurant.timings_table.length > 0">
-    <table class="table table-responsive">
+  <div class="col-12 col-md-6">
+    <table class="table table-responsive" *ngIf="restaurant.hasTimingTable()">
       <thead>
         <tr>
           <th>Hours</th>
@@ -41,6 +41,10 @@
           </tr>
         </tbody>
     </table>
+    <div *ngIf="!restaurant.hasTimingTable()">
+      <h5 class="h5-responsive">Store Hours</h5>
+      <p>*Open all day from {{restaurant.getTodayStoreTimings().getFormattedTime()}}</p>
+    </div>
     <label *ngIf="restaurant.holidays.length>0">Holidays: </label>
     <div class="holidays clip" *ngIf="restaurant.holidays.length>0">
       {{restaurant.holidays.join(', ')}}

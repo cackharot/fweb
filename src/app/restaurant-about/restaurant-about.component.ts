@@ -18,7 +18,7 @@ import { MapsAPILoader, SebmGoogleMap } from 'angular2-google-maps/core';
 export class RestaurantAboutComponent implements OnInit {
   restaurant: Restaurant;
   @ViewChild('gmap') gmap: SebmGoogleMap;
-  zoom = 17;
+  zoom = 18;
   shop_lat: number = 11.2;
   shop_lng: number = 79.9;
   geocoder: google.maps.Geocoder;
@@ -70,12 +70,12 @@ export class RestaurantAboutComponent implements OnInit {
     const address = `${restaurant.name}, ${restaurant.address}`;
     this.geocoder.geocode({ 'address': address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
-        console.log(address, results, this.gmap);
+        // console.log(address, results, this.gmap);
         const loc = results[0].geometry.location;
         this.shop_lat = loc.lat();
         this.shop_lng = loc.lng();
         this.gmap.triggerResize().then(() => {
-          console.log(this.shop_lat, this.shop_lng);
+          // console.log(this.shop_lat, this.shop_lng);
         });
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);

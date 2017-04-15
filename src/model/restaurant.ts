@@ -27,9 +27,9 @@ export class StoreTiming {
   }
 
   getTimes() {
-    let tstr = this.time.split(',');
-    let res = tstr.map(x => {
-      var t = x.split('-');
+    const tstr = this.time.split(',');
+    const res = tstr.map(x => {
+      const t = x.split('-');
       return { 'open_time': Number.parseFloat(t[0]), 'close_time': Number.parseFloat(t[1]) };
     });
     return res;
@@ -40,19 +40,19 @@ export class StoreTiming {
   }
 
   _formatTime() {
-    let tstr = this.time.split(',');
-    let formatted_time_array = tstr.map(x => {
-      var t = x.split('-');
-      return '' + this._doFmt(Number.parseFloat(t[0])) + " to " + this._doFmt(Number.parseFloat(t[1]));
+    const tstr = this.time.split(',');
+    const formatted_time_array = tstr.map(x => {
+      const t = x.split('-');
+      return `${this._doFmt(Number.parseFloat(t[0]))} to ${this._doFmt(Number.parseFloat(t[1]))}`;
     });
     return formatted_time_array.join(', ');
   }
 
   isOpen() {
-    let hr = moment().hour() + (moment().minute() / 60);
-    let t = this.getTimes();
-    for (var i = 0; i < t.length; ++i) {
-      let x = t[i];
+    const hr = moment().hour() + (moment().minute() / 60);
+    const t = this.getTimes();
+    for (let i = 0; i < t.length; ++i) {
+      const x = t[i];
       if (hr >= x.open_time && hr <= x.close_time) {
         return true;
       }
@@ -91,7 +91,7 @@ export class Restaurant {
   name: string;
   status: boolean;
   image_url: string = null;
-  day_names = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  day_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   static of(data) {
     if (data && data.constructor.name !== Restaurant.name) {
@@ -148,10 +148,14 @@ export class Restaurant {
     return this.day_names[moment().weekday()];
   }
 
+  hasTimingTable(): boolean {
+    return this.timings_table && this.timings_table.length > 0;
+  }
+
   getTodayStoreTimings(): StoreTiming {
     const day = this.getTodayDayname();
-    if (this.timings_table && this.timings_table.length > 0) {
-      return this.timings_table.filter(x => x.day.toLocaleLowerCase() === day)[0];
+    if (this.hasTimingTable()) {
+      return this.timings_table.filter(x => x.day.toLocaleLowerCase() === day.toLocaleLowerCase())[0];
     }
     return new StoreTiming({ 'day': day, 'time': this.open_time + '-' + this.close_time });
   }
