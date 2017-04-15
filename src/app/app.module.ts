@@ -43,6 +43,7 @@ import { TabComponent } from './components/tab';
 import { TabsComponent } from './components/tabs';
 
 import { CheckoutModule } from './checkout/checkout.module';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CheckoutModule } from './checkout/checkout.module';
     DateTimePipe,
     ChunkPipe,
     TabComponent,
-    TabsComponent
+    TabsComponent,
+    FeaturedProductsComponent
   ],
   imports: [
     BrowserModule,

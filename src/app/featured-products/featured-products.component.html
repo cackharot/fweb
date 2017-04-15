@@ -1,0 +1,6 @@
+<div class="container-fluid mb-3" *ngIf="popular_dishes && popular_dishes.length> 0 ">
+  <h3 class="h3-responsive font-weight-bold">
+    Featured dishes
+  </h3>
+  <app-product-list [products]="popular_dishes" (selectedProduct)="addToCart($event)"></app-product-list>
+</div>

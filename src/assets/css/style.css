@@ -669,3 +669,17 @@ input[type=date].ng-touched.ng-invalid+label.active:after,input[type=date]:focus
     -webkit-animation: container-rotate 1568ms linear infinite;
     animation: container-rotate 1568ms linear infinite
 }
+
+.small{
+    font-size: 70%;
+}
+
+.product-card img{
+    height: 220px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.product-card.min-height{
+    min-height: 380px;
+}

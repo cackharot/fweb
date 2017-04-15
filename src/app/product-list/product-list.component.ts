@@ -6,8 +6,6 @@ import { OrderService } from 'services/order.service';
 import { Product, PriceDetail } from 'model/product';
 import { PriceTableComponent } from '../price-table/price-table.component';
 
-import { ChunkPipe } from '../pipes/chunk.pipe';
-
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
