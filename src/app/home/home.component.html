@@ -11,7 +11,7 @@
         </h5>
       </li>
       <li>
-        <form class="form">
+        <form class="form" (submit)="search(searchText)">
           <div class="row wow fadeIn" data-wow-delay="0.4s">
             <div class="col-md-8">
               <div class="md-form">
@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4">
               <div class="md-form">
-                <button class="btn btn-lg btn-danger waves-effect waves-light">Find Food</button>
+                <button type="submit" class="btn btn-lg btn-danger waves-effect waves-light">Find Food</button>
               </div>
             </div>
           </div>
