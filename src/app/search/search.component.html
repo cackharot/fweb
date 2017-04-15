@@ -1,0 +1,22 @@
+<div class="container-fluid px-0">
+  <section class="row no-gutters">
+    <div class="col-md-3 col-12 hidden-sm-down">
+      <app-filter-search [filterSubject]="filter"></app-filter-search>
+    </div>
+    <div class="col-md-9 col-12">
+      <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
+      <div class="p-3">
+        <h3 class="h3-responsive font-weight-bold mb-1">Search results</h3>
+
+        <div class="callout warning mb-1" *ngIf="!storeSearchData.searchText || storeSearchData.searchText.length < 3">
+          <p>Atleast enter 3 letters to begin the search!</p>
+        </div>
+
+        <div class="" *ngIf="storeSearchData.searchText && storeSearchData.searchText.length > 2 && !isRequesting">
+          <app-restaurant [responseData]="storeSearchResponse" [isRequesting]="isRequesting" (onPaginate)="searchRestaurants($event)"></app-restaurant>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -16,6 +16,7 @@ import { TrackOrderComponent } from './track-order/track-order.component';
 // import { TermsOfUseComponent } from './terms/terms.component';
 // import { ContactUsComponent } from './contactus/contactus.component';
 // import { AboutUsComponent } from './aboutus/aboutus.component';
+import { SearchComponent } from './search/search.component';
 
 const AppRoutes = RouterModule.forRoot([
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,6 +36,7 @@ const AppRoutes = RouterModule.forRoot([
   { path: 'order_failure', component: OrderFailureComponent },
   { path: 'track', component: TrackOrderComponent },
   { path: 'track/:order_no', component: TrackOrderComponent },
+  { path: 'search/:q', component: SearchComponent },
   // { path: 'my_orders', component: MyOrderComponent },
 
   // { path: 'faq', component: FaqComponent },

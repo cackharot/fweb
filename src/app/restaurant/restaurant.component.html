@@ -3,7 +3,7 @@
   <p>You might have misspelled or try again!</p>
 </div>
 <div class="list-group restaurants" *ngIf="!isEmpty() && !isRequesting">
-  <section class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let restaurant of responseData.items"
+  <section class="animated fadeIn list-group-item list-group-item-action flex-column align-items-start" *ngFor="let restaurant of responseData.items"
     [class.active]="restaurant === selectedRestaurant">
     <div class="media d-flex w-100">
       <a class="media-left waves-light">

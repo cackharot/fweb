@@ -44,6 +44,8 @@ import { TabsComponent } from './components/tabs';
 
 import { CheckoutModule } from './checkout/checkout.module';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { SearchComponent } from './search/search.component';
+import { FilterSearchComponent } from './filter-search/filter-search.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
     ChunkPipe,
     TabComponent,
     TabsComponent,
-    FeaturedProductsComponent
+    FeaturedProductsComponent,
+    SearchComponent,
+    FilterSearchComponent
   ],
   imports: [
     BrowserModule,

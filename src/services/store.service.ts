@@ -51,7 +51,7 @@ export class StoreSearchResponse extends StoreSearchModel {
   previous: string;
   next: string;
 
-  static of(data) {
+  static of(data): StoreSearchResponse {
     if (data === null || data.constructor.name === StoreSearchResponse.name) {
       return data;
     }
@@ -75,7 +75,7 @@ export class StoreService {
   constructor(private http: Http) { }
 
   search(searchUrl: string, data: StoreSearchModel): Promise<StoreSearchResponse> {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('filter_text', data.searchText);
     params.set('store_ids', data.store_ids.join(','));
     params.set('only_veg', data.onlyVeg.toString());
@@ -98,8 +98,8 @@ export class StoreService {
     return this.http.get(searchUrl, { search: params })
       .toPromise()
       .then(response => {
-        let storeResponse = response.json();
-        let result = StoreSearchResponse.of(storeResponse);
+        const storeResponse = response.json();
+        const result = StoreSearchResponse.of(storeResponse);
         return result;
       })
       .catch(this.handleError);
