@@ -73,4 +73,9 @@ export class RestaurantListComponent implements OnInit {
       this.isRequesting = false;
     });
   }
+
+  doPaginate(url: string) {
+    this.search(url);
+    return false;
+  }
 }

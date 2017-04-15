@@ -32,10 +32,6 @@ export class RestaurantComponent implements OnInit {
     return !items || items.length === 0;
   }
 
-  doPaginate(url: string) {
-    this.onPaginate.emit(url);
-  }
-
   onSelect(restaurant: Restaurant) {
     this.router.navigate(['/restaurant', restaurant._id.$oid]);
   }

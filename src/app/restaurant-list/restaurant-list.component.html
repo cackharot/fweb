@@ -40,6 +40,23 @@
           </div>
         </div>
         <app-restaurant [responseData]="responseData" [isRequesting]="isRequesting" (onPaginate)="search($event)"></app-restaurant>
+
+        <div class="d-flex mt-1 justify-content-end">
+          <ul *ngIf="responseData.total > 0" class="pagination">
+            <li class="page-item previous" [class.disabled]="!responseData.previous">
+              <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item next" [class.disabled]="!responseData.next">
+              <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
