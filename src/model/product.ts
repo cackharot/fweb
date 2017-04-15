@@ -35,7 +35,7 @@ export class PriceDetail {
     if (this.discount <= 0.0) {
       return '' + this.price;
     }
-    return `${this.getDiscountedPrice()}<em class="text-muted strike">${this.price}</em> `;
+    return `${this.getDiscountedPrice()}<em class="discount">${this.price}</em> `;
   }
 }
 
@@ -137,8 +137,7 @@ export class Product {
     if (this.discount <= 0.0) {
       return '' + this.sell_price;
     }
-    // return '<em class="text-muted strike">' + this.sell_price + '</em> ' + this.getDiscountedPrice();
-    return `${this.getDiscountedPrice()}<em class="text-muted strike">${this.sell_price}</em> `;
+    return `${this.getDiscountedPrice()}<em class="discount">${this.sell_price}</em> `;
   }
 
   getDiscountedPrice() {

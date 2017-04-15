@@ -1,18 +1,16 @@
 <div class="d-flex w-100 justify-content-between">
-  <div *ngIf="product.hasPriceTable()" style="white-space: nowrap;">
+  <div *ngIf="product.hasPriceTable()">
     <select [(ngModel)]="selection" (ngModelChange)="onChange($event)">
       <option *ngFor="let item of product.price_table" [ngValue]="item">
         {{item.description}}
       </option>
     </select>
     <strong class="price_tag rupee light" [innerHTML]="selection.getFormattedPrice()"></strong>
-    <!--<small class="price_discount text-muted" *ngIf="selection.discount>0">{{selection.discount}}% discount</small>-->
   </div>
   <div *ngIf="!product.hasPriceTable()">
     <strong class="price_tag rupee light" [innerHTML]="product.getFormattedPrice()"></strong>
-    <!--<small class="price_discount text-muted" *ngIf="product.discount>0">{{product.discount}}% discount</small>-->
   </div>
-  <a (click)="select(product)" class="padd blue-grey-text hidden-sm-down" [class.active]="isInCart(product)" [class.disabled]="!product.isAvailable()">
+  <a (click)="select(product)" class="padd blue-grey-text" [class.active]="isInCart(product)" [class.disabled]="!product.isAvailable()">
     <i class="fa fa-shopping-cart fa-lg"></i>
   </a>
 </div>

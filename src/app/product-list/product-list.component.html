@@ -4,7 +4,7 @@
 </div>
 <div class="row">
 	<div class="col-md-3 col-12 mb-1" *ngFor="let product of products;">
-		<div class="card card-cascade min-height product-card">
+		<div class="card card-cascade min-height product-card product-item">
 			<div class="view overlay hm-white-slight">
 				<img src="{{product.getImage() || '/assets/img/placeholder.png'}}" class="img-fluid" alt="" />
 				<a>
@@ -19,22 +19,24 @@
 					</li>
 				</ul>
 				<h4 class="card-title">
-					<i class="fa fa-check green-text" title="Incart" *ngIf="getQuantity(product)>0"></i>
+					<i class="fa fa-check green-text animated bounceIn" title="Incart" *ngIf="getQuantity(product)>0"></i>
 					<strong>{{product.name}}</strong>
 				</h4>
 				<!--<p class="light show-for-medium description"><i>{{product.description}}</i></p>-->
-				<app-price-table [product]="product" (selectedProduct)="select($event)"></app-price-table>
-				<div class="row list-footer no-gutters incart-items" *ngIf="getFilteredPriceTable(product).length > 0">
-          <div class="col-12 col-md-6" *ngFor="let pd of getFilteredPriceTable(product)">
-            <p class="card-text">
-              <i class="fa fa-check green-text"></i>
-              <small>{{getQuantity(product,pd)}}x</small>&nbsp;{{pd.description}}&nbsp;<small class="rupee">({{pd.getDiscountedPrice()}})</small>
-            </p>
-          </div>
-        </div>
 				<div class="small card-text text-muted mt-1" *ngIf="!product.isAvailable()">
 					<span *ngIf="product.isOpen()">Currently unavailable. Try again later!</span>
 					<span *ngIf="!product.isOpen()">Available from {{product.getFormattedAvailableTimings()}}</span>
+				</div>
+				<div class="card-footer">
+					<app-price-table [product]="product" (selectedProduct)="select($event)"></app-price-table>
+					<div class="text-left list-footer incart-items" *ngIf="getFilteredPriceTable(product).length > 0">
+						<div class="card-text" *ngFor="let pd of getFilteredPriceTable(product)">
+							<i class="fa fa-check green-text animated bounceIn"></i>
+							<small>{{getQuantity(product,pd)}}x</small>&nbsp;{{pd.description}}&nbsp;<small class="rupee">({{pd.getDiscountedPrice()}})</small>
+						</div>
+					</div>
+					<!--<span class="left">59$ <span class="discount">199$</span></span>-->
+					<!--<span class="right"><a class="" data-toggle="tooltip" data-placement="top" title="Add to card"><i class="fa fa-plus"></i></a></span>-->
 				</div>
 			</div>
 		</div>

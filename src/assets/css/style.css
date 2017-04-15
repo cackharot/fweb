@@ -226,6 +226,10 @@ label[for=cart-summary] .badge{
   font-size: 12px;
 }
 
+.text-no-wrap {
+    white-space: nowrap;
+}
+
 .product-item {
   margin-bottom: 0.25rem;
 }
@@ -682,4 +686,23 @@ input[type=date].ng-touched.ng-invalid+label.active:after,input[type=date]:focus
 
 .product-card.min-height{
     min-height: 380px;
+}
+
+.card .card-footer .left {
+    float: left;
+}
+
+.card .card-footer .right {
+    float: right;
+}
+
+.card .card-footer {
+    background-color: inherit;
+    padding: 0.75rem 0 0 0;
+}
+
+.discount {
+    text-decoration: line-through;
+    color: #9e9e9e;
+    font-size: 1.1rem;
 }
