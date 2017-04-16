@@ -15,6 +15,8 @@ export class YourOrderComponent implements OnInit {
   totalAmount: number;
   @Input()
   showCheckoutButton = false;
+  @Input()
+  title = 'Your Order';
 
   constructor(
     private router: Router,

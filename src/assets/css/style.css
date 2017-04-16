@@ -524,6 +524,12 @@ footer.page-footer{
     text-transform: uppercase;
 }
 
+.btn-outline-primary:active,.btn-outline-primary:active:focus,.btn-outline-primary:focus,.btn-outline-primary:hover,
+.btn-outline-primary.active {
+    color: white!important;
+    background-color: #0275d8!important;
+}
+
 .md-form label {
   width: 100%;
 }

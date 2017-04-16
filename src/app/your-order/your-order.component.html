@@ -1,87 +1,85 @@
-<div class="order-summary col-md-3">
-  <h5 class="h5-responsive font-weight-bold pl-2">Your Order</h5>
+<h5 class="h5-responsive font-weight-bold pl-2">{{title}}</h5>
 
-  <div class="text-center text-muted pt-3" *ngIf="isEmptyOrder()">
-    <i class="fa fa-shopping-bag fa-4x"></i>
-    <h3 class="mt-2">Aren't you hungry yet?</h3>
-    <h6>Quick, add yummy foods to checkout...</h6>
-  </div>
+<div class="text-center text-muted pt-3" *ngIf="isEmptyOrder()">
+  <i class="fa fa-shopping-bag fa-4x"></i>
+  <h3 class="mt-2">Aren't you hungry yet?</h3>
+  <h6>Quick, add yummy foods to checkout...</h6>
+</div>
 
-  <div class="h-100 d-flex flex-column justify-content-start" *ngIf="!isEmptyOrder()">
-    <div class="table__wrapper">
-      <table class="table order_table">
-        <tbody>
-          <tr *ngFor="let item of order.getItems()">
-            <td>
-              <div class="product_name">
-                <a (click)="removeItem(item)" [class.text-alert]="item.store.isClosed()" title="Remove item from cart!">
-                  <i class="fa fa-times-circle red-text"></i>
-                </a>
-                {{item.name}} <br/>
-                <small class="light" *ngIf="item.price_detail && item.price_detail.description && item.price_detail.description.length > 0">
+<div class="h-100 d-flex flex-column justify-content-start" *ngIf="!isEmptyOrder()">
+  <div class="table__wrapper">
+    <table class="table order_table">
+      <tbody>
+        <tr *ngFor="let item of order.getItems()">
+          <td>
+            <div class="product_name">
+              <a (click)="removeItem(item)" [class.text-alert]="item.store.isClosed()" title="Remove item from cart!">
+                <i class="fa fa-times-circle red-text"></i>
+              </a>
+              {{item.name}} <br/>
+              <small class="light" *ngIf="item.price_detail && item.price_detail.description && item.price_detail.description.length > 0">
                         {{item.price_detail.description}}
                         <i *ngIf="item.price_detail.discount > 0">{{item.price_detail.discount}}% discount</i>
                       </small>
-                <small class="light" *ngIf="!item.price_detail && item.discount > 0">
+              <small class="light" *ngIf="!item.price_detail && item.discount > 0">
                         <i>{{item.discount}}% discount</i><br/>
                       </small>
-                <span class="store_name light"><i>from</i> {{item.store.name}}</span>
-                <br/>
-                <small class="light pink-text" *ngIf="item.store.isClosed()">
+              <span class="store_name light"><i>from</i> {{item.store.name}}</span>
+              <br/>
+              <small class="light pink-text" *ngIf="item.store.isClosed()">
                 Currently unavailable!
               </small>
-              </div>
-            </td>
-            <td class="quantity text-right">
-              <!--<span class="price light">{{item.price}}x</span>-->
-              <a (click)="changeQuantity(item,-1)"><i class="fa fa-minus-square"></i></a> {{item.quantity}}
-              <a (click)="changeQuantity(item,1)"><i class="fa fa-plus-square"></i></a>
-            </td>
-            <td class="price text-right">{{item.getTotalPrice()}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="">
-      <table class="table order_table">
-        <tfoot>
-          <tr>
-            <td colspan="2">
-              Subtotal:
-            </td>
-            <td class="total text-right">{{order.getSubTotal()}}</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Delivery Charges:
-            </td>
-            <td class="total text-right">{{order.getDeliveryCharges()}}</td>
-          </tr>
-          <tr *ngIf="order.coupon_code">
-            <td colspan="2">
-              <a (click)="removeCoupon()" title="Remove applied coupon">
-                <i class="fa fa-times-circle"></i>
-              </a>
-              {{order.coupon_code}}<br/>
-              <small style="font-weight: lighter">coupon applied.</small>
-            </td>
-            <td class="total text-right">{{order.getCouponDiscount()}}</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Total:
-            </td>
-            <td class="total rupee text-right">
-              <strong>{{order.getTotalAmount()}}</strong>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <div class="mt-auto text-center mb-1" *ngIf="showCheckoutButton">
-      <a class="btn btn-stc btn-block" routerLink="/checkout">
-        <i class="fa fa-shopping-bag"></i> Checkout
-      </a>
-    </div>
+            </div>
+          </td>
+          <td class="quantity text-right">
+            <!--<span class="price light">{{item.price}}x</span>-->
+            <a (click)="changeQuantity(item,-1)"><i class="fa fa-minus-square"></i></a> {{item.quantity}}
+            <a (click)="changeQuantity(item,1)"><i class="fa fa-plus-square"></i></a>
+          </td>
+          <td class="price text-right">{{item.getTotalPrice()}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="">
+    <table class="table order_table">
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            Subtotal:
+          </td>
+          <td class="total text-right">{{order.getSubTotal()}}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Delivery Charges:
+          </td>
+          <td class="total text-right">{{order.getDeliveryCharges()}}</td>
+        </tr>
+        <tr *ngIf="order.coupon_code">
+          <td colspan="2">
+            <a (click)="removeCoupon()" title="Remove applied coupon">
+              <i class="fa fa-times-circle"></i>
+            </a>
+            {{order.coupon_code}}<br/>
+            <small style="font-weight: lighter">coupon applied.</small>
+          </td>
+          <td class="total text-right">{{order.getCouponDiscount()}}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Total:
+          </td>
+          <td class="total rupee text-right">
+            <strong>{{order.getTotalAmount()}}</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="mt-auto text-center mb-1" *ngIf="showCheckoutButton">
+    <a class="btn btn-stc btn-block" routerLink="/checkout">
+      <i class="fa fa-shopping-bag"></i> Checkout
+    </a>
   </div>
 </div>

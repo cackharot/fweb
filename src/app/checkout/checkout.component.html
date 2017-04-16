@@ -27,6 +27,10 @@
         <p>For assistance or any queries, kindly call us on +91 7373730484</p>
       </div>
 
+      <div class="hidden-sm-up">
+        <app-your-order [title]="'Order details'" [showCheckoutButton]="false"></app-your-order>
+      </div>
+
       <app-delivery-detail [order]="order" (nextStepSource)="step=$event"></app-delivery-detail>
 
       <app-payment [order]="order"></app-payment>
@@ -38,8 +42,8 @@
         </button>
       </div>
     </div>
-    <div class="col-md-3 hidden-sm-down">
-      <app-your-order [showCheckoutButton]="false"></app-your-order>
+    <div class="col-md-3 order-summary hidden-sm-down">
+      <app-your-order [title]="'Order details'" [showCheckoutButton]="false"></app-your-order>
     </div>
   </section>
 </section>
