@@ -1,62 +1,35 @@
 <div class="container-fluid px-0">
-  <section class="row" *ngIf="isRequesting">
-    <div class="col-12">
-      <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
+  <div class="row no-gutters">
+    <div class="col-md-3 col-12 hidden-sm-down">
+      <app-filter-search [searchPlaceholder]="'Enter restaurant name...'" [filterSubject]="filter"></app-filter-search>
     </div>
-  </section>
-  <div *ngIf="!isRequesting">
-    <div class="row no-gutters">
-      <div class="col-md-3 hidden-sm-down">
-        <div class="col-md-3 blue-grey lighten-5 restaurants__filter">
-          <h3 class="h3-responsive">Filters
-            <small><a class="clear-filter" (click)="clearFilter()">clear all</a></small>
-          </h3>
-          <strong>Cuisine</strong>
-          <div class="card-text mb-1">
-            <label class=""> <input type="checkbox" name="south_indian" /> South Indian</label>
-            <label class=""> <input type="checkbox" name="multicuisine" /> Multicuisine</label>
-            <label class=""> <input type="checkbox" name="sandwiches" /> Sandwiches</label>
-            <label class=""> <input type="checkbox" name="briyani" /> Briyani</label>
-            <label class=""> <input type="checkbox" name="pizza" /> Pizza </label>
-            <label class=""> <input type="checkbox" name="icecreams" /> Ice Creams </label>
-            <label class=""> <input type="checkbox" name="deserts" /> Deserts </label>
-            <label class=""> <input type="checkbox" name="italian" /> Italian </label>
-          </div>
-          <strong>Feature</strong>
-          <div class="card-text mb-1">
-            <label class=""> <input type="checkbox" name="open_now" /> Open Now </label>
-            <label class=""> <input type="checkbox" name="pure_veg" /> Pure Veg </label>
-            <label class=""> <input type="checkbox" name="new" /> New </label>
-          </div>
+    <div class="col-md-9 px-3 py-1">
+      <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
+      <div class="row justify-content-between">
+        <div class="col-md-6">
+          <h2 class="h2-responsive">Restaurants</h2>
+        </div>
+        <div class="col-md-2 end">
+          <small>Sort By:</small>
         </div>
       </div>
-      <div class="col-md-9 px-3 py-1">
-        <div class="row justify-content-between">
-          <div class="col-md-6">
-            <h2 class="h2-responsive">Restaurants</h2>
-          </div>
-          <div class="col-md-2 end">
-            <small>Sort By:</small>
-          </div>
-        </div>
-        <app-restaurant [responseData]="responseData" [isRequesting]="isRequesting" (onPaginate)="search($event)"></app-restaurant>
+      <app-restaurant [responseData]="responseData" [isRequesting]="isRequesting" (onPaginate)="search($event)"></app-restaurant>
 
-        <div class="d-flex mt-1 justify-content-end">
-          <ul *ngIf="responseData.total > 0" class="pagination">
-            <li class="page-item previous" [class.disabled]="!responseData.previous">
-              <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item next" [class.disabled]="!responseData.next">
-              <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div class="d-flex mt-1 justify-content-end">
+        <ul *ngIf="responseData.total > 0" class="pagination">
+          <li class="page-item previous" [class.disabled]="!responseData.previous">
+            <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item next" [class.disabled]="!responseData.next">
+            <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -25,6 +25,7 @@ export class StoreSearchModel {
   page_no: number = 1;
   page_size: number = 100;
   store_ids: string[];
+  cuisines: string[];
 
   constructor(
     searchText: string = '',
@@ -42,6 +43,7 @@ export class StoreSearchModel {
     this.page_no = page_no;
     this.page_size = page_size;
     this.store_ids = [];
+    this.cuisines = [];
   }
 }
 
@@ -78,6 +80,7 @@ export class StoreService {
     const params: URLSearchParams = new URLSearchParams();
     params.set('filter_text', data.searchText);
     params.set('store_ids', data.store_ids.join(','));
+    params.set('cuisines', data.cuisines.join(','));
     params.set('only_veg', data.onlyVeg.toString());
     params.set('only_open', data.onlyOpen.toString());
     params.set('user_location', data.userLocation);

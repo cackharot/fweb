@@ -54,8 +54,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   doSearch(filter: FilterModel): Promise<StoreSearchResponse> {
     this.storeSearchData.searchText = filter.searchText;
-    this.storeSearchData.onlyVeg = filter.onlyVeg;
-    this.storeSearchData.onlyOpen = filter.onlyOpen;
     for (const x in this.storeSearchData) {
       if (filter.others.hasOwnProperty(x)) {
         this.storeSearchData[x] = filter.others[x];

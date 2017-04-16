@@ -12,6 +12,7 @@ import { OptionModel } from '../../model/base';
 export class FilterSearchComponent implements OnInit, OnDestroy {
   @Input()
   filterSubject: Subject<FilterModel>;
+  @Input() searchPlaceholder = 'Enter dish or restaurant name...';
   model: FilterModel = new FilterModel();
   sub: Subscription;
   availableCuisines: OptionModel[] = [];
@@ -47,6 +48,10 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
     this.model = new FilterModel();
     this.onChanged();
     return false;
+  }
+
+  isChecked(id: string) {
+    return this.model.others[id] === true;
   }
 
   updateOptions(id: string, event: any) {

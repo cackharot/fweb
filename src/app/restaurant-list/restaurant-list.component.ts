@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Control } from '@angular/common';
 
 import { SessionStorage } from 'ng2-webstorage';
@@ -17,50 +17,61 @@ import { StoreSearchModel, StoreSearchResponse, StoreService } from 'services/st
 
 import { Product } from 'model/product';
 import { Restaurant } from 'model/restaurant';
-
+import { FilterModel } from 'model/base';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-restaurant-list',
   templateUrl: './restaurant-list.component.html',
   styleUrls: ['./restaurant-list.component.scss']
 })
-export class RestaurantListComponent implements OnInit {
-
+export class RestaurantListComponent implements OnInit, OnDestroy {
   @SessionStorage()
-  searchData: StoreSearchModel = new StoreSearchModel();
+  storeSearchData: StoreSearchModel = new StoreSearchModel();
   responseData: StoreSearchResponse = new StoreSearchResponse();
-  // searchCtrl: Control = new Control('');
-  searchCtrl = '';
   isRequesting: boolean = false;
   restaurants: Restaurant[];
   errorMsg: string;
-
+  filter: Subject<FilterModel> = new Subject<FilterModel>();
+  sub: Subscription;
 
   constructor(
     private orderService: OrderService,
     private storeService: StoreService) {
-    this.searchData.page_size = 10;
+    this.storeSearchData.page_size = 10;
   }
 
   ngOnInit() {
-    // this.searchCtrl.valueChanges
-    //   .debounceTime(600)
-    //   .distinctUntilChanged()
-    //   .subscribe(term => {
-    //     this.searchData.searchText = term ? term.trim() : '';
-    //     this.search();
-    //   });
+    this.sub = this.filter
+      .delay(50)
+      .debounce(() => Observable.interval(750))
+      .subscribe(x => {
+        this.setSearchData(x);
+        this.search();
+      });
     this.search();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  setSearchData(filter: FilterModel) {
+    this.storeSearchData.searchText = filter.searchText;
+    this.storeSearchData.cuisines = [];
+    for (const x in this.storeSearchData) {
+      const fid = filter.others[x];
+      if (filter.others.hasOwnProperty(x)) {
+        this.storeSearchData[x] = fid;
+      } else if (filter.others[x] === true) {
+        this.storeSearchData.cuisines.push(fid);
+      }
+    }
   }
 
   search(searchUrl: string = null) {
     this.isRequesting = true;
-    let res: Promise<StoreSearchResponse>;
-    if (searchUrl) {
-      res = this.storeService.search(searchUrl, this.searchData);
-    } else {
-      res = this.storeService.search(searchUrl, this.searchData)
-    }
+    const res = this.storeService.search(searchUrl, this.storeSearchData);
     res.then(x => {
       this.errorMsg = null;
       this.responseData = x;

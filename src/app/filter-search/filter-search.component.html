@@ -1,7 +1,7 @@
 <div class="col-md-3 blue-grey lighten-5 restaurants__filter">
   <form (submit)="search()">
     <div class="md-form input-group">
-      <input type="search" id="searchText" placeholder="Enter dish or restaurant name..." class="form-control search p-0" name="searchText"
+      <input type="search" id="searchText" placeholder="{{searchPlaceholder}}" class="form-control search p-0" name="searchText"
         [(ngModel)]="model.searchText" />
       <span class="input-group-addon">
       <a (click)="search()"><i class="fa fa-search"></i></a>
@@ -14,7 +14,7 @@
   <strong>Cuisine</strong>
   <div class="card-text mb-1">
     <label *ngFor="let f of availableCuisines"> 
-      <input type="checkbox" value="{{f.value}}" (change)="updateOptions(f.value, $event)"/> {{f.label}}
+      <input type="checkbox" value="{{f.value}}" [checked]="isChecked(f.value)" (change)="updateOptions(f.value, $event)"/> {{f.label}}
     </label>
   </div>
   <strong>Feature</strong>
