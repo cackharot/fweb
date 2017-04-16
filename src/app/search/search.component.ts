@@ -54,9 +54,16 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   doSearch(filter: FilterModel): Promise<StoreSearchResponse> {
     this.storeSearchData.searchText = filter.searchText;
+    this.storeSearchData.cuisines = [];
     for (const x in this.storeSearchData) {
-      if (filter.others.hasOwnProperty(x)) {
-        this.storeSearchData[x] = filter.others[x];
+      if (filter.features.hasOwnProperty(x)) {
+        this.storeSearchData[x] = filter.features[x];
+      }
+    }
+
+    for (const x in filter.cuisines) {
+      if (filter.cuisines.hasOwnProperty(x) && filter.cuisines[x] === true) {
+        this.storeSearchData.cuisines.push(x);
       }
     }
     this.isRequesting = true;

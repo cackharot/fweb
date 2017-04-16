@@ -18,6 +18,7 @@
             <small class="text-muted cuisines">{{restaurant.getFormattedCuisines()}}</small>
           </h4>
           <div>
+            <span class="badge indigo" *ngIf="restaurant.isNew()">New</span>
             <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
             <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
             <span class="badge red" *ngIf="restaurant.isHoliday()">Holiday</span>

@@ -168,4 +168,15 @@ export class Restaurant {
   isVeg() {
     return this.food_type.indexOf('Veg');
   }
+
+  isNew() {
+    try {
+      const sdt = moment(this.created_at.$date);
+      const cmpdt = moment().subtract(90, 'days');
+      return sdt.isAfter(cmpdt);
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
+  }
 }
