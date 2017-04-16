@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import { FilterModel } from 'model/base';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { OptionModel } from '../../model/base';
+
+import { FilterModel } from 'model/base';
+import { OptionModel } from 'model/base';
+import { StoreService } from 'services/store.service';
 
 @Component({
   selector: 'app-filter-search',
@@ -17,23 +19,26 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   sub: Subscription;
   availableCuisines: OptionModel[] = [];
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit() {
     this.sub = this.filterSubject.subscribe(x => this.model = x);
-    this.availableCuisines = [
-      new OptionModel('South Indian'),
-      new OptionModel('Multicuisine'),
-      new OptionModel('Sandwiches'),
-      new OptionModel('Briyani'),
-      new OptionModel('Italian'),
-      new OptionModel('Pizza'),
-      new OptionModel('Deserts')
-    ];
+    this.getCuisines();
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  getCuisines() {
+    this.storeService.getCuisines().then(x => {
+      for (let i = 0; i < x.length; ++i) {
+        this.availableCuisines.push(new OptionModel(x[i]));
+      }
+    }).catch(err => {
+      console.log(err);
+      // this.errorMsg = err;
+    });
   }
 
   search() {
@@ -50,12 +55,12 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  isChecked(id: string) {
-    return this.model.others[id] === true;
+  isChecked(key: string, id: string) {
+    return this.model[key][id] === true;
   }
 
-  updateOptions(id: string, event: any) {
-    this.model.others[id] = event.target.checked;
+  updateOptions(key: string, id: string, event: any) {
+    this.model[key][id] = event.target.checked;
     this.onChanged();
   }
 }

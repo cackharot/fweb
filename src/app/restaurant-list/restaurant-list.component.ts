@@ -60,11 +60,14 @@ export class RestaurantListComponent implements OnInit, OnDestroy {
     this.storeSearchData.searchText = filter.searchText;
     this.storeSearchData.cuisines = [];
     for (const x in this.storeSearchData) {
-      const fid = filter.others[x];
-      if (filter.others.hasOwnProperty(x)) {
-        this.storeSearchData[x] = fid;
-      } else if (filter.others[x] === true) {
-        this.storeSearchData.cuisines.push(fid);
+      if (filter.features.hasOwnProperty(x)) {
+        this.storeSearchData[x] = filter.features[x];
+      }
+    }
+
+    for (const x in filter.cuisines) {
+      if (filter.cuisines.hasOwnProperty(x) && filter.cuisines[x] === true) {
+        this.storeSearchData.cuisines.push(x);
       }
     }
   }

@@ -13,14 +13,14 @@
   </h5>
   <strong>Cuisine</strong>
   <div class="card-text mb-1">
-    <label *ngFor="let f of availableCuisines"> 
-      <input type="checkbox" value="{{f.value}}" [checked]="isChecked(f.value)" (change)="updateOptions(f.value, $event)"/> {{f.label}}
+    <label *ngFor="let f of availableCuisines">
+      <input type="checkbox" value="{{f.value}}" [checked]="isChecked('cuisines',f.value)" (change)="updateOptions('cuisines',f.value, $event)"/> {{f.label}}
     </label>
   </div>
   <strong>Feature</strong>
   <div class="card-text mb-1">
-    <label class=""> <input type="checkbox" name="open_now" (change)="updateOptions('onlyOpen', $event)"/> Open Now </label>
-    <label class=""> <input type="checkbox" name="pure_veg" (change)="updateOptions('onlyVeg', $event)" /> Pure Veg </label>
-    <label class=""> <input type="checkbox" name="new"  (change)="updateOptions('onlyNew', $event)"/> New </label>
+    <label class=""> <input type="checkbox" name="open_now" (change)="updateOptions('features', 'onlyOpen', $event)"/> Open Now </label>
+    <label class=""> <input type="checkbox" name="pure_veg" (change)="updateOptions('features', 'onlyVeg', $event)" /> Pure Veg </label>
+    <label class=""> <input type="checkbox" name="new"  (change)="updateOptions('features', 'onlyNew', $event)"/> New </label>
   </div>
 </div>

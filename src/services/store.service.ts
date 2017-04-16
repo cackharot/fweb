@@ -18,6 +18,7 @@ export class StoreSearchModel {
   searchText: string;
   onlyVeg: boolean = false;
   onlyOpen: boolean = false;
+  onlyNew: boolean = false;
   userPincode: number;
   userLocation: string;
   sort_by: string = 'Rating';
@@ -83,6 +84,7 @@ export class StoreService {
     params.set('cuisines', data.cuisines.join(','));
     params.set('only_veg', data.onlyVeg.toString());
     params.set('only_open', data.onlyOpen.toString());
+    params.set('only_new', data.onlyNew.toString());
     params.set('user_location', data.userLocation);
     params.set('user_pincode', data.userPincode.toString());
     params.set('sort_by', data.sort_by);
@@ -119,8 +121,18 @@ export class StoreService {
     return this.http.get(AppConfig.POPULAR_STORES_URL + '/-1')
       .toPromise()
       .then(response => {
-        let data = response.json();
+        const data = response.json();
         return data.items.map(x => Restaurant.of(x));
+      })
+      .catch(this.handleError);
+  }
+
+  getCuisines(): Promise<string[]> {
+    return this.http.get(`${this.storesUrl}/cuisines`)
+      .toPromise()
+      .then(response => {
+        const data: string[] = response.json().data;
+        return data;
       })
       .catch(this.handleError);
   }

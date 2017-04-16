@@ -19,7 +19,7 @@
         <div class="row px-3 py-3" *ngIf="!isRequesting && restaurant">
           <div class="col-12 col-sm-2 hidden-sm-down">
             <a class="back-link" routerLink="/restaurants">&lt; Back to restaurants</a>
-            <img src="{{restaurant.getImage() || '/images/placeholder.png'}}" alt="{{restaurant.name}}" class="img-fluid z-depth-2 show-for-small-only"
+            <img src="{{restaurant.getImage() || '/assets/img/placeholder.png'}}" alt="{{restaurant.name}}" class="img-fluid z-depth-2 show-for-small-only"
             />
           </div>
           <div class="col-12 col-sm-10">

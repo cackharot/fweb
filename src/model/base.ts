@@ -46,18 +46,14 @@ export class Date {
 
 
 export class FilterModel {
-  onlyVeg: boolean;
-  onlyOpen: boolean;
-  onlyNew: boolean;
   searchText: string;
-  others: any;
+  features: any;
+  cuisines: any;
 
   constructor(searchText = '') {
-    this.onlyNew = false;
-    this.onlyOpen = false;
-    this.onlyVeg = false;
     this.searchText = searchText;
-    this.others = {};
+    this.features = {};
+    this.cuisines = {};
   }
 }
 
