@@ -31,14 +31,16 @@ export class TrackOrderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.orderNo = (params['order_no'] || this.orderNo).trim();
+      this.orderNo = (params['order_no'] || this.orderNo || '').trim();
       this.searchOrder();
     });
     this.searchOrder();
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   searchOrder() {
