@@ -8,7 +8,7 @@
       <div class="p-3">
         <h3 class="h3-responsive font-weight-bold mb-1">Search results</h3>
 
-        <div class="callout warning mb-1" *ngIf="!storeSearchData.searchText || storeSearchData.searchText.length < 3">
+        <div class="callout warning mb-1" *ngIf="!isRequesting && (!storeSearchData.searchText || storeSearchData.searchText.length < 3)">
           <p>Atleast enter 3 letters to begin the search!</p>
         </div>
 

@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     }
     this.isRequesting = true;
-    console.log('searching for', this.storeSearchData);
+    // console.log('searching for', this.storeSearchData);
     return this.searchRestaurants();
   }
 
