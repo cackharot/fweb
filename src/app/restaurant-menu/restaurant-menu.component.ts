@@ -57,8 +57,8 @@ export class RestaurantMenuComponent implements OnInit {
         } else {
           category.addProduct(item);
         }
-        this.isRequesting = false;
       }
+      this.isRequesting = false;
     }).catch(errorMsg => {
       this.errorMsg = errorMsg;
       this.isRequesting = false;

@@ -5,6 +5,9 @@
       <button name="submitBtn" class="btn btn-info" type="submit">Search</button>
     </div>
   </form>
+  <div class="callout warning" *ngIf="isRequesting === false && (!products || products.length === 0)">
+    No items found.
+  </div>
   <div class="row" *ngIf="products && products.length > 0">
     <div class="col-12 mt-1" *ngFor="let category of categories">
       <h3>{{category.name}}</h3>
