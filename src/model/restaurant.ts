@@ -165,6 +165,10 @@ export class Restaurant {
     return cstr;
   }
 
+  getFormattedDeliveryTime() {
+    return `${this.deliver_time} - ${this.deliver_time + 10}`;
+  }
+
   isVeg() {
     return this.food_type.indexOf('Veg');
   }

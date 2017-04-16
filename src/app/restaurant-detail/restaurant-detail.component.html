@@ -26,7 +26,7 @@
             <a class="back-link mb-1 hidden-md-up" routerLink="/restaurants">&lt; Back to restaurants</a>
             <div class="d-flex w-100 justify-content-between">
               <h2 class="h2-responsive"><a>{{restaurant.name}}</a></h2>
-              <div>
+              <div class="text-right">
                 <span class="badge indigo" *ngIf="restaurant.isNew()">New</span>
                 <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
                 <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>

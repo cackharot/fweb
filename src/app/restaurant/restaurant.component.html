@@ -17,7 +17,7 @@
             <br/>
             <small class="text-muted cuisines">{{restaurant.getFormattedCuisines()}}</small>
           </h4>
-          <div>
+          <div class="text-right">
             <span class="badge indigo" *ngIf="restaurant.isNew()">New</span>
             <span class="badge green" *ngIf="!restaurant.isHoliday() && restaurant.isOpen()">Open</span>
             <span class="badge red" *ngIf="!restaurant.isHoliday() && restaurant.isClosed()">Closed</span>
@@ -31,6 +31,9 @@
           <small><i class="fa fa-hourglass-o"></i>
             {{restaurant.getTodayStoreTimings().getFormattedTime()}}
           </small>
+        </div>
+        <div class="text-muted small timings">
+          Est. delivery {{restaurant.getFormattedDeliveryTime()}} mins
         </div>
         <div class="flex-row">
           <a class="card-link" [routerLink]="['/restaurants',restaurant._id.str()]">View Menu</a>
