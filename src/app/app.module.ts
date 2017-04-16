@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 
@@ -46,6 +46,7 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { SearchComponent } from './search/search.component';
 import { FilterSearchComponent } from './filter-search/filter-search.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -75,22 +76,23 @@ import { FilterSearchComponent } from './filter-search/filter-search.component';
     TabsComponent,
     FeaturedProductsComponent,
     SearchComponent,
-    FilterSearchComponent
+    FilterSearchComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    OAuthModule.forRoot(),
     Ng2Webstorage,
+    OAuthModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyARttGEnBB_fhZnU_PGXzYhE-02ez8lqWo'
     }),
     CheckoutModule,
     AppRoutes
   ],
-  providers: [OAuthService, LocalStorageService, SessionStorageService,
-  OrderService, StoreService, ProductService],
+  providers: [LocalStorageService, SessionStorageService,
+    OrderService, StoreService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
