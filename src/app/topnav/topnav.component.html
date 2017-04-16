@@ -1,38 +1,31 @@
 <!--Navigation-->
 <header>
     <nav class="navbar fixed-top navbar-toggleable-md navbar-dark scrolling-navbar double-nav fb-color bg-primary">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <a class="navbar-brand" href="#" [routerLink]="['/']">
             Foodbeazt
         </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect waves-light">
-                        <i class="fa fa-map-marker"></i> Puducherry
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav nav-flex-icons ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light">
-                        <i class="fa fa-sign-in"></i>
-                        <span class="hidden-sm-down">Sign In</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" routerLink="track">
-                        <i class="fa fa-motorcycle"></i> <span class="hidden-sm-down">Track</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <app-cart-summary></app-cart-summary>
-                </li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav nav-flex-icons hidden-sm-down">
+            <li class="nav-item active">
+                <a class="nav-link waves-effect waves-light">
+                    <i class="fa fa-map-marker"></i> Puducherry
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav nav-flex-icons ml-auto">
+            <li class="nav-item ">
+                <a routerLink="/track" class="nav-link waves-effect waves-light">
+                    <i class="fa fa-motorcycle"></i><span class="hidden-sm-down">Track</span>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a routerLink="/signin" id="show_login" class="nav-link waves-effect waves-light">
+                    <i class="fa fa-sign-in"></i><span class="hidden-sm-down">Log In</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <app-cart-summary></app-cart-summary>
+            </li>
+        </ul>
     </nav>
 </header>
 <!--/.Navigation-->
