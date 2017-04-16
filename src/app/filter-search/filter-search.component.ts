@@ -18,6 +18,8 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   model: FilterModel = new FilterModel();
   sub: Subscription;
   availableCuisines: OptionModel[] = [];
+  cus_collapse = false;
+  fet_collapse = false;
 
   constructor(private storeService: StoreService) { }
 

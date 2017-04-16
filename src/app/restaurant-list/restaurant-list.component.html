@@ -1,7 +1,9 @@
 <div class="container-fluid px-0">
   <div class="row no-gutters">
     <div class="col-md-3 col-12 hidden-sm-down">
-      <app-filter-search [searchPlaceholder]="'Enter restaurant name...'" [filterSubject]="filter"></app-filter-search>
+      <div class="col-md-3 blue-grey lighten-5 restaurants__filter">
+        <app-filter-search [searchPlaceholder]="'Enter restaurant name...'" [filterSubject]="filter"></app-filter-search>
+      </div>
     </div>
     <div class="col-md-9 px-3 py-1">
       <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>

@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  isRequesting: boolean = false;
+  isRequesting: boolean = true;
   storeSearchData: StoreSearchModel = new StoreSearchModel();
   storeSearchResponse: StoreSearchResponse = new StoreSearchResponse();
   products: Product[];

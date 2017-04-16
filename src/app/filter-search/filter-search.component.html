@@ -1,24 +1,34 @@
-<div class="col-md-3 blue-grey lighten-5 restaurants__filter">
-  <form (submit)="search()">
-    <div class="md-form input-group">
-      <input type="search" id="searchText" placeholder="{{searchPlaceholder}}" class="form-control search p-0" name="searchText"
-        [(ngModel)]="model.searchText" />
-      <span class="input-group-addon">
+<form (submit)="search()">
+  <div class="md-form input-group">
+    <input type="search" id="searchText" placeholder="{{searchPlaceholder}}" class="form-control search p-0" name="searchText"
+      [(ngModel)]="model.searchText" />
+    <span class="input-group-addon">
       <a (click)="search()"><i class="fa fa-search"></i></a>
     </span>
-    </div>
-  </form>
-  <h5 class="h5-responsive font-weight-bold">Filters
-    <small><a href="#" class="clear-filter small" (click)="clearFilter();">clear all</a></small>
-  </h5>
-  <strong>Cuisine</strong>
-  <div class="card-text mb-1">
-    <label *ngFor="let f of availableCuisines">
-      <input type="checkbox" value="{{f.value}}" [checked]="isChecked('cuisines',f.value)" (change)="updateOptions('cuisines',f.value, $event)"/> {{f.label}}
-    </label>
   </div>
-  <strong>Feature</strong>
-  <div class="card-text mb-1">
+</form>
+<h5 class="h5-responsive font-weight-bold">Filters
+  <small><a href="#" class="clear-filter small" (click)="clearFilter();">clear all</a></small>
+</h5>
+<div style="position:relative">
+  <div class="d-flex justify-content-between">
+    <strong>Cuisine</strong>
+    <a href="#" class="animated wobble" (click)="cus_collapse=false;false;" *ngIf="cus_collapse">[+]</a>
+    <a href="#" class="animated wobble" (click)="cus_collapse=true;false;" *ngIf="!cus_collapse">[-]</a>
+  </div>
+  <div class="card-text mb-1 animated fadeIn" *ngIf="!cus_collapse">
+    <label class="mr-2" *ngFor="let f of availableCuisines">
+    <input type="checkbox" value="{{f.value}}" [checked]="isChecked('cuisines',f.value)" (change)="updateOptions('cuisines',f.value, $event)"/> {{f.label}}
+  </label>
+  </div>
+</div>
+<div style="position:relative">
+  <div class="d-flex justify-content-between">
+    <strong>Feature</strong>
+    <a href="#" class="animated wobble" (click)="fet_collapse=false;false;" *ngIf="fet_collapse">[+]</a>
+    <a href="#" class="animated wobble" (click)="fet_collapse=true;false;" *ngIf="!fet_collapse">[-]</a>
+  </div>
+  <div class="card-text mb-1 animated fadeIn" *ngIf="!fet_collapse">
     <label class=""> <input type="checkbox" name="open_now" (change)="updateOptions('features', 'onlyOpen', $event)"/> Open Now </label>
     <label class=""> <input type="checkbox" name="pure_veg" (change)="updateOptions('features', 'onlyVeg', $event)" /> Pure Veg </label>
     <label class=""> <input type="checkbox" name="new"  (change)="updateOptions('features', 'onlyNew', $event)"/> New </label>

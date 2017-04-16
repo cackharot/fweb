@@ -2,7 +2,7 @@
   <a class="nav-link waves-effect waves-light" (click)="navigateToCheckout($event)">
     <i class="fa fa-shopping-bag"></i>
     <span *ngIf="totalQuantity>0">
-      <i class="badge badge-danger">{{totalQuantity}}</i>
+      <i class="badge badge-danger animated wobble">{{totalQuantity}}</i>
       <strong class="rupee hidden-sm-down">{{totalAmount}}</strong>
     </span>
     <span class="hidden-sm-down" *ngIf="totalQuantity==0">
