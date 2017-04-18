@@ -40,5 +40,9 @@
         </div>
       </div>
     </div>
+    <div class="col-12 animated fadeIn" *ngIf="showProducts && restaurant.products.length > 0">
+      <h5 class="h5-responsive">Filtered dishes</h5>
+      <app-product-grid [products]="restaurant.products" (selectedProduct)="addToCart($event)"></app-product-grid>
+    </div>
   </section>
 </div>

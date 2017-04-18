@@ -19,7 +19,7 @@
         </div>
 
         <div class="" *ngIf="storeSearchData.searchText && storeSearchData.searchText.length > 2 && !isRequesting">
-          <app-restaurant [responseData]="storeSearchResponse" [isRequesting]="isRequesting" (onPaginate)="searchRestaurants($event)"></app-restaurant>
+          <app-restaurant [showProducts]="true" [responseData]="storeSearchResponse" [isRequesting]="isRequesting" (onPaginate)="searchRestaurants($event)"></app-restaurant>
         </div>
       </div>
     </div>

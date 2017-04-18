@@ -2,6 +2,7 @@ import { ObjectId, Date } from './base';
 import * as moment from 'moment';
 
 import { AppConfig } from '../AppConfig';
+import { Product } from './product';
 
 export class StoreTiming {
   day: string;
@@ -92,6 +93,7 @@ export class Restaurant {
   status: boolean;
   image_url: string = null;
   day_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  products: Product[] = [];
 
   static of(data) {
     if (data && data.constructor.name !== Restaurant.name) {
