@@ -7,8 +7,8 @@ describe('fweb2 App', () => {
     page = new Fweb2Page();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying "Eat better Feel better"', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Eat better Feel better');
   });
 });
