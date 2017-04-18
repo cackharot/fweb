@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import { URLSearchParams, Http } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -38,9 +38,9 @@ export class AppComponent implements OnInit {
           }
         },
         validationHandler: context => {
-          const search = new URLSearchParams();
-          search.set('access_token', context.accessToken);
-          const v = this.http.get('https://www.googleapis.com/oauth2/v3/tokeninfo', { search })
+          const params = new URLSearchParams();
+          params.set('access_token', context.accessToken);
+          const v = this.http.get('https://www.googleapis.com/oauth2/v3/tokeninfo', { search: params })
             .toPromise().then(x => {
               if (x.json().aud !== this.oauthService.clientId) {
                 console.error('Wrong client_id');

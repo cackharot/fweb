@@ -21,13 +21,17 @@ export class SigninComponent implements OnInit {
 
   }
 
+  public isSignedIn() {
+    return this.oauthService.hasValidAccessToken();
+  }
+
   public login() {
     this.oauthService.initImplicitFlow();
   }
 
   public logoff() {
     this.oauthService.logOut();
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/');
   }
 
   public get name() {

@@ -12,15 +12,26 @@
             </li>
         </ul>
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
-            <li class="nav-item ">
-                <a routerLink="/track" class="nav-link waves-effect waves-light">
+            <li class="nav-item">
+                <a routerLink="/track" class="nav-link waves-effect waves-light" *ngIf="!isSignedIn()">
                     <i class="fa fa-motorcycle"></i><span class="hidden-sm-down">Track</span>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a routerLink="/signin" id="show_login" class="nav-link waves-effect waves-light">
+            <li class="nav-item" *ngIf="!isSignedIn()">
+                <a routerLink="/signin" id="show_login" class="nav-link waves-effect waves-light" title="Sign in using Google+">
                     <i class="fa fa-sign-in"></i><span class="hidden-sm-down">Sign In</span>
                 </a>
+            </li>
+            <li class="nav-item dropdown btn-group" *ngIf="isSignedIn()">
+                <a (click)="false" class="waves-effect chip m-0 dropdown-toggle" id="userProfileDp" id="username" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{avatar}}" class="avatar" />
+                    <span class="hidden-sm-down">{{name}}</span>
+                </a>
+                <div class="dropdown-menu dropdown" aria-labelledby="userProfileDp">
+                    <a class="dropdown-item" routerLinkActive="active" routerLink="track">Track Order</a>
+                    <a class="dropdown-item" routerLinkActive="active" routerLink="my_orders">My Orders</a>
+                    <a class="dropdown-item" (click)="logoff()">Logoff</a>
+                </div>
             </li>
             <li class="nav-item">
                 <app-cart-summary></app-cart-summary>
