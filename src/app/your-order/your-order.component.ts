@@ -34,7 +34,9 @@ export class YourOrderComponent implements OnInit {
     });
     this.orderService.orderReseted$.subscribe((x) => {
       this.order = x;
-      this.update();
+      if (this.order) {
+        this.update();
+      }
     });
   }
 

@@ -11,7 +11,7 @@ import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.compo
 import { RestaurantAboutComponent } from './restaurant-about/restaurant-about.component';
 import { RestaurantReviewComponent } from './restaurant-review/restaurant-review.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
-// import { MyOrderComponent } from './my-order/my-order.component';
+import { MyOrderComponent } from './my-order/my-order.component';
 // import { FaqComponent } from './faq/faq.component';
 // import { TermsOfUseComponent } from './terms/terms.component';
 // import { ContactUsComponent } from './contactus/contactus.component';
@@ -39,7 +39,7 @@ const AppRoutes = RouterModule.forRoot([
   { path: 'track/:order_no', component: TrackOrderComponent },
   { path: 'search/:q', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
-  // { path: 'my_orders', component: MyOrderComponent },
+  { path: 'my_orders', component: MyOrderComponent },
 
   // { path: 'faq', component: FaqComponent },
   // { path: 'terms_of_use', component: TermsOfUseComponent },

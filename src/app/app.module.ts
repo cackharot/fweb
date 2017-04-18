@@ -36,6 +36,7 @@ import { YourOrderComponent } from './your-order/your-order.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { OrderFailureComponent } from './order-failure/order-failure.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
+import { MyOrderComponent } from './my-order/my-order.component';
 
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { DateTimePipe } from './pipes/datetime.pipe';
@@ -70,6 +71,7 @@ import { SigninComponent } from './signin/signin.component';
     OrderSuccessComponent,
     OrderFailureComponent,
     TrackOrderComponent,
+    MyOrderComponent,
     DateTimePipe,
     ChunkPipe,
     TabComponent,
