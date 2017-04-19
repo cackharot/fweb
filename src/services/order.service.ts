@@ -142,6 +142,12 @@ export class OrderService {
     return this.currentOrder;
   }
 
+  newOrder() {
+    this.currentOrder = new Order();
+    this.orderUpdatedSource.next(this.currentOrder);
+    return this.getOrder();
+  }
+
   confirmOrder() {
     // console.log(this.currentOrder);
     return this.http.post(

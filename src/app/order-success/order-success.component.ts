@@ -26,18 +26,19 @@ export class OrderSuccessComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.isInValidOrderNo()) {
-      this.order = this.orderService.getOrder();
+    this.order = this.orderService.getOrder();
+    if (this.order != null && this.order.order_no && this.order.order_no.length > 0) {
+      console.log('setting', this.order);
       this.order_no = this.order.order_no;
     }
 
     if (this.isInValidOrderNo()) {
       console.error('Invalid order');
-      console.error(this.order);
+      console.error(this.order_no, this.order);
       this.error = 'Something is not right';
       return;
     }
-    console.log('ss', this.orderService.getOrder());
+    // console.log('ss', this.orderService.getOrder());
     this.orderService.resetOrder();
     this.isRequesting = true;
     this.orderService.reloadOrder(this.order_no)

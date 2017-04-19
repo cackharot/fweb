@@ -1,12 +1,13 @@
 <div class="amber">
   <div class="container">
-    <div class="row" *ngIf="isRequesting">
-      <div class="col-12">
-        <app-my-spinner [isRunning]="isRequesting" [message]="'Loading your order...Please wait'">
-        </app-my-spinner>
+    <app-my-spinner [isRunning]="isRequesting" [message]="'Loading your order...Please wait'">
+    </app-my-spinner>
+    <div class="row" *ngIf="error">
+      <div class="col-12 callout warning">
+        {{error}}
       </div>
     </div>
-    <section class="order__success white px-4 py-3" *ngIf="!isRequesting">
+    <section class="order__success white px-4 py-3" *ngIf="!isRequesting && this.order_no && this.order_no.length > 0">
       <div class="row">
         <div class="col-12 columns">
           <h1 class="bold h1-responsive">Thanks {{order.delivery_details.name}}!</h1>
@@ -32,8 +33,7 @@
       <div class="row">
         <div class="col-12 columns">
           <p>
-            Your order is successfull, kindly note the order number for further reference. An invoice
-            email is on the way to your inbox.
+            Your order is successfull, kindly note the order number for further reference. An invoice email is on the way to your inbox.
           </p>
           <p>
             Enjoy your gourment meal!

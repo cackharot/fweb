@@ -37,6 +37,9 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.order = this.orderService.getOrder();
+    if (this.order == null) {
+      this.order = this.orderService.newOrder();
+    }
     this.orderSuccess = this.order.isConfirmed();
     // this.fetchAvailablePincodes();
   }
