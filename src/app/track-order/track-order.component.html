@@ -3,7 +3,7 @@
     <section class="white track__order__page px-3 py-3">
       <div class="row mb-2">
         <div class="col-12 col-md-12">
-          <h2 class="bold h2-responsive">Track Order</h2>
+          <h2 class="font-weight-bold h2-responsive">Track Order</h2>
           <form (ngSubmit)="searchOrder()">
             <div class="input-group">
               <input class="form-control input-group-field" type="text" #orderno="ngModel" minlength="6" maxlength="12" placeholder="Enter the order number..."
@@ -15,12 +15,8 @@
           </form>
         </div>
       </div>
-      <div class="row" *ngIf="isRequesting">
-        <div class="col-12 col-md-12">
-          <app-my-spinner [isRunning]="isRequesting" [message]="'Looking for your order...Please wait'">
-          </app-my-spinner>
-        </div>
-      </div>
+      <app-my-spinner [isRunning]="isRequesting" [message]="'Looking for your order...Please wait'">
+      </app-my-spinner>
       <div class="row" *ngIf="orderNo.length>0 && !isRequesting && submitted && order==null">
         <div class="col-12 col-md-12">
           <div class="callout alert">

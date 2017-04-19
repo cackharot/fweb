@@ -1,19 +1,16 @@
-<section class="my__orders__page container-fluid">
-  <app-my-spinner [isRunning]="isRequesting" [message]="'Looking for your orders...Please wait'">
-  </app-my-spinner>
-  <div class="row pt-1">
-    <div class="col-12">
-      <h2 class="h2-responsive">My Orders</h2>
-      <div class="callout alert" *ngIf="errorMsg">
-        <h4 class="h4-responsive">Oops! Something went wrong.</h4>
-        {{errorMsg}}
-      </div>
-      <div class="callout alert" *ngIf="orders.length == 0 && !isRequesting && !errorMsg">
-        Oops! You have not made any orders :(
-      </div>
+<section class="my__orders__page">
+  <app-my-spinner [isRunning]="isRequesting"></app-my-spinner>
+  <div class="container pt-1">
+    <h2 class="font-weight-bold h2-responsive">My Orders</h2>
+    <div class="callout alert" *ngIf="errorMsg">
+      <h4 class="h4-responsive">Oops! Something went wrong.</h4>
+      {{errorMsg}}
+    </div>
+    <div class="callout alert" *ngIf="orders.length == 0 && !isRequesting && !errorMsg">
+      Oops! You have not made any orders :(
     </div>
   </div>
-  <div class="content__container" *ngIf="!isRequesting && orders.length > 0">
+  <div class="container" *ngIf="!isRequesting && orders.length > 0">
     <div class="medium-12 columns">
       <table class="table my__orders__tbl">
         <thead>
@@ -21,14 +18,14 @@
             <th></th>
             <th>Date</th>
             <th>#no</th>
-            <th>Dishes</th>
-            <th>Payment</th>
+            <th class="hidden-sm-down">#dishes</th>
+            <th class="hidden-sm-down">Payment</th>
             <th class="text-right">Total</th>
-            <th>Status</th>
+            <th class="hidden-sm-down">Status</th>
           </tr>
         </thead>
         <tbody>
-          <template ngFor let-order [ngForOf]="orders">
+          <ng-template ngFor let-order [ngForOf]="orders">
             <tr (click)="toggleOrderDetails(order)">
               <td>
                 <i (click)="toggleOrderDetails(order)" class="fa" [class.fa-caret-right]="!canShowOrderDetails(order)" [class.fa-caret-down]="canShowOrderDetails(order)">
@@ -36,18 +33,18 @@
               </td>
               <td>{{order.created_at|datetime}}</td>
               <td>{{order.order_no}}</td>
-              <td>{{order.items.length}}</td>
-              <td>
+              <td class="hidden-sm-down">{{order.items.length}}</td>
+              <td class="hidden-sm-down">
                 <span *ngIf="order.payment_type==='cod'">COD</span>
                 <span *ngIf="order.payment_type==='payumoney'">Online</span>
               </td>
               <td class="text-right"><i class="rupee"></i>{{order.total}}</td>
-              <td>{{order.status}}</td>
+              <td class="hidden-sm-down">{{order.status}}</td>
             </tr>
             <tr *ngIf="canShowOrderDetails(order)" class="child__row__detail">
               <td colspan="7">
                 <div class="row">
-                  <div class="medium-6 columns">
+                  <div class="col-md-6 col-12">
                     <table class="table order_table">
                       <tbody>
                         <tr *ngFor="let item of order.getItems()">
@@ -57,10 +54,10 @@
                               <!--<span class="store_name light"><i>from</i> {{item.store.name}}</span>-->
                             </div>
                           </td>
-                          <td class="quantity">
+                          <td class="quantity text-right">
                             {{item.quantity}}
                           </td>
-                          <td class="price">{{item.getTotalPrice()}}</td>
+                          <td class="price text-right">{{item.getTotalPrice()}}</td>
                         </tr>
                       </tbody>
                       <tfoot>
@@ -68,19 +65,19 @@
                           <td colspan="2">
                             Subtotal:
                           </td>
-                          <td class="total">{{order.getSubTotal()}}</td>
+                          <td class="total text-right">{{order.getSubTotal()}}</td>
                         </tr>
                         <tr>
                           <td colspan="2">
                             Delivery Charges:
                           </td>
-                          <td class="total">{{order.delivery_charges}}</td>
+                          <td class="total text-right">{{order.delivery_charges}}</td>
                         </tr>
                         <tr>
                           <td colspan="2">
                             Total:
                           </td>
-                          <td class="total rupee">{{order.total}}</td>
+                          <td class="total rupee text-right">{{order.total}}</td>
                         </tr>
                       </tfoot>
                     </table>
@@ -88,7 +85,7 @@
                       Payment Status: {{order.payment_status.toUpperCase()}}
                     </span>
                   </div>
-                  <div class="medium-6 columns end">
+                  <div class="col-md-6 col-12 end">
                     <h4>Delivery details</h4>
                     <p>
                       Address: {{order.delivery_details.address}}<br/> Pincode: {{order.delivery_details.pincode}}<br/> Landmark:
@@ -99,20 +96,24 @@
                 </div>
               </td>
             </tr>
-          </template>
+          </ng-template>
         </tbody>
       </table>
-      <div *ngIf="responseData.total > 0" class="pagination__container">
-        <div class="pagination previous" [class.disabled]="!responseData.previous">
-          <a (click)="responseData.previous && search(responseData.previous)">
-            <i class="fa fa-angle-left"></i>
-          </a>
-        </div>
-        <div class="pagination next" [class.disabled]="!responseData.next">
-          <a (click)="responseData.next && search(responseData.next)">
-            <i class="fa fa-angle-right"></i>
-          </a>
-        </div>
+      <div class="d-flex mt-1 justify-content-end">
+        <ul *ngIf="responseData.total > 0" class="pagination">
+          <li class="page-item previous" [class.disabled]="!responseData.previous">
+            <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item next" [class.disabled]="!responseData.next">
+            <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -46,6 +46,11 @@ export class MyOrderComponent implements OnInit {
       });
   }
 
+  doPaginate(url: string) {
+    this.search(url);
+    return false;
+  }
+
   toggleOrderDetails(order) {
     if (this.showMap[order.order_no] === undefined) {
       this.showMap[order.order_no] = true;
