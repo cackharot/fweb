@@ -43,6 +43,7 @@ export class CartSummaryComponent implements OnInit {
 
   update() {
     if (this.currentOrder === null) {
+      this.totalAmount = this.totalQuantity = 0;
       return;
     }
     this.totalQuantity = this.currentOrder.getTotalQuantity();

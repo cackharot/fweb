@@ -105,6 +105,7 @@ export class Restaurant {
   constructor(data: any = {}) {
     Object.assign(this, data);
     this._id = ObjectId.of(this._id);
+    this.products = [];
     if (data.timings_table && data.timings_table.length > 0) {
       this.timings_table = data.timings_table.map(x => StoreTiming.of(x));
     }

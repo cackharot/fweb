@@ -28,7 +28,6 @@ export class OrderSuccessComponent implements OnInit {
   ngOnInit() {
     this.order = this.orderService.getOrder();
     if (this.order != null && this.order.order_no && this.order.order_no.length > 0) {
-      console.log('setting', this.order);
       this.order_no = this.order.order_no;
     }
 
@@ -47,7 +46,6 @@ export class OrderSuccessComponent implements OnInit {
         this.order = data;
         if (this.order === null || this.order.order_no === null || this.order.order_no.length === 0) {
           console.error('Invalid order');
-          console.error(this.order);
           this.router.navigate(['home']);
           return;
         }

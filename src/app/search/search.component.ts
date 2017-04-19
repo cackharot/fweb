@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.isRequesting = true;
         this.searchSub = this.doSearch(x).subscribe(
           res => {
-            console.log(res);
+            // console.log(res);
             this.storeSearchResponse = res[0];
             this.products = res[1];
             this.addProductsResultToStore();
@@ -118,7 +118,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.products.forEach(x => {
       const stores = this.storeSearchResponse.items;
       const exStore = stores.filter(r => x.store_id.$oid === r._id.$oid);
-      console.log(exStore);
       if (exStore.length === 0) {
         x.store.products.push(x);
         stores.push(x.store);

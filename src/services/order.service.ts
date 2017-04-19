@@ -5,10 +5,11 @@ import { LocalStorage, SessionStorage } from 'ng2-webstorage';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import * as _ from 'lodash';
 
-import { ObjectId } from '../model/base';
-import { Product, PriceDetail } from '../model/product';
-import { Order, PincodeDetail, LineItem, DeliveryDetails, CouponResult } from '../model/order';
-import { AppConfig } from '../AppConfig';
+import { ObjectId } from 'model/base';
+import { Product, PriceDetail } from 'model/product';
+import { Restaurant } from 'model/restaurant';
+import { Order, PincodeDetail, LineItem, DeliveryDetails, CouponResult } from 'model/order';
+import { AppConfig } from 'AppConfig';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 
@@ -85,6 +86,9 @@ export class OrderService {
     if (!item.isAvailable()) {
       console.log('Attempt to add not available item' + item);
       return;
+    }
+    if (item.store.products.length > 0) {
+      item.store = new Restaurant(item.store);
     }
     const lineItem = new LineItem({
       product_id: item._id,
