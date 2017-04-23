@@ -1,4 +1,11 @@
 /* YOUR CUSTOM STYLES */
+.bg-primary{
+   background-color: color("pink", "darken-2")!important;
+}
+.bg-secondary{
+   background-color: #043C6B !important;
+}
+
 .rupee:before{
   content: '\20B9';
 }

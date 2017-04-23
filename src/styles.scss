@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+// Mixins
+@import "assets/css/mdb/data/prefixer";
+@import "assets/css/mdb/data/mixins";
+
+// Variables
+@import "assets/css/mdb/data/colors";
+@import "assets/css/mdb/data/variables-b4";
+@import "assets/css/mdb/data/variables";
+
+@import 'assets/css/custom.scss';
