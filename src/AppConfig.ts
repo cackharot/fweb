@@ -9,6 +9,7 @@ export class AppConfig {
   static BASE_URL: string = AppConfig.getBaseUrl();
   static STORES_URL: string = AppConfig.BASE_URL + '/stores';
   static STORE_URL: string = AppConfig.BASE_URL + '/store';
+  static STORE_REVIEW_URL: string = AppConfig.BASE_URL + '/store/review';
   static PRODUCTS_URL: string = AppConfig.BASE_URL + '/products';
   static PRODUCT_URL: string = AppConfig.BASE_URL + '/product';
   static POPULAR_DISHES_URL: string = AppConfig.BASE_URL + '/popular_items';

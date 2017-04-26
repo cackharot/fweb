@@ -74,9 +74,11 @@ export class RestaurantAboutComponent implements OnInit {
         const loc = results[0].geometry.location;
         this.shop_lat = loc.lat();
         this.shop_lng = loc.lng();
-        this.gmap.triggerResize().then(() => {
-          // console.log(this.shop_lat, this.shop_lng);
-        });
+        if (this.gmap) {
+          this.gmap.triggerResize().then(() => {
+            // console.log(this.shop_lat, this.shop_lng);
+          });
+        }
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);
       }

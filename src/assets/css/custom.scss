@@ -1,9 +1,9 @@
 /* YOUR CUSTOM STYLES */
 .bg-primary{
-   background-color: color("pink", "darken-2")!important;
+  background-color: color("pink", "darken-2")!important;
 }
 .bg-secondary{
-   background-color: #043C6B !important;
+  background-color: #043C6B !important;
 }
 
 .rupee:before{
@@ -164,7 +164,7 @@ label[for=cart-summary] .badge{
 
 .classic-tabs li a {
     display: block;
-    padding: 20px 24px;
+    padding: 10px 18px;
     font-size: 13px;
     color: rgba(255,255,255,.7);
     text-align: center;
@@ -547,6 +547,161 @@ footer.page-footer{
   width: 100%;
 }
 
+input[type=range] {
+    border: 1px solid #fff;
+}
+
+input[type=range] {
+    background-color: transparent;
+    outline: 0;
+    width: 100%;
+    margin: 15px 0;
+    padding: 0;
+}
+
+.range-field, input[type=range] {
+    position: relative;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+}
+input[type=range]+.thumb {
+    position: absolute;
+    border: none;
+    height: 0;
+    width: 0;
+    border-radius: 50%;
+    background-color: #4285F4;
+    top: 10px;
+    margin-left: -6px;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+
+input[type=range]+.thumb .value {
+    display: block;
+    width: 30px;
+    text-align: center;
+    color: #4285F4;
+    font-size: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+input[type=range]+.thumb.active {
+    border-radius: 50% 50% 50% 0
+}
+
+input[type=range]+.thumb.active .value {
+    color: #fff;
+    margin-left: -1px;
+    margin-top: 8px;
+    font-size: 10px
+}
+
+input[type=range]:focus {
+    outline: 0
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 3px;
+    background: #c2c0c2;
+    border: none
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: #4285F4;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    margin: -5px 0 0;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    transition: .3s
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc
+}
+
+input[type=range] {
+    border: 1px solid #fff;
+}
+
+input[type=range]::-moz-range-track {
+    height: 3px;
+    background: #ddd;
+    border: none
+}
+
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #4285F4;
+    margin-top: -5px
+}
+
+input[type=range]:-moz-focusring {
+    outline: #fff solid 1px;
+    outline-offset: -1px
+}
+
+input[type=range]:focus::-moz-range-track {
+    background: #ccc
+}
+
+input[type=range]::-ms-track {
+    height: 3px;
+    background: 0 0;
+    border-color: transparent;
+    border-width: 6px 0;
+    color: transparent
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #777
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #ddd
+}
+
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #4285F4
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #888
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #ccc
+}
+
 
 input[type=date].ng-touched.ng-valid,input[type=date]:focus.ng-touched.ng-valid,input[type=datetime-local].ng-touched.ng-valid,input[type=datetime-local]:focus.ng-touched.ng-valid,input[type=email].ng-touched.ng-valid,input[type=email]:focus.ng-touched.ng-valid,input[type=number].ng-touched.ng-valid,input[type=number]:focus.ng-touched.ng-valid,input[type=password].ng-touched.ng-valid,input[type=password]:focus.ng-touched.ng-valid,input[type=search-md].ng-touched.ng-valid,input[type=search-md]:focus.ng-touched.ng-valid,input[type=search].ng-touched.ng-valid,input[type=search]:focus.ng-touched.ng-valid,input[type=tel].ng-touched.ng-valid,input[type=tel]:focus.ng-touched.ng-valid,input[type=text].ng-touched.ng-valid,input[type=text]:focus.ng-touched.ng-valid,input[type=time].ng-touched.ng-valid,input[type=time]:focus.ng-touched.ng-valid,input[type=url].ng-touched.ng-valid,input[type=url]:focus.ng-touched.ng-valid,textarea.md-textarea.ng-touched.ng-valid,textarea.md-textarea:focus.ng-touched.ng-valid {
     border-bottom: 1px solid #00C851;
@@ -749,4 +904,11 @@ input[type=date].ng-touched.ng-invalid+label.active:after,input[type=date]:focus
     text-decoration: line-through;
     color: #9e9e9e;
     font-size: 1.1rem;
+}
+
+.store_rating_category {
+    small{
+        display: block;
+        white-space: normal;
+    }
 }

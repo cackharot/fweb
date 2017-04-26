@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
@@ -34,9 +34,13 @@ export class RestaurantMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.route.parent.snapshot.params['id'];
-    this.storeId = id;
-    this.getProducts();
+    this.route.parent.params
+      .switchMap((params: Params) => {
+        this.storeId = params['id'];
+        this.getProducts();
+        return Promise.resolve(true);
+      }).subscribe(x => {
+      });
   }
 
   getProducts() {

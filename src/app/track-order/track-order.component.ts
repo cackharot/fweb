@@ -4,8 +4,6 @@ import { SessionStorage } from 'ng2-webstorage';
 
 import { OrderService } from 'services/order.service';
 
-import { DateTimePipe } from '../pipes/datetime.pipe';
-
 import { Order } from 'model/order';
 
 @Component({

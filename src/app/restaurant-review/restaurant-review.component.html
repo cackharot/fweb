@@ -2,4 +2,84 @@
   <h3 class="h3-responsive">
     {{restaurant.name}} Reviews
   </h3>
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="callout info" *ngIf="!reviewResponse || !reviewResponse.items || reviewResponse.items.length === 0">
+        No reviews yet submitted!
+      </div>
+      <div *ngIf="reviewResponse && reviewResponse.items && reviewResponse.items.length > 0">
+        <div class="feed-footer orange-text">
+          <i class="like fa fa-star" *ngFor="let i of get_avg_stars()"></i>
+          <i class="like fa fa-star-half" *ngIf="has_half_rating()"></i>
+          <small class="text-muted">{{total_ratings()}} ratings</small>
+        </div>
+        <div class="row store_rating_category">
+          <div class="col-12 mb-1">
+            <small>Here's what people are saying:</small>
+          </div>
+          <div class="col-4 col-md-1">
+            <h5 class="h5-responsive">{{get_rating_percent('good_food')}}%</h5><small>Food was good</small>
+          </div>
+          <div class="col-4 col-md-1">
+            <h5 class="h5-responsive">{{get_rating_percent('on_time_delivery')}}%</h5><small>Delivery was on time</small>
+          </div>
+          <div class="col-4 col-md-1">
+            <h5 class="h5-responsive">{{get_rating_percent('accurate_order')}}%</h5><small>Order was accurate</small>
+          </div>
+        </div>
+        <div class="mdb-feed" *ngFor="let item of reviewResponse.items">
+          <div class="news">
+            <div class="label">
+              <img src="{{item.user.picture || 'assets/img/placeholder.png' }}" class="rounded-circle z-depth-1-half">
+            </div>
+            <div class="excerpt">
+              <div class="brief">
+                <a href="#" (click)="false;" class="name">{{item.user.name}}</a>
+                <div class="date">
+                  <small>Posted on {{item.get_moment_ago()}}</small>
+                </div>
+              </div>
+              <div class="added-text">
+                {{item.review_text}}
+              </div>
+              <div class="feed-footer">
+                <i class="like fa fa-star" *ngFor="let i of item.get_stars()"></i>
+                <i class="like fa fa-star-half" *ngIf="item.has_half_rating()"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-12" *ngIf="!isSignedIn()">
+      <div class="callout primary">
+        Sigin to write review.
+      </div>
+    </div>
+    <div class="col-12" *ngIf="isSignedIn() && !submitting">
+      <h4 class="h4-responsive font-weight-bold">{{model.user.name || 'Your'}} Review</h4>
+      <div class="callout warning" *ngIf="errorMsg">
+        {{errorMsg}}
+      </div>
+      <div class="range-field">
+        <label for="good_food">Food was good</label>
+        <input type="range" id="good_food" [(ngModel)]="model.good_food" min="0" max="5" />
+      </div>
+      <div class="range-field">
+        <label for="on_time_delivery">Delivery was on time</label>
+        <input type="range" id="on_time_delivery" [(ngModel)]="model.on_time_delivery" min="0" max="5" />
+      </div>
+      <div class="range-field">
+        <label for="accurate_order">Order was accurate</label>
+        <input type="range" id="accurate_order" [(ngModel)]="model.accurate_order" min="0" max="5" />
+      </div>
+      <div class="md-form">
+        <textarea length="300" max-length="300" [(ngModel)]="model.review_text" type="text" id="review_text" class="md-textarea">{{model.review_text}}</textarea>
+        <label for="review_text">Comment</label>
+      </div>
+      <button type="submit" [disabled]="!valid_review()" (click)="addReview()" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
 </div>

@@ -187,3 +187,71 @@ export class Restaurant {
     return false;
   }
 }
+
+export class RestaurantReview {
+  _id: ObjectId;
+  store_id: ObjectId;
+  review_text: string;
+  good_food: number;
+  on_time_delivery: number;
+  accurate_order: number;
+  created_at: Date;
+  user: User;
+
+  static of(data) {
+    if (data && data.constructor.name !== RestaurantReview.name) {
+      return new RestaurantReview(data);
+    }
+    return data;
+  }
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+    this._id = ObjectId.of(this._id);
+    this.user = User.of(this.user);
+    this.created_at = Date.of(this.created_at);
+  }
+
+  get_moment_ago() {
+    return moment(this.created_at.getValue()).format('dddd, MMMM Do YYYY');
+  }
+
+  get_stars() {
+    return this.range(1, this.avg_rating(), 1);
+  }
+
+  avg_rating() {
+    const ratings = [this.on_time_delivery, this.accurate_order, this.good_food];
+    return (ratings.reduce((a, b) => a + b, 1) / ratings.length);
+  }
+
+  has_half_rating() {
+    return this.avg_rating() % 1 !== 0;
+  }
+
+  range(min, max, step = 1) {
+    step = step || 1;
+    const input = [];
+    for (let i = min; i <= max; i += step) {
+      input.push(i);
+    }
+    return input;
+  };
+}
+
+export class User {
+  name: string;
+  picture: string;
+  email: string;
+
+  static of(data) {
+    if (data && data.constructor.name !== User.name) {
+      return new User(data);
+    }
+    return data;
+  }
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}

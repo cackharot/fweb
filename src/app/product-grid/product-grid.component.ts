@@ -5,7 +5,7 @@ import { OrderService } from 'services/order.service';
 
 import { Product } from 'model/product';
 
-import {ProductListComponent} from '../product-list/product-list.component';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({
   selector: 'app-product-grid',

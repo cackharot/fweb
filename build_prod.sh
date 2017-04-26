@@ -2,4 +2,4 @@
 set -e
 set -x
 
-ng build --env=prod
+rm -rf dist/ && ng build --env=prod

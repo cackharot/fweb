@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { URLSearchParams, Http } from '@angular/http';
+import { Headers, URLSearchParams, Http, Response } from '@angular/http';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 import { Restaurant } from '../model/restaurant';
 import { AppConfig } from '../AppConfig';
@@ -13,6 +14,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import { RestaurantReview } from 'model/restaurant';
+import { ObjectId } from 'model/base';
 
 export class StoreSearchModel {
   searchText: string;
@@ -70,12 +73,35 @@ export class StoreSearchResponse extends StoreSearchModel {
   }
 }
 
+export class StoreReviewSearchResponse extends StoreSearchModel {
+  items: RestaurantReview[] = [];
+  total: number;
+  previous: string;
+  next: string;
+
+  static of(data): StoreReviewSearchResponse {
+    if (data === null || data.constructor.name === StoreSearchResponse.name) {
+      return data;
+    }
+    return new StoreReviewSearchResponse(data);
+  }
+
+  constructor(data = {}) {
+    super();
+    Object.assign(this, data);
+    if (this.items && this.items.length > 0) {
+      this.items = this.items.map(x => RestaurantReview.of(x));
+    }
+  }
+}
+
 @Injectable()
 export class StoreService {
   private storesUrl = AppConfig.STORES_URL;
   private storeUrl = AppConfig.STORE_URL;
+  private storeReviewUrl = AppConfig.STORE_REVIEW_URL;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private authService: OAuthService, ) { }
 
   search(searchUrl: string, data: StoreSearchModel): Promise<StoreSearchResponse> {
     const params: URLSearchParams = new URLSearchParams();
@@ -137,8 +163,56 @@ export class StoreService {
       .catch(this.handleError);
   }
 
-  private handleError(error: any) {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+  search_reviews(store_id: ObjectId, searchUrl: string, data: StoreSearchModel): Promise<StoreReviewSearchResponse> {
+    const params: URLSearchParams = new URLSearchParams();
+    // params.set('sort_by', data.sort_by);
+    // params.set('sort_direction', data.sort_direction);
+
+    if (!searchUrl || searchUrl.length === 0) {
+      searchUrl = `${this.storeUrl}/${store_id.str()}/review`;
+    }
+
+    if (!searchUrl.startsWith('http')) {
+      searchUrl = AppConfig.getBaseHost() + searchUrl;
+    }
+
+    return this.http.get(searchUrl, { search: params })
+      .toPromise()
+      .then(response => {
+        const data = response.json();
+        const result = StoreReviewSearchResponse.of(data);
+        return result;
+      })
+      .catch(this.handleError);
+  }
+
+
+  save_review(store_id: ObjectId, review: RestaurantReview): Promise<RestaurantReview> {
+    const headers = {
+      headers: this.authHeaders()
+    };
+    review.store_id = store_id;
+    return this.http.post(`${this.storeUrl}/${store_id.str()}/review`, review, headers)
+      .toPromise()
+      .then(response => {
+        const data = response.json();
+        const rev = RestaurantReview.of(data.data);
+        return rev;
+      })
+      .catch(this.handleError);
+  }
+
+  private authHeaders(): Headers {
+    const authHeaders = new Headers();
+    if (this.authService.hasValidIdToken()) {
+      authHeaders.set('Authorization', 'Bearer ' + this.authService.getIdToken());
+    }
+    return authHeaders;
+  }
+
+  private handleError(error: Response): Promise<any> {
+    console.error('An error occurred', error.json());
+    const res = error.json().message || error;
+    return Promise.reject(res);
   }
 }
