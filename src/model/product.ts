@@ -19,7 +19,7 @@ export class PriceDetail {
 
   constructor(data = {}) {
     Object.assign(this, data);
-    if (!this.discount || this.discount == NaN) {
+    if (!this.discount || this.discount === NaN) {
       this.discount = 0;
     }
   }
@@ -102,7 +102,7 @@ export class Product {
   }
 
   isOpen() {
-    let hr = moment().hour() + (moment().minute() / 60);
+    const hr = moment().hour() + (moment().minute() / 60);
     return (hr >= this.open_time && hr <= this.close_time);
   }
 
@@ -134,14 +134,14 @@ export class Product {
   }
 
   getFormattedPrice() {
-    if (this.discount <= 0.0) {
+    if (!this.discount || this.discount <= 0.0) {
       return '' + this.sell_price;
     }
     return `${this.getDiscountedPrice()}<em class="discount">${this.sell_price}</em> `;
   }
 
   getDiscountedPrice() {
-    if (this.discount <= 0.0) {
+    if (!this.discount || this.discount <= 0.0) {
       return this.sell_price;
     }
     return this.sell_price - (this.sell_price * (this.discount / 100));
