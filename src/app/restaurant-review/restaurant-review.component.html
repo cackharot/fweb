@@ -4,10 +4,10 @@
   </h3>
   <div class="row mt-1">
     <div class="col-12">
-      <div class="callout info" *ngIf="!reviewResponse || !reviewResponse.items || reviewResponse.items.length === 0">
+      <div class="callout info" *ngIf="!responseData || !responseData.items || responseData.items.length === 0">
         No reviews yet submitted!
       </div>
-      <div *ngIf="reviewResponse && reviewResponse.items && reviewResponse.items.length > 0">
+      <div *ngIf="responseData && responseData.items && responseData.items.length > 0">
         <div class="feed-footer orange-text">
           <i class="like fa fa-star" *ngFor="let i of get_avg_stars()"></i>
           <i class="like fa fa-star-half" *ngIf="has_half_rating()"></i>
@@ -27,7 +27,8 @@
             <h5 class="h5-responsive">{{get_rating_percent('accurate_order')}}%</h5><small>Order was accurate</small>
           </div>
         </div>
-        <div class="mdb-feed" *ngFor="let item of reviewResponse.items">
+
+        <div class="mdb-feed" *ngFor="let item of responseData.items">
           <div class="news">
             <div class="label">
               <img src="{{item.user.picture || 'assets/img/placeholder.png' }}" class="rounded-circle z-depth-1-half">
@@ -48,6 +49,23 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="d-flex mt-1 justify-content-end">
+          <ul *ngIf="responseData.total > 0" class="pagination">
+            <li class="page-item previous" [class.disabled]="!responseData.previous">
+              <a class="page-link" href="#" aria-label="Previous" (click)="responseData.previous && doPaginate(responseData.previous)">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item next" [class.disabled]="!responseData.next">
+              <a class="page-link" href="#" aria-label="Next" (click)="responseData.next && doPaginate(responseData.next)">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

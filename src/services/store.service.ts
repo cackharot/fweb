@@ -170,6 +170,8 @@ export class StoreService {
 
     if (!searchUrl || searchUrl.length === 0) {
       searchUrl = `${this.storeUrl}/${store_id.str()}/review`;
+      params.set('page_no', data.page_no.toString());
+      params.set('page_size', data.page_size.toString());
     }
 
     if (!searchUrl.startsWith('http')) {
@@ -179,9 +181,7 @@ export class StoreService {
     return this.http.get(searchUrl, { search: params })
       .toPromise()
       .then(response => {
-        const data = response.json();
-        const result = StoreReviewSearchResponse.of(data);
-        return result;
+        return StoreReviewSearchResponse.of(response.json());
       })
       .catch(this.handleError);
   }
@@ -195,9 +195,7 @@ export class StoreService {
     return this.http.post(`${this.storeUrl}/${store_id.str()}/review`, review, headers)
       .toPromise()
       .then(response => {
-        const data = response.json();
-        const rev = RestaurantReview.of(data.data);
-        return rev;
+        return RestaurantReview.of(response.json().data);
       })
       .catch(this.handleError);
   }

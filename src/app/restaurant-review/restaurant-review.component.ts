@@ -15,7 +15,8 @@ export class RestaurantReviewComponent implements OnInit {
   submitting = false;
   errorMsg: any;
   model: RestaurantReview;
-  reviewResponse: StoreReviewSearchResponse = new StoreReviewSearchResponse();
+  responseData: StoreReviewSearchResponse = new StoreReviewSearchResponse();
+  search_model = new StoreSearchModel();
 
   constructor(
     private router: Router,
@@ -23,21 +24,27 @@ export class RestaurantReviewComponent implements OnInit {
     protected route: ActivatedRoute,
     private storeService: StoreService) {
     this.init();
+    this.search_model.page_no = 1;
+    this.search_model.page_size = 10;
   }
 
-  load_reviews() {
+  load_reviews(searchUrl: string = null) {
     this.isRequesting = true;
-    const search_model = new StoreSearchModel();
-    this.storeService.search_reviews(this.restaurant._id, null, search_model)
+    this.storeService.search_reviews(this.restaurant._id, searchUrl, this.search_model)
       .then(x => {
         this.isRequesting = false;
-        this.reviewResponse = x;
+        this.responseData = x;
         this.errorMsg = null;
       })
       .catch(errorMsg => {
         this.isRequesting = false;
         this.errorMsg = errorMsg;
       });
+  }
+
+  doPaginate(url: string) {
+    this.load_reviews(url);
+    return false;
   }
 
   init() {
@@ -61,8 +68,8 @@ export class RestaurantReviewComponent implements OnInit {
     this.submitting = true;
     this.storeService.save_review(this.restaurant._id, this.model)
       .then(x => {
-        if (this.reviewResponse) {
-          this.reviewResponse.items.push(this.model);
+        if (this.responseData) {
+          this.responseData.items.splice(0, 0, x);
         }
         this.init();
         this.submitting = false;
@@ -108,11 +115,11 @@ export class RestaurantReviewComponent implements OnInit {
   }
 
   total_ratings() {
-    return this.reviewResponse.items.length;
+    return this.responseData.items.length;
   }
 
   avg_rating() {
-    const ratings = this.reviewResponse.items.map(x => x.avg_rating());
+    const ratings = this.responseData.items.map(x => x.avg_rating());
     return (ratings.reduce((a, b) => a + b, 0) / ratings.length);
   }
 
@@ -121,7 +128,7 @@ export class RestaurantReviewComponent implements OnInit {
   }
 
   get_rating_percent(attr) {
-    const ratings = this.reviewResponse.items.map(x => x[attr]);
+    const ratings = this.responseData.items.map(x => x[attr]);
     const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length);
     return ((avg / 5.0) * 100).toFixed(0);
   }
