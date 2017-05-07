@@ -45,6 +45,7 @@ import { TabsComponent } from './components/tabs';
 
 import { CheckoutModule } from './checkout/checkout.module';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { PopularRestaurantComponent } from './popular-restaurant/popular-restaurant.component';
 import { SearchComponent } from './search/search.component';
 import { FilterSearchComponent } from './filter-search/filter-search.component';
 import { SigninComponent } from './signin/signin.component';
@@ -79,7 +80,8 @@ import { SigninComponent } from './signin/signin.component';
     FeaturedProductsComponent,
     SearchComponent,
     FilterSearchComponent,
-    SigninComponent
+    SigninComponent,
+    PopularRestaurantComponent
   ],
   imports: [
     BrowserModule,

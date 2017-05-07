@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Headers, URLSearchParams, Http, Response } from '@angular/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-import { Restaurant } from '../model/restaurant';
 import { AppConfig } from '../AppConfig';
 
 import 'rxjs/add/operator/toPromise';
@@ -14,7 +13,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
-import { RestaurantReview } from 'model/restaurant';
+import { RestaurantReview, Restaurant } from 'model/restaurant';
 import { ObjectId } from 'model/base';
 
 export class StoreSearchModel {
@@ -143,7 +142,7 @@ export class StoreService {
       .catch(this.handleError);
   }
 
-  getPopularStores() {
+  getPopularStores(): Promise<Restaurant[]> {
     return this.http.get(AppConfig.POPULAR_STORES_URL + '/-1')
       .toPromise()
       .then(response => {

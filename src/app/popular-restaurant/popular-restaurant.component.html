@@ -1,0 +1,15 @@
+<div class="container-fluid mb-3" *ngIf="items && items.length> 0 ">
+  <h3 class="h3-responsive font-weight-bold">
+    Featured Restaurants
+  </h3>
+  <div class="row">
+    <div class="col-12 col-md-3 mb-1" *ngFor="let item of items">
+      <div class="view overlay hm-white-slight z-depth-2">
+        <img class="d-flex w-100" src="{{item.getImage()}}">
+        <a href="#" [routerLink]="['restaurants', item._id.str()]">
+          <div class="mask waves-effect waves-light"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
