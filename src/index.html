@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Foodbeazt :: Delivers food in your neighborhood</title>
@@ -8,7 +9,201 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
-  <app-root>Loading...</app-root>
+  <app-root>
+    <div class="m-app-loading" ng-animate-children>
+      <!--
+            HACKY CODE WARNING: I'm putting Style block inside directive so that it
+            will be removed from the DOM when we remove the directive container.
+        -->
+      <style type="text/css">
+        div.m-app-loading {
+          position: fixed;
+        }
+
+        div.m-app-loading div.animated-container {
+          background-color: #043C6B;
+          bottom: 0px;
+          left: 0px;
+          opacity: 1.0;
+          position: fixed;
+          right: 0px;
+          top: 0px;
+          z-index: 999999;
+        }
+        /* Used to initialize the ng-leave animation state. */
+
+        div.m-app-loading div.animated-container.ng-leave {
+          opacity: 1.0;
+          transition: all linear 200ms;
+          -webkit-transition: all linear 200ms;
+        }
+        /* Used to set the end properties of the ng-leave animation state. */
+
+        div.m-app-loading div.animated-container.ng-leave-active {
+          opacity: 0;
+        }
+
+        div.m-app-loading div.messaging {
+          color: #FFFFFF;
+          font-family: monospace;
+          left: 0px;
+          margin-top: -37px;
+          position: absolute;
+          right: 0px;
+          text-align: center;
+          top: 50%;
+        }
+
+        div.m-app-loading h1 {
+          font-size: 26px;
+          line-height: 35px;
+          margin: 0px 0px 20px 0px;
+        }
+
+        div.m-app-loading p {
+          font-size: 18px;
+          /*line-height: 14px;*/
+          margin: 0px 0px 0px 0px;
+        }
+
+        .loading {
+          font-size: 30px;
+          width: 30px;
+          margin-left: -3px;
+          display: inline-block;
+          text-align: left;
+        }
+
+        .loading:after {
+          overflow: hidden;
+          display: inline-block;
+          vertical-align: bottom;
+          -webkit-animation: ellipsis steps(4,end) 1000ms infinite;
+          animation: ellipsis steps(4,end) 1000ms infinite;
+          content: "\2026"; /* ascii code for the ellipsis character */
+          width: 0px;
+        }
+
+        @keyframes ellipsis {
+          to {
+            width: 1.25em;
+          }
+        }
+
+        @-webkit-keyframes ellipsis {
+          to {
+            width: 1.25em;
+          }
+        }
+        #holder {
+          margin: 50px auto;
+          width: 50px;
+          height: 50px;
+          position: sticky;
+          top: 50%;
+          left: 43%;
+          z-index: -5;
+          opacity: 0.25;
+        }
+        .pulse {
+          width: 10px;
+          height: 10px;
+          border: 5px solid #f7f14c;
+          -webkit-border-radius: 30px;
+          -moz-border-radius: 30px;
+          border-radius: 30px;
+          background-color: #716f42;
+          z-index: 10;
+          position: absolute;
+          left: 15px;
+          top: 15px;
+        }
+        .dot {
+          border: 10px solid #fff601;
+          background: transparent;
+          -webkit-border-radius: 60px;
+          -moz-border-radius: 60px;
+          border-radius: 60px;
+          height: 100px;
+          width: 100px;
+          -webkit-animation: pulse 3s ease-out;
+          -moz-animation: pulse 3s ease-out;
+          animation: pulse 3s ease-out;
+          -webkit-animation-iteration-count: infinite;
+          -moz-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+          position: absolute;
+          top: -35px;
+          left: -35px;
+          z-index: 1;
+          opacity: 0;
+        }
+        @-moz-keyframes pulse {
+          0% {
+            -moz-transform: scale(0);
+            opacity: 0.0;
+          }
+          25% {
+            -moz-transform: scale(0);
+            opacity: 0.1;
+          }
+          50% {
+            -moz-transform: scale(0.1);
+            opacity: 0.3;
+          }
+          75% {
+            -moz-transform: scale(0.5);
+            opacity: 0.5;
+          }
+          100% {
+            -moz-transform: scale(1);
+            opacity: 0.0;
+          }
+        }
+        @-webkit-keyframes "pulse" {
+          0% {
+            -webkit-transform: scale(0);
+            opacity: 0.0;
+          }
+          25% {
+            -webkit-transform: scale(0);
+            opacity: 0.1;
+          }
+          50% {
+            -webkit-transform: scale(0.1);
+            opacity: 0.3;
+          }
+          75% {
+            -webkit-transform: scale(0.5);
+            opacity: 0.5;
+          }
+          100% {
+            -webkit-transform: scale(1);
+            opacity: 0.0;
+          }
+        }
+      </style>
+      <!-- BEGIN: Actual animated container. -->
+      <div class="animated-container">
+        <div id="holder">
+          <div class="dot"></div>
+          <div class="pulse"></div>
+        </div>
+        <div class="messaging">
+          <h1>
+            Foodbeazt is Loading
+          </h1>
+          <p>
+            In a moment you will be able to quench you hunger <span  class="loading"></span>
+          </p>
+        </div>
+      </div>
+      <!-- END: Actual animated container. -->
+    </div>
+    <!-- END: App-Loading Screen. -->
+  </app-root>
 </body>
+
 </html>
