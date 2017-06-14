@@ -1,5 +1,7 @@
 <label for="cart-summary" *ngIf="canShow()">
-  <a class="nav-link waves-effect waves-light" (click)="navigateToCheckout($event)">
+  <a class="nav-link waves-effect waves-light"
+    angulartics2On="click" angularticsEvent="cartsummary" angularticsCategory="cartsummary"
+    (click)="navigateToCheckout($event)">
     <i class="fa fa-shopping-bag"></i>
     <span *ngIf="totalQuantity>0">
       <i class="badge badge-success animated wobble">{{totalQuantity}}</i>

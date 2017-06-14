@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
@@ -93,7 +94,8 @@ import { SigninComponent } from './signin/signin.component';
       apiKey: 'AIzaSyARttGEnBB_fhZnU_PGXzYhE-02ez8lqWo'
     }),
     CheckoutModule,
-    AppRoutes
+    AppRoutes,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [LocalStorageService, SessionStorageService,
     OrderService, StoreService, ProductService],

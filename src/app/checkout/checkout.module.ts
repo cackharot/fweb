@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { Angulartics2Module } from 'angulartics2';
 
 import { SpinnerComponent } from '../spinner/spinner.component';
 
@@ -28,7 +29,8 @@ const checkouRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forRoot(checkouRoutes)
+    RouterModule.forRoot(checkouRoutes),
+    Angulartics2Module.forChild()
   ],
   declarations: [
     SpinnerComponent,

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Headers, URLSearchParams, Http } from '@angular/http';
 import { LocalStorage, SessionStorage } from 'ng2-webstorage';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
+import { Angulartics2 } from 'angulartics2';
 import * as _ from 'lodash';
 
 import { ObjectId } from 'model/base';
@@ -61,7 +62,9 @@ export class OrderService {
   orderConfirmed$ = this.orderConfirmedSource.asObservable();
   orderReseted$ = this.orderResetedSource.asObservable();
 
-  constructor(private http: Http, private authService: OAuthService,
+  constructor(private http: Http,
+    private authService: OAuthService,
+    private angulartics2: Angulartics2,
     private localSt: LocalStorageService) {
     this.currentOrder = Order.of(this.currentOrder || {});
     this.orderUpdated$.subscribe((x) => {
@@ -104,11 +107,13 @@ export class OrderService {
       price_detail: item.selectedPriceDetail
     });
     this.addLineItem(lineItem);
+    this.angulartics2.eventTrack.next({ action: 'additem', properties: { category: 'cart', label: item.name }});
   }
 
   removeItem(item: LineItem) {
     this.currentOrder.remove(item);
     this.orderUpdatedSource.next(this.currentOrder);
+    this.angulartics2.eventTrack.next({ action: 'removeitem', properties: { category: 'cart', label: item.name }});
   }
 
   updateQuantity(item: LineItem, value: number) {

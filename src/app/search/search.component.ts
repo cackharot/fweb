@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LocalStorage, SessionStorage } from 'ng2-webstorage';
+import { Angulartics2 } from 'angulartics2';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -36,6 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected storeService: StoreService,
     protected productService: ProductService,
     protected orderService: OrderService,
+    protected angulartics2: Angulartics2,
     protected route: ActivatedRoute) {
     this.storeSearchData.page_size = 10;
     this.productSearchData.pageSize = 10;
@@ -82,6 +84,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.storeSearchData.searchText = filter.searchText;
     this.productSearchData.searchText = filter.searchText;
     this.applyFilterData(filter);
+    this.angulartics2.eventTrack.next({ action: 'restaurant_search', properties: { category: 'search', label: filter.searchText }});
 
     const res = Observable.forkJoin(
       this.storeService.search(null, this.storeSearchData),

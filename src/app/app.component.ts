@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Router } from '@angular/router';
 import { URLSearchParams, Http } from '@angular/http';
 
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
   constructor(
     private oauthService: OAuthService,
     private router: Router,
-    private http: Http
+    private http: Http,
+    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics
   ) {
 
   }

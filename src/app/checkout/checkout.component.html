@@ -36,8 +36,12 @@
       <app-payment [order]="order"></app-payment>
 
       <div class="text-center">
-        <button type="button" (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
-        <button type="button" [disabled]="!order.isValid()" (click)="confirmOrder()" class="btn btn-secondary waves-effect waves-light">
+        <button type="button"
+          angulartics2On="click" angularticsEvent="cancel" angularticsCategory="checkout"
+          (click)="resetOrder()" class="btn-flat waves-effect">Cancel</button>
+        <button type="button"
+          angulartics2On="click" angularticsEvent="confirm" angularticsCategory="checkout"
+          [disabled]="!order.isValid()" (click)="confirmOrder()" class="btn btn-secondary waves-effect waves-light">
           Confirm
         </button>
       </div>
